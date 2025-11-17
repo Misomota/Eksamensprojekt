@@ -12,7 +12,7 @@ Backend </br>
 	• MySQL Azure Database. </br>
 	• Qodana</br>
 	
-Frontend
+Frontend</br>
 •  HTML. </br>
 •  CSS. </br>
 • Thymeleaf.</br>
