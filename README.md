@@ -4,15 +4,17 @@ Systemet gør det muligt at oprette, nedbryde og estimere arbejdstid for projekt
 
 Teknologier:
 Backend
-	• Java 21.
-	• Spring Boot 3.5.7
-	• Spring Web.
-	• JDBC Template.
-	• H2 til integrationstest.
-	• MySQL Azure Database. 
-	• Qodana
+	• Java 21. </br>
+	• Spring Boot 3.5.7</br>
+	• Spring Web.</br>
+	• JDBC Template.</br>
+	• H2 til integrationstest.</br>
+	• MySQL Azure Database. </br>
+	• Qodana</br>
 	
 Frontend
-HTML, CSS, Thymeleaf.
+•  HTML. </br>
+•  CSS. </br>
+• Thymeleaf.</br>
 
 
