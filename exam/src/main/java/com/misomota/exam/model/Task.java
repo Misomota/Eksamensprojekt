@@ -1,4 +1,50 @@
 package com.misomota.exam.model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class Task {
+    private String taskName;
+    private LocalDate startDate;
+    private LocalDateTime deadline;
+    int timeEstimate;
+
+    public Task(String taskName, LocalDate startDate, LocalDateTime deadline, int timeEstimate) {
+        this.taskName = taskName;
+        this.startDate = startDate;
+        this.deadline = deadline;
+        this.timeEstimate = timeEstimate;
+    }
+
+    public String getTaskName() {
+        return taskName;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
+
+    public int getTimeEstimate() {
+        return timeEstimate;
+    }
+
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setDeadline(LocalDateTime deadline) {
+        this.deadline = deadline;
+    }
+
+    public void setTimeEstimate(int timeEstimate) {
+        this.timeEstimate = timeEstimate;
+    }
 }
