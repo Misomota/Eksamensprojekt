@@ -4,16 +4,26 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Task {
+    private int taskID;
     private String taskName;
     private LocalDate startDate;
     private LocalDateTime deadline;
-    int timeEstimate;
+    private int timeEstimate;
 
-    public Task(String taskName, LocalDate startDate, LocalDateTime deadline, int timeEstimate) {
+    public Task(int taskID ,String taskName, LocalDate startDate, LocalDateTime deadline, int timeEstimate) {
+        this.taskID = taskID;
         this.taskName = taskName;
         this.startDate = startDate;
         this.deadline = deadline;
         this.timeEstimate = timeEstimate;
+    }
+
+    public int getTaskID() {
+        return taskID;
+    }
+
+    public void setTaskID(int taskID) {
+        this.taskID = taskID;
     }
 
     public String getTaskName() {
