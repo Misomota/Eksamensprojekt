@@ -30,7 +30,7 @@ public class TaskRepository {
                     rs.getInt("timeEstimate")
             );
 
-    public Task createTask(Task task) {
+    public Task addTask(Task task) {
         String sql = "INSERT INTO task (taskName, startDate, deadline, timeEstimate) VALUES (?, ?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -48,7 +48,7 @@ public class TaskRepository {
         return new Task(newID, task.getTaskName(), task.getStartDate(), task.getDeadline(), task.getTimeEstimate());
     }
 
-    public List<Task> readTask() {
+    public List<Task> showTask() {
         String sql = "SELECT taskID, taskName, startDate, deadline, timeEstimate FROM task";
         return jdbcTemplate.query(sql, taskRowMapper);
     }
