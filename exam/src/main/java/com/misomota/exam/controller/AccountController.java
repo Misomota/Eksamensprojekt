@@ -18,20 +18,20 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @GetMapping("/Register")
+    @GetMapping("/register")
     public String ShowRegisterAccount(Model model) {
         model.addAttribute("account", new Account());
         return "registerAndLogin";
     }
 
-    @PostMapping("/Register")
+    @PostMapping("/register")
     public String registerAccount(@ModelAttribute Account account, Model model) {
         accountService.saveAccount(account);
         model.addAttribute("SignUpMessage", "Register succesfull");
-        return "Project";
+        return "showProject";
     }
 
-    @GetMapping("/Login")
+    @GetMapping("/login")
     public String showLogin(Model model) {
         model.addAttribute("account", new Account());
         return "registerAndLogin";
@@ -42,7 +42,7 @@ public class AccountController {
         boolean valid = accountService.validateLogin(account.getUsername(), account.getPassword());
         if (valid) {
             model.addAttribute("username", account.getUsername());
-            return "Project";
+            return "showProject";
         } else {
             model.addAttribute("error", "invalid username or password");
             return "registerAndLogin";

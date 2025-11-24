@@ -37,18 +37,7 @@ public class ProjectRepository {
                     rs.getInt("ProjectID")
             );
 
-
-    public List<Project> showProject() {
-        String sql = "SELECT projectName, projectID FROM project";
-        return jdbcTemplate.query(sql, projectRowmapper);
-    }
-
-    public Project findProjectByID(int projectID) {
-        String sql = "SELECT projectName, projectID FROM project WHERE projectID = ?";
-        return jdbcTemplate.queryForObject(sql, projectRowmapper, projectID);
-    }
-
-    public Project addProject(Project project) {
+    public Project createProject(Project project) {
         String sql = "INSERT INTO project (projectName) VALUES (?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -62,13 +51,23 @@ public class ProjectRepository {
         return new Project(project.getProjectName(), newID);
     }
 
-    public void deleteProject(int projectID) {
-        String sql = "DELETE FROM project WHERE projectID = ?";
-        jdbcTemplate.update(sql, projectID);
+    public List<Project> readProject() {
+        String sql = "SELECT projectName, projectID FROM project";
+        return jdbcTemplate.query(sql, projectRowmapper);
+    }
+
+    public Project readProjectByID(int projectID) {
+        String sql = "SELECT projectName, projectID FROM project WHERE projectID = ?";
+        return jdbcTemplate.queryForObject(sql, projectRowmapper, projectID);
     }
 
     public void updateProject(Project project) {
         String sql = "UPDATE project SET projectName = ? WHERE projectID = ?";
         jdbcTemplate.update(sql, project.getProjectName(), project.getProjectID());
+    }
+
+    public void deleteProject(int projectID) {
+        String sql = "DELETE FROM project WHERE projectID = ?";
+        jdbcTemplate.update(sql, projectID);
     }
 }
