@@ -14,16 +14,16 @@ public class ProjectService {
         this.projectRepository = projectRepository;
     }
 
-    public Project addProject(Project project) {
-        return projectRepository.addProject(project);
+    public Project createProject(Project project) {
+        return projectRepository.createProject(project);
     }
 
-    public List<Project> showProject() {
-        return projectRepository.showProject();
+    public List<Project> readProject() {
+        return projectRepository.readProject();
     }
 
-    public Project findProjectByID(int id) {
-        return projectRepository.findProjectByID(id);
+    public Project readProjectByID(int id) {
+        return projectRepository.readProjectByID(id);
     }
 
     public void updateProject(Project project) {

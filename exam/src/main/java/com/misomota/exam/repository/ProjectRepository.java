@@ -38,17 +38,17 @@ public class ProjectRepository {
             );
 
 
-    public List<Project> showProject() {
+    public List<Project> readProject() {
         String sql = "SELECT projectName, projectID FROM project";
         return jdbcTemplate.query(sql, projectRowmapper);
     }
 
-    public Project findProjectByID(int projectID) {
+    public Project readProjectByID(int projectID) {
         String sql = "SELECT projectName, projectID FROM project WHERE projectID = ?";
         return jdbcTemplate.queryForObject(sql, projectRowmapper, projectID);
     }
 
-    public Project addProject(Project project) {
+    public Project createProject(Project project) {
         String sql = "INSERT INTO project (projectName) VALUES (?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
