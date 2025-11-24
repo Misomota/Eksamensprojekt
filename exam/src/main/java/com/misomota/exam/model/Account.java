@@ -11,6 +11,8 @@ public class Account {
         this.accountID = accountID;
     }
 
+    public Account() {}
+
     public String getUsername() {
         return username;
     }
