@@ -1,4 +1,4 @@
-package com.misomota.exam.Controller;
+package com.misomota.exam.controller;
 
 import com.misomota.exam.model.Subproject;
 import org.springframework.ui.Model;
