@@ -5,10 +5,13 @@ public class Subproject {
    private String subprojectName;
     private int subprojectID;
 
-
     public Subproject(String subprojectName, int subprojectID) {
         this.subprojectName = subprojectName;
         this.subprojectID = subprojectID;
+    }
+
+    public Subproject() {
+
     }
 
     public String getSubprojectName() {

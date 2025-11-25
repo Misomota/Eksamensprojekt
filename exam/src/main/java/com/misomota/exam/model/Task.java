@@ -10,6 +10,10 @@ public class Task {
     private LocalDateTime deadline;
     private int timeEstimate;
 
+    public Task() {
+
+    }
+
     public Task(int taskID ,String taskName, LocalDate startDate, LocalDateTime deadline, int timeEstimate) {
         this.taskID = taskID;
         this.taskName = taskName;
