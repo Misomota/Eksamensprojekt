@@ -9,6 +9,8 @@ public class Project {
         this.projectID = projectID;
     }
 
+    public Project() {}
+
     public String getProjectName() {
         return projectName;
     }
