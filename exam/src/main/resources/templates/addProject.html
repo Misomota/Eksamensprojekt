@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create project</title>
+</head>
+<body>
+
+<h1> Create project</h1>
+
+<form th:action="@{/OnTheDot/addProject}" th:object="${project}" method="post">
+  <input th:field="*{projectID}" type="hidden" />
+
+  <div class="group">
+    <input th:field="*{projectName}" placeholder="Write name of your project here" type="search" class="input" required>
+  </div>
+
+  <button type="submit" class="btn">create></button>
+  <a th:href="@{/OnTheDot/home}" class="btn">Cancel</a>
+</form>
+</body>
+</html>
