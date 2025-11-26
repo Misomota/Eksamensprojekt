@@ -37,17 +37,6 @@ public class ProjectRepository {
                     rs.getInt("ProjectID")
             );
 
-
-    public List<Project> readProject() {
-        String sql = "SELECT projectName, projectID FROM project";
-        return jdbcTemplate.query(sql, projectRowmapper);
-    }
-
-    public Project readProjectByID(int projectID) {
-        String sql = "SELECT projectName, projectID FROM project WHERE projectID = ?";
-        return jdbcTemplate.queryForObject(sql, projectRowmapper, projectID);
-    }
-
     public Project createProject(Project project) {
         String sql = "INSERT INTO project (projectName) VALUES (?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
