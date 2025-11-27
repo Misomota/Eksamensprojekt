@@ -54,14 +54,14 @@ public class TaskController {
         }
     }
 
-    @PostMapping("/editTask")
+    @PostMapping("/editTask/Name")
     public String updateTaskName(@ModelAttribute("task") int task, String newName) {
         taskService.updateTaskName(task, newName);
         return "redirect:/OnTheDot/task";
     }
 
-    @PostMapping("/editTask")
-    public String updateTaskDate(@ModelAttribute("task") int taskID, LocalDate startDate, LocalDateTime deadline, int timeEstimate, String resource) {
+    @PostMapping("/editTask/Date")
+    public String updateTaskDate(@RequestParam int taskID, @RequestParam LocalDate startDate, @RequestParam LocalDateTime deadline, @RequestParam int timeEstimate, @RequestParam String resource) {
         taskService.updateTaskDate(taskID, startDate, deadline, timeEstimate, resource);
         return "redirect:/OnTheDot/task";
     }

@@ -2,12 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Task</title>
+    <title>Tasks</title>
     <link rel="stylesheet" href="/task.css">
 </head>
 <body>
 
-<table style="width: 100%">
+<a th:href="@{/OnTheDot/addTask}" class="btn">Add New Task</a>
+
+<table th:if="${!task.isEmpty()}">
     <tr>
         <th>Task</th>
         <th>Start date</th>
@@ -16,17 +18,21 @@
         <th>Action</th>
     </tr>
 
-    <tr th:each="tasks : ${task}">
-        <td contenteditable="true" th:text="${tasks.taskName}">Task Name</td>
-        <td contenteditable="true" th:text="${tasks.startDate}">Start Date</td>
-        <td contenteditable="true" th:text="${tasks.deadline}">Deadline</td>
-        <td contenteditable="true" th:text="${tasks.ressource}">Task Name</td>
+    <tr th:each="t : ${task}">
+        <td contenteditable="true" th:text="${t.taskName}">Task Name</td>
+        <td contenteditable="true" th:text="${t.startDate}">Start Date</td>
+        <td contenteditable="true" th:text="${t.deadline}">Deadline</td>
+        <td contenteditable="true" th:text="${t.resource}">Task Name</td>
         <td>
-            <form th:action="@{/tasks/delete/{id}(id=${task.taskID})}" method="post" style="display:inline;">
+            <form th:action="@{/OnTheDot/deleteTask}" method="post">
+                <input type="hidden" name="id" th:value="${t.taskID}">
                 <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
 </table>
+<div th:if="${task.isEmpty()}">
+    <p>No tasks found. Please click "Add New Task" to create one.</p>
+</div>
 </body>
 </html>

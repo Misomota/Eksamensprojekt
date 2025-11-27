@@ -18,9 +18,9 @@ public class ProjectController {
     }
 
     @GetMapping("/home")
-    public String showProject(Model model) {
+    public String showAllProjects(Model model) {
         List<Project> projectList = projectService.readProject();
-        model.addAttribute("project", projectList);
+        model.addAttribute("projects", projectList);
         return "showProject";
     }
 
@@ -33,7 +33,7 @@ public class ProjectController {
     @PostMapping("/addProject")
     public String saveProject(@ModelAttribute("project") Project project) {
         projectService.createProject(project);
-        return "redirect:/OnTheDot/showProject";
+        return "redirect:/OnTheDot/home";
     }
 
 
@@ -46,12 +46,12 @@ public class ProjectController {
     @PostMapping("/editProject")
     public String updateProject(@ModelAttribute("project") Project project) {
         projectService.updateProject(project);
-        return "redirect:/showProject";
+        return "redirect:/OnTheDot/home";
     }
 
     @PostMapping("/deleteProject")
     public String deleteProject(@RequestParam("projectID") int id) {
         projectService.deleteProject(id);
-        return "redirect:/OnTheDot/showProject";
+        return "redirect:/OnTheDot/home";
     }
 }

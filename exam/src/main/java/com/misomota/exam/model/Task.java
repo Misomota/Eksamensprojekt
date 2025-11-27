@@ -48,7 +48,7 @@ public class Task {
         return timeEstimate;
     }
 
-    public String getRessource() {
+    public String getResource() {
         return resource;
     }
 
