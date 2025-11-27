@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Projects</title>
-    <link rel="icon" th:href="/images/Logo.PNG" type="image/png">
     <link rel="stylesheet" href="/button.css">
 </head>
 <body>
@@ -11,7 +10,6 @@
 <a th:href="@{/OnTheDot/addProject}" class="btn">create new project</a>
 
 <div th:if="${projects.isEmpty()}" >
-  <img src="/images/Logo.PNG" alt="No project added yet.">
   <h2>No projects found. Please click create to make your first project.</h2>
 </div>
 
