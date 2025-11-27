@@ -2,12 +2,12 @@ package com.misomota.exam.model;
 
 public class Account {
     private String username;
-    private String password;
+    private String accountPassword;
     private int accountID;
 
-    public Account(String username, String password, int accountID) {
+    public Account(String username, String accountPassword, int accountID) {
         this.username = username;
-        this.password = password;
+        this.accountPassword = accountPassword;
         this.accountID = accountID;
     }
 
@@ -21,12 +21,12 @@ public class Account {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getAccountPassword() {
+        return accountPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String accountPassword) {
+        this.accountPassword = accountPassword;
     }
 
     public int getAccountID() {

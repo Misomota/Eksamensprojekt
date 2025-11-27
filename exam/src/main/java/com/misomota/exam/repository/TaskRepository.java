@@ -42,12 +42,12 @@ public class TaskRepository {
             ps.setDate(2, java.sql.Date.valueOf(task.getStartDate()));
             ps.setTimestamp(3, java.sql.Timestamp.valueOf(task.getDeadline()));
             ps.setInt(4, task.getTimeEstimate());
-            ps.setString(5,task.getRessource());
+            ps.setString(5,task.getResource());
             return ps;
         }, keyHolder);
 
         int newID = keyHolder.getKey() != null ? keyHolder.getKey().intValue() : -1;
-        return new Task(newID, task.getTaskName(), task.getStartDate(), task.getDeadline(),task.getTimeEstimate(), task.getRessource());
+        return new Task(newID, task.getTaskName(), task.getStartDate(), task.getDeadline(),task.getTimeEstimate(), task.getResource());
     }
 
     public List<Task> showTask() {
@@ -65,7 +65,7 @@ public class TaskRepository {
         jdbcTemplate.update(sql, newName, taskID);
     }
 
-    public void updateTaskDates(int taskID, LocalDate startDate, LocalDateTime deadline, int timeEstimate, String ressource) {
+    public void updateTaskDates(int taskID, LocalDate startDate, LocalDateTime deadline, int timeEstimate, String resource) {
         String sql = "UPDATE task SET startDate = ?, deadline = ?, timeEstimate = ?, resource = ? WHERE taskID = ?";
         jdbcTemplate.update(sql, java.sql.Date.valueOf(startDate), java.sql.Timestamp.valueOf(deadline), timeEstimate, taskID
         );
