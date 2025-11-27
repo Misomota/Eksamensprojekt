@@ -61,8 +61,8 @@ public class TaskController {
     }
 
     @PostMapping("/editTask")
-    public String updateTaskDate(@ModelAttribute("task") int taskID, LocalDate startDate, LocalDateTime deadline, int timeEstimate) {
-        taskService.updateTaskDate(taskID, startDate, deadline, timeEstimate);
+    public String updateTaskDate(@ModelAttribute("task") int taskID, LocalDate startDate, LocalDateTime deadline, int timeEstimate, String resource) {
+        taskService.updateTaskDate(taskID, startDate, deadline, timeEstimate, resource);
         return "redirect:/OnTheDot/task";
     }
 }

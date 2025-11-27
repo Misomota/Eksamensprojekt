@@ -27,11 +27,12 @@ public class TaskRepository {
                     rs.getString("taskName"),
                     rs.getDate("startDate").toLocalDate(),
                     rs.getTimestamp("deadline").toLocalDateTime(),
-                    rs.getInt("timeEstimate")
+                    rs.getInt("timeEstimate"),
+                    rs.getString("resource")
             );
 
     public Task addTask(Task task) {
-        String sql = "INSERT INTO task (taskName, startDate, deadline, timeEstimate) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO task (taskName, startDate, deadline, timeEstimate, resource) VALUES (?, ?, ?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -41,20 +42,21 @@ public class TaskRepository {
             ps.setDate(2, java.sql.Date.valueOf(task.getStartDate()));
             ps.setTimestamp(3, java.sql.Timestamp.valueOf(task.getDeadline()));
             ps.setInt(4, task.getTimeEstimate());
+            ps.setString(5,task.getRessource());
             return ps;
         }, keyHolder);
 
         int newID = keyHolder.getKey() != null ? keyHolder.getKey().intValue() : -1;
-        return new Task(newID, task.getTaskName(), task.getStartDate(), task.getDeadline(), task.getTimeEstimate());
+        return new Task(newID, task.getTaskName(), task.getStartDate(), task.getDeadline(),task.getTimeEstimate(), task.getRessource());
     }
 
     public List<Task> showTask() {
-        String sql = "SELECT taskID, taskName, startDate, deadline, timeEstimate FROM task";
+        String sql = "SELECT taskID, taskName, startDate, deadline, timeEstimate, resource FROM task";
         return jdbcTemplate.query(sql, taskRowMapper);
     }
 
     public Task findTaskByID(int id) {
-        String sql = "SELECT taskID, taskName, startDate, deadline, timeEstimate FROM task WHERE taskID = ?";
+        String sql = "SELECT taskID, taskName, startDate, deadline, timeEstimate, resource FROM task WHERE taskID = ?";
         return jdbcTemplate.queryForObject(sql, taskRowMapper, id);
     }
 
@@ -63,14 +65,14 @@ public class TaskRepository {
         jdbcTemplate.update(sql, newName, taskID);
     }
 
-    public void updateTaskDates(int taskID, LocalDate startDate, LocalDateTime deadline, int timeEstimate) {
-        String sql = "UPDATE task SET startDate = ?, deadline = ?, timeEstimate = ? WHERE taskID = ?";
+    public void updateTaskDates(int taskID, LocalDate startDate, LocalDateTime deadline, int timeEstimate, String ressource) {
+        String sql = "UPDATE task SET startDate = ?, deadline = ?, timeEstimate = ?, resource = ? WHERE taskID = ?";
         jdbcTemplate.update(sql, java.sql.Date.valueOf(startDate), java.sql.Timestamp.valueOf(deadline), timeEstimate, taskID
         );
     }
 
     public void deleteTask(int taskID) {
-        String sql = "DELETE FROM task WHERE taskID = ?";
+        String sql = "DELETE * FROM task WHERE taskID = ?";
         jdbcTemplate.update(sql, taskID);
     }
 }

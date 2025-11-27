@@ -36,7 +36,7 @@ public class TaskService {
         taskRepository.updateTaskName(task, newName);
     }
 
-    public void updateTaskDate(int taskID, LocalDate startDate, LocalDateTime deadline, int timeEstimate) {
-        taskRepository.updateTaskDates(taskID, startDate, deadline, timeEstimate);
+    public void updateTaskDate(int taskID, LocalDate startDate, LocalDateTime deadline, int timeEstimate, String resource) {
+        taskRepository.updateTaskDates(taskID, startDate, deadline, timeEstimate, resource);
     }
 }

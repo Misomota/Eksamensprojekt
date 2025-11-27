@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Task</title>
+    <link rel="stylesheet" href="/task.css">
+</head>
+<body>
+
+<table style="width: 100%">
+    <tr>
+        <th>Task</th>
+        <th>Start date</th>
+        <th>Deadline</th>
+        <th>Resource</th>
+        <th>Action</th>
+    </tr>
+
+    <tr th:each="tasks : ${task}">
+        <td contenteditable="true" th:text="${tasks.taskName}">Task Name</td>
+        <td contenteditable="true" th:text="${tasks.startDate}">Start Date</td>
+        <td contenteditable="true" th:text="${tasks.deadline}">Deadline</td>
+        <td contenteditable="true" th:text="${tasks.ressource}">Task Name</td>
+        <td>
+            <form th:action="@{/tasks/delete/{id}(id=${task.taskID})}" method="post" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
