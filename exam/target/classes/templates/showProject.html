@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>Projects</h1>
-<a th:href="@{/OnTheDot/addProject}" class="button">create new project</a>
+<a th:href="@{/OnTheDot/addProject}" class="btn">create new project</a>
 
 <div th:if="${projects.isEmpty()}" >
   <img src="/images/Logo.PNG" alt="No project added yet.">
@@ -16,7 +16,7 @@
 </div>
 
 <table>
-    <tr th:each="p : ${projects}">
+    <tr th:if="${!projects.isEmpty()}" th:each="p : ${projects}">
         <td th:text="${p.projectName}"></td>
         <td>
             <form th:action="@{/OnTheDot/deleteProject}" method="post">
