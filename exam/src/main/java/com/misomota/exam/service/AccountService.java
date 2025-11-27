@@ -16,7 +16,7 @@ public class AccountService {
         return accountRepository.saveAccount(account);
     }
 
-    public boolean validateLogin(String username, String password) {
-        return accountRepository.validateLogin(username, password);
+    public boolean validateLogin(String username, String accountPassword) {
+        return accountRepository.validateLogin(username, accountPassword);
     }
 }

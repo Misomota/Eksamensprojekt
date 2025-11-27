@@ -15,13 +15,13 @@ import java.util.List;
 @Repository
 public class ProjectRepository {
 
-    @Value("${DEV_DATABASE_URL}")
+    @Value("${DATABASE_URL}")
     private String dburl;
 
-    @Value("${DEV_DATABASE_USERNAME}")
+    @Value("${DATABASE_USERNAME}")
     private String username;
 
-    @Value("${DEV_DATABASE_PASSWORD}")
+    @Value("${DATABASE_PASSWORD}")
     private String password;
 
     private final JdbcTemplate jdbcTemplate;

@@ -39,7 +39,7 @@ public class AccountController {
 
     @PostMapping("/login")
      public String loginAccount(@ModelAttribute Account account, Model model) {
-        boolean valid = accountService.validateLogin(account.getUsername(), account.getPassword());
+        boolean valid = accountService.validateLogin(account.getUsername(), account.getAccountPassword());
         if (valid) {
             model.addAttribute("username", account.getUsername());
             return "showProject";

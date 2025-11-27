@@ -19,21 +19,21 @@ public class AccountRepository {
     }
 
     public Account saveAccount(Account account) {
-        String sql = "INSERT INTO account (username, password) VALUES (?, ?)";
+        String sql = "INSERT INTO account (username, accountPassword) VALUES (?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(conection -> {
             PreparedStatement ps = conection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(2, account.getUsername());
-            ps.setString(1, account.getPassword());
+            ps.setString(1, account.getUsername());
+            ps.setString(2, account.getAccountPassword());
             return ps;
-        });
+        }, keyHolder);
         return account;
     }
 
     public boolean validateLogin(String username, String password) {
-        String sql = "SELECT COUNT(*) FROM account WHERE username = ? AND password = ?";
+        String sql = "SELECT COUNT(*) FROM account WHERE username = ? AND accountPassword = ?";
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class, username, password);
         return count != null && count > 0;
     }
