@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Create project</title>
+    <link rel="stylesheet" href="/button.css">
+    <link rel="stylesheet" href="/forms.css">
 </head>
 <body>
 
@@ -15,8 +17,10 @@
     <input th:field="*{projectName}" placeholder="Write name of your project here" type="search" class="input" required>
   </div>
 
+    <div class="button-group">
   <button type="submit" class="btn">create</button>
   <a th:href="@{/OnTheDot/home}" class="btn">Cancel</a>
+    </div>
 </form>
 </body>
 </html>
