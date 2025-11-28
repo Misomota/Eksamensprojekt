@@ -5,13 +5,28 @@
     <title>Create project</title>
     <link rel="stylesheet" href="/button.css">
     <link rel="stylesheet" href="/forms.css">
+    <link rel="stylesheet" href="/header.css">
 </head>
 <body>
+
+<header class="topbar">
+    <a href="/OnTheDot/home" class="site-name-link">
+        <img src="../images/logo.PNG" alt="Logo" class="logo">
+    </a>
+
+    <h1> On The Dot</h1>
+
+    <a href="https://github.com/Misomota/Eksamensprojekt" class="logo-link">
+        <img src="../images/github.PNG" alt="Logo" class="logo">
+    </a>
+
+    <a href="Account/login" class="logout-link">Log Out</a>
+</header>
 
 <h1> Create project</h1>
 
 <form th:action="@{/OnTheDot/addProject}" th:object="${project}" method="post">
-  <input th:field="*{projectID}" type="hidden" />
+  <input th:field="*{projectID}" type="hidden">
 
   <div class="group">
     <input th:field="*{projectName}" placeholder="Name of project" type="search" class="input" required>

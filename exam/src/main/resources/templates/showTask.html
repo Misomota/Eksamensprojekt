@@ -4,12 +4,27 @@
     <meta charset="UTF-8">
     <title>Tasks</title>
     <link rel="stylesheet" href="/task.css">
+    <link rel="stylesheet" href="/header.css">
 </head>
 <body>
 
+<header class="topbar">
+    <a href="/OnTheDot/home" class="logo-link">
+        <img src="../images/logo.PNG" alt="Logo" class="logo"></a>
+
+    <h1> On The Dot</h1>
+
+    <div class="right-items">
+        <a href="https://github.com/Misomota/Eksamensprojekt" class="logo-link">
+            <img src="../images/github.PNG" alt="Logo" class="logo"></a>
+
+        <a href="Account/login" class="logout-link">Log Out</a>
+    </div>
+</header>
+
 <a th:href="@{/OnTheDot/addTask}" class="btn">create</a>
 
-<table th:if="${!task.isEmpty()}">
+<table>
     <tr>
         <th>Task</th>
         <th>Start date</th>
@@ -31,8 +46,5 @@
         </td>
     </tr>
 </table>
-<div th:if="${task.isEmpty()}">
-    <p>No tasks found. Please click "Add New Task" to create one.</p>
-</div>
 </body>
 </html>
