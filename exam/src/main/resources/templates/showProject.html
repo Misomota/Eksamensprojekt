@@ -4,13 +4,29 @@
     <meta charset="UTF-8">
     <title>Projects</title>
     <link rel="stylesheet" href="/button.css">
+    <link rel="stylesheet" href="/header.css">
 </head>
 <body>
+
+<header class="topbar">
+    <a href="/OnTheDot/home" class="logo-link">
+        <img src="../images/logo.PNG" alt="Logo" class="logo"></a>
+
+    <h1> On The Dot</h1>
+
+    <div class="right-items">
+        <a href="https://github.com/Misomota/Eksamensprojekt" class="logo-link">
+            <img src="../images/github.PNG" alt="Logo" class="logo"></a>
+
+        <a href="Account/login" class="logout-link">Log Out</a>
+    </div>
+</header>
+
 <h1>Projects</h1>
 <a th:href="@{/OnTheDot/addProject}" class="btn">create new project</a>
 
-<div th:if="${projects.isEmpty()}" >
-  <h2>No projects found. Please click create to make your first project.</h2>
+<div th:if="${projects.isEmpty()}">
+    <h2>No projects found. Please click create to make your first project.</h2>
 </div>
 
 <table>
@@ -18,9 +34,9 @@
         <td th:text="${p.projectName}"></td>
         <td>
             <form th:action="@{/OnTheDot/deleteProject}" method="post">
-               <input type="hidden" name="projectID" th:value="${p.projectID}">
-               <button type="submit">Delete</button>
-           </form>
+                <input type="hidden" name="projectID" th:value="${p.projectID}">
+                <button type="submit">Delete</button>
+            </form>
         </td>
     </tr>
 </table>
