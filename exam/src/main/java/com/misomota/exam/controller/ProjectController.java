@@ -17,7 +17,7 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-    @GetMapping("/home")
+    @GetMapping("/projects")
     public String showAllProjects(Model model) {
         List<Project> projectList = projectService.readProject();
         model.addAttribute("projects", projectList);
@@ -35,7 +35,6 @@ public class ProjectController {
         projectService.createProject(project);
         return "redirect:/OnTheDot/home";
     }
-
 
     @GetMapping("/editProject")
     public String editProject(@RequestParam("id") int id, Model model) {

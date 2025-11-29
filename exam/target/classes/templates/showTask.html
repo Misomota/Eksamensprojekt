@@ -34,10 +34,10 @@
     </tr>
 
     <tr th:each="t : ${task}">
-        <td contenteditable="true" th:text="${t.taskName}">Task Name</td>
-        <td contenteditable="true" th:text="${t.startDate}">Start Date</td>
-        <td contenteditable="true" th:text="${t.deadline}">Deadline</td>
-        <td contenteditable="true" th:text="${t.resource}">Task Name</td>
+        <td th:text="${t.taskName}">Task Name</td>
+        <td th:text="${t.startDate}">Start Date</td>
+        <td th:text="${t.deadline}">Deadline</td>
+        <td th:text="${t.resource}">Task Name</td>
         <td>
             <form th:action="@{/OnTheDot/deleteTask}" method="post">
                 <input type="hidden" name="id" th:value="${t.taskID}">

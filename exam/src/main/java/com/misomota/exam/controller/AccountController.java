@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/Account")
+@RequestMapping("/account")
 public class AccountController {
     private final AccountService accountService;
 
@@ -18,34 +18,21 @@ public class AccountController {
         this.accountService = accountService;
     }
 
+    @GetMapping("/login")
+    public String loginPage(Model model) {
+        model.addAttribute("login", new Account());
+        return "index";
+    }
+
     @GetMapping("/register")
     public String ShowRegisterAccount(Model model) {
-        model.addAttribute("account", new Account());
-        return "registerAndLogin";
+        model.addAttribute("register", new Account());
+        return "register";
     }
 
     @PostMapping("/register")
-    public String registerAccount(@ModelAttribute Account account, Model model) {
+    public String registerAccount(@ModelAttribute Account account) {
         accountService.saveAccount(account);
-        model.addAttribute("SignUpMessage", "Register succesfull");
-        return "showProject";
+        return "redirect:/account/login";
     }
-
-    @GetMapping("/login")
-    public String showLogin(Model model) {
-        model.addAttribute("account", new Account());
-        return "registerAndLogin";
-    }
-
-    @PostMapping("/login")
-     public String loginAccount(@ModelAttribute Account account, Model model) {
-        boolean valid = accountService.validateLogin(account.getUsername(), account.getAccountPassword());
-        if (valid) {
-            model.addAttribute("username", account.getUsername());
-            return "showProject";
-        } else {
-            model.addAttribute("error", "invalid username or password");
-            return "registerAndLogin";
-        }
-     }
 }
