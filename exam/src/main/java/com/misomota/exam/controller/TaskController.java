@@ -21,7 +21,7 @@ public class TaskController {
     @GetMapping("/task")
     public String showTask(Model model) {
         List<Task> listOfTask = taskService.showTask();
-        model.addAttribute("task", listOfTask);
+        model.addAttribute("tasks", listOfTask);
         return "showTask";
     }
 

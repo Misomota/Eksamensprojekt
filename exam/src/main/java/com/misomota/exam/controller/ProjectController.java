@@ -33,7 +33,7 @@ public class ProjectController {
     @PostMapping("/addProject")
     public String saveProject(@ModelAttribute("project") Project project) {
         projectService.createProject(project);
-        return "redirect:/OnTheDot/home";
+        return "redirect:/OnTheDot/projects";
     }
 
     @GetMapping("/editProject")
@@ -45,12 +45,12 @@ public class ProjectController {
     @PostMapping("/editProject")
     public String updateProject(@ModelAttribute("project") Project project) {
         projectService.updateProject(project);
-        return "redirect:/OnTheDot/home";
+        return "redirect:/OnTheDot/projects";
     }
 
     @PostMapping("/deleteProject")
     public String deleteProject(@RequestParam("projectID") int id) {
         projectService.deleteProject(id);
-        return "redirect:/OnTheDot/home";
+        return "redirect:/OnTheDot/projects";
     }
 }

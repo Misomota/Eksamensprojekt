@@ -23,7 +23,7 @@
     </div>
 </header>
 
-<h1> Create project</h1>
+<h1>Create project</h1>
 
 <form th:action="@{/OnTheDot/addProject}" th:object="${project}" method="post">
   <input th:field="*{projectID}" type="hidden">
@@ -34,7 +34,7 @@
 
     <div class="button-group">
   <button type="submit" class="btn">create</button>
-  <a th:href="@{/OnTheDot/home}" class="btn">Cancel</a>
+  <a th:href="@{/OnTheDot/projects}" class="btn">Cancel</a>
     </div>
 </form>
 </body>

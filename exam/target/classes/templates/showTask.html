@@ -33,7 +33,7 @@
         <th>Action</th>
     </tr>
 
-    <tr th:each="t : ${task}">
+    <tr th:each="t : ${tasks}">
         <td th:text="${t.taskName}">Task Name</td>
         <td th:text="${t.startDate}">Start Date</td>
         <td th:text="${t.deadline}">Deadline</td>
