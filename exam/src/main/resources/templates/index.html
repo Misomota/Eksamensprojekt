@@ -3,8 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" href="/header.css">
 </head>
 <body>
+
+<header class="topbar">
+    <h1> On The Dot</h1>
+
+    <div class="right-items">
+        <a href="https://github.com/Misomota/Eksamensprojekt" class="logo-link">
+            <img src="/images/github.PNG" alt="Logo" class="logo"></a>
+    </div>
+</header>
+
 <form th:action="@{/account/login}" method="post">
     <input type="text" name="username" placeholder="Username"/>
     <input type="password" name="password" placeholder="Password"/>

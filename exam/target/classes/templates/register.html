@@ -3,8 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Register an account</title>
+    <link rel="stylesheet" href="/header.css">
 </head>
 <body>
+<header class="topbar">
+    <h1> On The Dot</h1>
+
+    <div class="right-items">
+        <a href="https://github.com/Misomota/Eksamensprojekt" class="logo-link">
+            <img src="/images/github.PNG" alt="Logo" class="logo"></a>
+    </div>
+</header>
+
 <h1>Register</h1>
 
 <form th:action="@{/account/register}" th:object="${register}" method="post">
