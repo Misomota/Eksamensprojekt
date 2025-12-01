@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create subproject</title>
+    <link rel="stylesheet" href="/button.css">
+    <link rel="stylesheet" href="/forms.css">
+    <link rel="stylesheet" href="/header.css">
+</head>
+<body>
+<header class="topbar">
+    <a href="/OnTheDot/home" class="logo-link">
+        <img src="/images/logo.PNG" alt="Logo" class="logo"></a>
+
+    <h1> On The Dot</h1>
+
+    <div class="right-items">
+        <a href="https://github.com/Misomota/Eksamensprojekt" class="logo-link">
+            <img src="/images/github.PNG" alt="Logo" class="logo"></a>
+
+        <a href="Account/login" class="logout-link">Log Out</a>
+    </div>
+</header>
+
+<h1> Create subproject</h1>
+
+<form th:action="@{/OnTheDot/addSubprojectroject}" th:object="${subproject}" method="post">
+    <input th:field="*{subprojectID}" type="hidden">
+
+    <div class="group">
+        <input th:field="*{subprojectName}" placeholder="Name of subproject" type="search" class="input" required>
+    </div>
+
+    <div class="button-group">
+        <button type="submit" class="btn">create</button>
+        <a th:href="@{/OnTheDot/showSubproject}" class="btn">Cancel</a>
+    </div>
+</form>
+</body>
+</html>
