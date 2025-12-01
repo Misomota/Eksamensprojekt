@@ -7,7 +7,7 @@ public class Task {
     private int taskID;
     private String taskName;
     private LocalDate startDate;
-    private LocalDateTime deadline;
+    private LocalDate deadline;
     private int timeEstimate;
     private String resource;
 
@@ -15,7 +15,7 @@ public class Task {
 
     }
 
-    public Task(int taskID ,String taskName, LocalDate startDate, LocalDateTime deadline, int timeEstimate, String resource) {
+    public Task(int taskID ,String taskName, LocalDate startDate, LocalDate deadline, int timeEstimate, String resource) {
         this.taskID = taskID;
         this.taskName = taskName;
         this.startDate = startDate;
@@ -40,7 +40,7 @@ public class Task {
         return startDate;
     }
 
-    public LocalDateTime getDeadline() {
+    public LocalDate getDeadline() {
         return deadline;
     }
 
@@ -60,7 +60,7 @@ public class Task {
         this.startDate = startDate;
     }
 
-    public void setDeadline(LocalDateTime deadline) {
+    public void setDeadline(LocalDate deadline) {
         this.deadline = deadline;
     }
 
@@ -68,7 +68,7 @@ public class Task {
         this.timeEstimate = timeEstimate;
     }
 
-    public void setRessource(String resource) {
+    public void setResource(String resource) {
         this.resource = resource;
     }
 }

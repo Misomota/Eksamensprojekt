@@ -29,6 +29,7 @@
         <th>Task</th>
         <th>Start date</th>
         <th>Deadline</th>
+        <th>Time estimation</th>
         <th>Resource</th>
         <th>Action</th>
     </tr>
@@ -37,12 +38,14 @@
         <td th:text="${t.taskName}">Task Name</td>
         <td th:text="${t.startDate}">Start Date</td>
         <td th:text="${t.deadline}">Deadline</td>
-        <td th:text="${t.resource}">Task Name</td>
+        <td th:text="${t.timeEstimate}">Time estimation</td>
+        <td th:text="${t.resource}">Task resource</td>
         <td>
             <form th:action="@{/OnTheDot/deleteTask}" method="post">
-                <input type="hidden" name="id" th:value="${t.taskID}">
+                <input type="hidden" name="taskID" th:value="${t.taskID}">
                 <button type="submit">Delete</button>
             </form>
+            <a th:href="@{/OnTheDot/editTask(id=${t.taskID})}" class="btn">Edit</a>
         </td>
     </tr>
 </table>

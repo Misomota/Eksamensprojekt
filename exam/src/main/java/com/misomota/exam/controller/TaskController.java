@@ -33,12 +33,18 @@ public class TaskController {
 
     @PostMapping("/addTask")
     public String saveTask(@ModelAttribute("task") Task task) {
+        System.out.println("Task object received:");
+        System.out.println("taskName: '" + task.getTaskName() + "'");
+        System.out.println("startDate: " + task.getStartDate());
+        System.out.println("deadline: " + task.getDeadline());
+        System.out.println("timeEstimate: " + task.getTimeEstimate());
+        System.out.println("resource: '" + task.getResource() + "'");
         taskService.addTask(task);
         return "redirect:/OnTheDot/task";
     }
 
     @PostMapping("/deleteTask")
-    public String deleteTask(@RequestParam("id") int taskID) {
+    public String deleteTask(@RequestParam("taskID") int taskID) {
         taskService.deleteTask(taskID);
         return "redirect:/OnTheDot/task";
     }
@@ -54,15 +60,9 @@ public class TaskController {
         }
     }
 
-    @PostMapping("/editTask/Name")
-    public String updateTaskName(@ModelAttribute("task") int task, String newName) {
-        taskService.updateTaskName(task, newName);
-        return "redirect:/OnTheDot/task";
-    }
-
-    @PostMapping("/editTask/Date")
-    public String updateTaskDate(@RequestParam int taskID, @RequestParam LocalDate startDate, @RequestParam LocalDateTime deadline, @RequestParam int timeEstimate, @RequestParam String resource) {
-        taskService.updateTaskDate(taskID, startDate, deadline, timeEstimate, resource);
+    @PostMapping("/editTask")
+    public String updateTaskName(@ModelAttribute("task") Task task) {
+        taskService.updateTask(task);
         return "redirect:/OnTheDot/task";
     }
 }
