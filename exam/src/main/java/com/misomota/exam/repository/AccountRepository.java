@@ -1,6 +1,7 @@
 package com.misomota.exam.repository;
 
 import com.misomota.exam.model.Account;
+import com.misomota.exam.model.Role;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -36,5 +37,17 @@ public class AccountRepository {
             account.setAccountID(key.intValue());
         }
         return account;
+    }
+
+    public Account findAccountByUsername(String username) {
+        String sql = "SELECT accountID, username, password, role FROM account WHERE username = ?";
+            return jdbcTemplate.queryForObject(sql, new Object[]{username}, (rs, rowNum) -> {
+                Account account = new Account();
+                account.setAccountID(rs.getInt("accountID"));
+                account.setUsername(rs.getString("username"));
+                account.setPassword(rs.getString("password"));
+                account.setRole(Role.valueOf(rs.getString("role"))); // convert string to enum
+                return account;
+            });
     }
 }

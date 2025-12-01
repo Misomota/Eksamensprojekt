@@ -1,7 +1,6 @@
 package com.misomota.exam.model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Task {
     private int taskID;
