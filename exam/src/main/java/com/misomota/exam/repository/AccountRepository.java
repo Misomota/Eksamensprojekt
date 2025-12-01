@@ -46,7 +46,7 @@ public class AccountRepository {
                 account.setAccountID(rs.getInt("accountID"));
                 account.setUsername(rs.getString("username"));
                 account.setPassword(rs.getString("password"));
-                account.setRole(Role.valueOf(rs.getString("role"))); // convert string to enum
+                account.setRole(Role.valueOf(rs.getString("role")));
                 return account;
             });
     }

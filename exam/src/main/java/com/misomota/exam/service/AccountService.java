@@ -31,15 +31,15 @@ public class AccountService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         System.out.println("Authenticating user: " + username);
 
-        Account account = accountRepository.findAccountByUsername(username); // you need this method
+        Account account = accountRepository.findAccountByUsername(username);
         if (account == null) {
             throw new UsernameNotFoundException("User not found");
         }
 
         return org.springframework.security.core.userdetails.User
                 .withUsername(account.getUsername())
-                .password(account.getPassword()) // already encoded
-                .authorities(account.getRole().name()) // ROLE_USER or ROLE_ADMIN
+                .password(account.getPassword())
+                .authorities(account.getRole().name())
                 .build();
     }
 }
