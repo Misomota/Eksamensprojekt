@@ -2,13 +2,16 @@ package com.misomota.exam.repository;
 
 import com.misomota.exam.model.Account;
 import com.misomota.exam.model.Role;
+import com.misomota.exam.model.Task;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.List;
 
 @Repository
 public class AccountRepository {
@@ -18,6 +21,14 @@ public class AccountRepository {
     public AccountRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+
+    private final RowMapper<Account> accountRowmapper = (rs, rowNum) ->
+            new Account(
+                    rs.getString("username"),
+                    rs.getString("password"),
+                    rs.getInt("accountID"),
+                    Role.valueOf(rs.getString("role"))
+            );
 
     public Account saveAccount(Account account) {
         String sql = "INSERT INTO account (username, password, role) VALUES (?, ?, ?)";
@@ -41,13 +52,6 @@ public class AccountRepository {
 
     public Account findAccountByUsername(String username) {
         String sql = "SELECT accountID, username, password, role FROM account WHERE username = ?";
-            return jdbcTemplate.queryForObject(sql, new Object[]{username}, (rs, rowNum) -> {
-                Account account = new Account();
-                account.setAccountID(rs.getInt("accountID"));
-                account.setUsername(rs.getString("username"));
-                account.setPassword(rs.getString("password"));
-                account.setRole(Role.valueOf(rs.getString("role")));
-                return account;
-            });
+            return jdbcTemplate.queryForObject(sql,accountRowmapper, username);
     }
 }

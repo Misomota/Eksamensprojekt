@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="/header.css">
+</head>
+<body>
+
+<header class="topbar">
+    <h1> On The Dot</h1>
+
+    <div class="right-items">
+        <a href="https://github.com/Misomota/Eksamensprojekt" class="logo-link">
+            <img src="/images/github.PNG" alt="Logo" class="logo"></a>
+    </div>
+</header>
+
+<form th:action="@{/account/login}" method="post">
+    <input type="text" name="uid" placeholder="Username"/>
+    <input type="password" name="pw" placeholder="Password"/>
+    <button type="submit">Login</button>
+</form>
+
+<p>Do you not have an account? <a th:href="@{/account/register}">Register here</a></p>
+</body>
+</html>

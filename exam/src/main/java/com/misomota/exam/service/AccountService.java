@@ -9,37 +9,29 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@Service
-public class AccountService implements UserDetailsService {
-    private final AccountRepository accountRepository;
-    private final PasswordEncoder passwordEncoder;
+import java.util.List;
 
-    public AccountService(AccountRepository accountRepository, PasswordEncoder passwordEncoder) {
+@Service
+public class AccountService {
+    private final AccountRepository accountRepository;
+
+    public AccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     public Account saveAccount(Account account) {
-        account.setPassword(passwordEncoder.encode(account.getPassword()));
-        if (account.getRole() == null) {
-            account.setRole(Role.USER);
-        }
         return accountRepository.saveAccount(account);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("Authenticating user: " + username);
+    public Account findAccountByUsername(String username) {
+        return accountRepository.findAccountByUsername(username);
+    }
 
+    public boolean login(String username, String pw) {
         Account account = accountRepository.findAccountByUsername(username);
-        if (account == null) {
-            throw new UsernameNotFoundException("User not found");
+        if (account != null) {
+            return account.getPassword().equals(pw);
         }
-
-        return org.springframework.security.core.userdetails.User
-                .withUsername(account.getUsername())
-                .password(account.getPassword())
-                .authorities(account.getRole().name())
-                .build();
+            return false;
     }
 }

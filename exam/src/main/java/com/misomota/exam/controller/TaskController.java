@@ -1,5 +1,6 @@
 package com.misomota.exam.controller;
 import com.misomota.exam.model.Task;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 import com.misomota.exam.service.TaskService;
 import org.springframework.stereotype.Controller;
@@ -16,33 +17,47 @@ public class TaskController {
         this.taskService = taskService;
     }
 
+    private boolean isLoggedIn(HttpSession session) {
+        return session.getAttribute("account") != null;
+    }
+
+
     @GetMapping("/task")
-    public String showTask(Model model) {
+    public String showTask(Model model, HttpSession session) {
         List<Task> listOfTask = taskService.showTask();
         model.addAttribute("tasks", listOfTask);
-        return "showTask";
+        return isLoggedIn(session) ? "showTask" : "login";
     }
 
     @GetMapping("/addTask")
-    public String addTask(Model model) {
+    public String addTask(Model model, HttpSession session) {
         model.addAttribute("task", new Task());
-        return "addTask";
+        return isLoggedIn(session) ? "addTask" : "login";
     }
 
     @PostMapping("/addTask")
-    public String saveTask(@ModelAttribute("task") Task task) {
+    public String saveTask(@ModelAttribute("task") Task task, HttpSession session) {
+        if (!isLoggedIn(session)) {
+            return "login";
+        }
         taskService.addTask(task);
         return "redirect:/OnTheDot/task";
     }
 
     @PostMapping("/deleteTask")
-    public String deleteTask(@RequestParam("taskID") int taskID) {
+    public String deleteTask(@RequestParam("taskID") int taskID, HttpSession session) {
+        if (!isLoggedIn(session)) {
+            return "login";
+        }
         taskService.deleteTask(taskID);
         return "redirect:/OnTheDot/task";
     }
 
     @GetMapping("/editTask")
-    public String editTask(@RequestParam("id") int taskID, Model model) {
+    public String editTask(@RequestParam("id") int taskID, Model model, HttpSession session) {
+        if (!isLoggedIn(session)) {
+            return "login";
+        }
         Task task = taskService.findTaskByID(taskID);
         if (task != null) {
             model.addAttribute("task", task);
@@ -53,7 +68,10 @@ public class TaskController {
     }
 
     @PostMapping("/editTask")
-    public String updateTaskName(@ModelAttribute("task") Task task) {
+    public String updateTaskName(@ModelAttribute("task") Task task, HttpSession session) {
+        if (!isLoggedIn(session)) {
+            return "login";
+        }
         taskService.updateTask(task);
         return "redirect:/OnTheDot/task";
     }

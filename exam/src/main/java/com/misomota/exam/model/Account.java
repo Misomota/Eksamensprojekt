@@ -8,6 +8,13 @@ public class Account {
     private int accountID;
     private Role role;
 
+    public Account(String username, String password, int accountID, Role role) {
+        this.username = username;
+        this.password = password;
+        this.accountID = accountID;
+        this.role = role;
+    }
+
     public Account() {}
 
     public String getUsername() {

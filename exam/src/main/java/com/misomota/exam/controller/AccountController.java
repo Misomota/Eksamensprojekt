@@ -2,12 +2,10 @@ package com.misomota.exam.controller;
 
 import com.misomota.exam.model.Account;
 import com.misomota.exam.service.AccountService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/account")
@@ -18,14 +16,36 @@ public class AccountController {
         this.accountService = accountService;
     }
 
+    private boolean isLoggedIn(HttpSession session) {
+        return session.getAttribute("account") != null;
+    }
+
     @GetMapping("/login")
-    public String loginPage(Model model) {
+    public String loginPage(Model model, HttpSession session) {
+        if (isLoggedIn(session)) {
+            return "redirect:/OnTheDot/projects";
+        }
         model.addAttribute("login", new Account());
-        return "index";
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestParam("uid") String uid, @RequestParam("pw") String pw,
+                        HttpSession session,
+                        Model model) {
+
+        if (accountService.login(uid, pw)) {
+            Account account = accountService.findAccountByUsername(uid);
+            session.setAttribute("account", account);
+            session.setMaxInactiveInterval(30 * 60);
+            return "redirect:/OnTheDot/projects";
+        }
+        model.addAttribute("wrongCredentials", true);
+        return "login";
     }
 
     @GetMapping("/register")
-    public String ShowRegisterAccount(Model model) {
+    public String showRegisterAccount(Model model) {
         model.addAttribute("register", new Account());
         return "register";
     }
@@ -34,5 +54,11 @@ public class AccountController {
     public String registerAccount(@ModelAttribute Account account) {
         accountService.saveAccount(account);
         return "redirect:/account/login";
+    }
+
+    @GetMapping("logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/index";
     }
 }

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/button.css">
+    <link rel="stylesheet" href="/header.css">
+</head>
+<body>
+
+<header class="topbar">
+    <a href="/OnTheDot/home" class="logo-link">
+        <img src="/images/logo.PNG" alt="Logo" class="logo"></a>
+
+    <h1> On The Dot</h1>
+
+    <div class="right-items">
+        <a href="https://github.com/Misomota/Eksamensprojekt" class="logo-link">
+            <img src="/images/github.PNG" alt="Logo" class="logo"></a>
+
+        <a href="Account/login" class="logout-link">Log Out</a>
+    </div>
+</header>
+
+<h1>Subprojects</h1>
+
+<div th:if="${subprojects.isEmpty()}">
+    <h2>No subprojects found. Please click create to make your first subproject.</h2>
+</div>
+
+<table>
+    <tr th:if="${!subprojects.isEmpty()}" th:each="p : ${subprojects}">
+        <td th:text="${p.subprojectName}"></td>
+        <td>
+            <form th:action="@{/OnTheDot/addSubproject}" method="post">
+                <input type="hidden" name="subprojectID" th:value="${p.subprojectID}">
+                <button type="submit">Create</button>
+            </form>
+            <form th:action="@{/OnTheDot/deleteSubproject}" method="post">
+                <input type="hidden" name="subprojectID" th:value="${p.subprojectID}">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
