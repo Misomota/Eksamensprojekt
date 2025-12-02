@@ -26,19 +26,19 @@ public class SubprojectController {
     public String showSubproject(Model model, HttpSession session) {
         List<Subproject> listOfSubproject = subprojectService.showSubproject();
         model.addAttribute("subproject", listOfSubproject);
-        return isLoggedIn(session) ? "showSubproject" : "login";
+        return isLoggedIn(session) ? "showSubproject" : "redirect:/account/login";
     }
 
     @GetMapping("/addSubproject")
     public String addSubproject(Model model, HttpSession session) {
         model.addAttribute("subproject", new Subproject());
-        return isLoggedIn(session) ? "addSubproject" : "login";
+        return isLoggedIn(session) ? "addSubproject" : "redirect:/account/login";
     }
 
     @PostMapping("/addSubproject")
     public String saveSubproject(@ModelAttribute("subproject") Subproject subproject, HttpSession session) {
         if (!isLoggedIn(session)) {
-            return "login";
+            return "redirect:/account/login";
         }
         subprojectService.addSubproject(subproject);
         return "redirect:/OnTheDot/subproject";
@@ -47,7 +47,7 @@ public class SubprojectController {
     @PostMapping("/deleteSubproject")
     public String deleteSubproject(@RequestParam("id") int subprojectID, HttpSession session) {
         if (!isLoggedIn(session)) {
-            return "login";
+            return "redirect:/account/login";
         }
         subprojectService.deleteSubproject(subprojectID);
         return "redirect:/OnTheDot/subproject";
@@ -56,7 +56,7 @@ public class SubprojectController {
     @GetMapping("/editSubproject")
     public String editSubproject(@RequestParam("id") int subprojectID, Model model, HttpSession session) {
         if (!isLoggedIn(session)) {
-            return "login";
+            return "redirect:/account/login";
         }
         Subproject subproject = subprojectService.findSubprojectByID(subprojectID);
         if (subproject != null) {
@@ -70,7 +70,7 @@ public class SubprojectController {
     @PostMapping("/editSubproject")
     public String updateSubproject(@ModelAttribute("subproject") Subproject subproject, HttpSession session) {
         if (!isLoggedIn(session)) {
-            return "login";
+            return "redirect:/account/login";
         }
         subprojectService.updateSubproject(subproject);
         return "redirect:/OnTheDot/subproject";
