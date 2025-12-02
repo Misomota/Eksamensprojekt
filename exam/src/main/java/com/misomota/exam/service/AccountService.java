@@ -3,13 +3,8 @@ package com.misomota.exam.service;
 import com.misomota.exam.model.Account;
 import com.misomota.exam.model.Role;
 import com.misomota.exam.repository.AccountRepository;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class AccountService {
@@ -20,6 +15,9 @@ public class AccountService {
     }
 
     public Account saveAccount(Account account) {
+        if (account.getRole() == null) {
+            account.setRole(Role.USER);
+        }
         return accountRepository.saveAccount(account);
     }
 

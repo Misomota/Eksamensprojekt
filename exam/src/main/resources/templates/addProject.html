@@ -19,9 +19,8 @@
         <a href="https://github.com/Misomota/Eksamensprojekt" class="logo-link">
             <img src="/images/github.PNG" alt="Logo" class="logo"></a>
 
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" th:value="'Sign Out'">
-        </form>
+        <a th:href="@{/account/logout}">Sign Out</a>
+
     </div>
 </header>
 

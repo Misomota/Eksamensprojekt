@@ -30,7 +30,6 @@ public class ProjectController {
         List<Project> projectList = projectService.readProject();
         model.addAttribute("projects", projectList);
         return "showProject";
-
     }
 
     @GetMapping("/addProject")

@@ -30,7 +30,7 @@ public class AccountController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam("uid") String uid, @RequestParam("pw") String pw,
+    public String login(@RequestParam("username") String uid, @RequestParam("password") String pw,
                         HttpSession session,
                         Model model) {
 
@@ -59,6 +59,6 @@ public class AccountController {
     @GetMapping("logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/index";
+        return "redirect:/";
     }
 }
