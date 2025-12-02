@@ -5,8 +5,6 @@ import com.misomota.exam.service.TaskService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -21,7 +19,7 @@ public class TaskController {
     @GetMapping("/task")
     public String showTask(Model model) {
         List<Task> listOfTask = taskService.showTask();
-        model.addAttribute("task", listOfTask);
+        model.addAttribute("tasks", listOfTask);
         return "showTask";
     }
 
@@ -38,7 +36,7 @@ public class TaskController {
     }
 
     @PostMapping("/deleteTask")
-    public String deleteTask(@RequestParam("id") int taskID) {
+    public String deleteTask(@RequestParam("taskID") int taskID) {
         taskService.deleteTask(taskID);
         return "redirect:/OnTheDot/task";
     }
@@ -54,15 +52,9 @@ public class TaskController {
         }
     }
 
-    @PostMapping("/editTask/Name")
-    public String updateTaskName(@ModelAttribute("task") int task, String newName) {
-        taskService.updateTaskName(task, newName);
-        return "redirect:/OnTheDot/task";
-    }
-
-    @PostMapping("/editTask/Date")
-    public String updateTaskDate(@RequestParam int taskID, @RequestParam LocalDate startDate, @RequestParam LocalDateTime deadline, @RequestParam int timeEstimate, @RequestParam String resource) {
-        taskService.updateTaskDate(taskID, startDate, deadline, timeEstimate, resource);
+    @PostMapping("/editTask")
+    public String updateTaskName(@ModelAttribute("task") Task task) {
+        taskService.updateTask(task);
         return "redirect:/OnTheDot/task";
     }
 }

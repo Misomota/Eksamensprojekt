@@ -1,6 +1,7 @@
 package com.misomota.exam.repository;
 
 import com.misomota.exam.model.Account;
+import com.misomota.exam.model.Role;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -19,22 +20,34 @@ public class AccountRepository {
     }
 
     public Account saveAccount(Account account) {
-        String sql = "INSERT INTO account (username, accountPassword) VALUES (?, ?)";
+        String sql = "INSERT INTO account (username, password, role) VALUES (?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        jdbcTemplate.update(conection -> {
-            PreparedStatement ps = conection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, account.getUsername());
-            ps.setString(2, account.getAccountPassword());
+            ps.setString(2, account.getPassword());
+            ps.setString(3, account.getRole().name());
             return ps;
         }, keyHolder);
+
+        Number key = keyHolder.getKey();
+        if (key != null) {
+            account.setAccountID(key.intValue());
+        }
         return account;
     }
 
-    public boolean validateLogin(String username, String password) {
-        String sql = "SELECT COUNT(*) FROM account WHERE username = ? AND accountPassword = ?";
-        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, username, password);
-        return count != null && count > 0;
+    public Account findAccountByUsername(String username) {
+        String sql = "SELECT accountID, username, password, role FROM account WHERE username = ?";
+            return jdbcTemplate.queryForObject(sql, new Object[]{username}, (rs, rowNum) -> {
+                Account account = new Account();
+                account.setAccountID(rs.getInt("accountID"));
+                account.setUsername(rs.getString("username"));
+                account.setPassword(rs.getString("password"));
+                account.setRole(Role.valueOf(rs.getString("role")));
+                return account;
+            });
     }
 }

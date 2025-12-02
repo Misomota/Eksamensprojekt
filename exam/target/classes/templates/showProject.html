@@ -9,7 +9,7 @@
 <body>
 
 <header class="topbar">
-    <a href="/OnTheDot/home" class="logo-link">
+    <a href="/OnTheDot/projects" class="logo-link">
         <img src="/images/logo.PNG" alt="Logo" class="logo"></a>
 
     <h1> On The Dot</h1>
@@ -18,7 +18,9 @@
         <a href="https://github.com/Misomota/Eksamensprojekt" class="logo-link">
             <img src="/images/github.PNG" alt="Logo" class="logo"></a>
 
-        <a href="Account/login" class="logout-link">Log Out</a>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" th:value="'Sign Out'">
+        </form>
     </div>
 </header>
 
