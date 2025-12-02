@@ -31,12 +31,6 @@ public class TaskController {
 
     @PostMapping("/addTask")
     public String saveTask(@ModelAttribute("task") Task task) {
-        System.out.println("Task object received:");
-        System.out.println("taskName: '" + task.getTaskName() + "'");
-        System.out.println("startDate: " + task.getStartDate());
-        System.out.println("deadline: " + task.getDeadline());
-        System.out.println("timeEstimate: " + task.getTimeEstimate());
-        System.out.println("resource: '" + task.getResource() + "'");
         taskService.addTask(task);
         return "redirect:/OnTheDot/task";
     }
