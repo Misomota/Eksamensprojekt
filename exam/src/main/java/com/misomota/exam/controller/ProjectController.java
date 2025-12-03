@@ -1,6 +1,7 @@
 package com.misomota.exam.controller;
 
 import com.misomota.exam.model.Project;
+import com.misomota.exam.model.Subproject;
 import com.misomota.exam.service.ProjectService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,9 +39,14 @@ public class ProjectController {
 
 
     @GetMapping("/editProject")
-    public String editProject(@RequestParam("id") int id, Model model) {
-        model.addAttribute("project", id);
-        return "editProject";
+    public String editProject(@RequestParam("id") int projectID, Model model) {
+        Project project = projectService.findProjectByID(projectID);
+        if (project != null) {
+            model.addAttribute("project", project);
+            return "editProject";
+        } else {
+            return "redirect:/OnTheDot/home";
+        }
     }
 
     @PostMapping("/editProject")
