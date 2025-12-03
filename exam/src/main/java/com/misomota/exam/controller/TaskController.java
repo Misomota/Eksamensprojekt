@@ -23,56 +23,62 @@ public class TaskController {
 
 
     @GetMapping("/task")
-    public String showTask(Model model, HttpSession session) {
-        List<Task> listOfTask = taskService.showTask();
+    public String showTask(@RequestParam("subprojectID") int subprojectID, Model model, HttpSession session) {
+        List<Task> listOfTask = taskService.showTask(subprojectID);
         model.addAttribute("tasks", listOfTask);
+        model.addAttribute("subprojectID", subprojectID);
         return isLoggedIn(session) ? "showTask" : "redirect:/account/login";
     }
 
     @GetMapping("/addTask")
-    public String addTask(Model model, HttpSession session) {
+    public String addTask(@RequestParam("subprojectID") int subprojectID, Model model, HttpSession session) {
         model.addAttribute("task", new Task());
+        model.addAttribute("subprojectID", subprojectID);
         return isLoggedIn(session) ? "addTask" : "redirect:/account/login";
     }
 
     @PostMapping("/addTask")
-    public String saveTask(@ModelAttribute("task") Task task, HttpSession session) {
+    public String saveTask(@RequestParam("subprojectID" )int subprojectID,@ModelAttribute("task") Task task, HttpSession session) {
         if (!isLoggedIn(session)) {
             return "redirect:/account/login";
         }
-        taskService.addTask(task);
-        return "redirect:/OnTheDot/task";
+        taskService.addTask(task, subprojectID);
+        return "redirect:/OnTheDot/task?subprojectID=" + subprojectID;
+
     }
 
     @PostMapping("/deleteTask")
-    public String deleteTask(@RequestParam("taskID") int taskID, HttpSession session) {
+    public String deleteTask(@RequestParam("taskID") int taskID,@RequestParam("subprojectID") int subprojectID, HttpSession session) {
         if (!isLoggedIn(session)) {
             return "redirect:/account/login";
         }
         taskService.deleteTask(taskID);
-        return "redirect:/OnTheDot/task";
+        return "redirect:/OnTheDot/task?subprojectID=" + subprojectID;
+
     }
 
     @GetMapping("/editTask")
-    public String editTask(@RequestParam("id") int taskID, Model model, HttpSession session) {
+    public String editTask(@RequestParam("taskID") int taskID, @RequestParam("subprojectID") int subprojectID, Model model, HttpSession session) {
         if (!isLoggedIn(session)) {
             return "redirect:/account/login";
         }
         Task task = taskService.findTaskByID(taskID);
         if (task != null) {
             model.addAttribute("task", task);
+            model.addAttribute("subprojectID", subprojectID);
             return "editTask";
         } else {
-            return "redirect:/OnTheDot/task";
+            return "redirect:/OnTheDot/task?subprojectID=" + subprojectID;
+
         }
     }
 
     @PostMapping("/editTask")
-    public String updateTaskName(@ModelAttribute("task") Task task, HttpSession session) {
+    public String updateTaskName(@RequestParam("subprojectID") int subprojectID, @ModelAttribute("task") Task task, HttpSession session) {
         if (!isLoggedIn(session)) {
             return "redirect:/account/login";
         }
         taskService.updateTask(task);
-        return "redirect:/OnTheDot/task";
+        return "redirect:/OnTheDot/task?subprojectID=" + subprojectID;
     }
 }

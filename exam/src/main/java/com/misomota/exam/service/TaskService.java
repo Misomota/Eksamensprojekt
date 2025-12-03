@@ -14,16 +14,16 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public List<Task> showTask() {
-        return taskRepository.showTask();
+    public List<Task> showTask(int subprojectID) {
+        return taskRepository.showTask(subprojectID);
     }
 
     public Task findTaskByID(int id) {
         return taskRepository.findTaskByID(id);
     }
 
-    public Task addTask(Task task) {
-        return taskRepository.addTask(task);
+    public Task addTask(Task task, int subprojectID) {
+        return taskRepository.addTask(task, subprojectID);
     }
 
     public void deleteTask(int taksID) {

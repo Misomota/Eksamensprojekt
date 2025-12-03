@@ -14,23 +14,23 @@ public class SubprojectService {
         this.subprojectRepository = subprojectRepository;
     }
 
-    public List<Subproject> showSubproject() {
-        return subprojectRepository.showSubproject();
+    public List<Subproject> showSubproject(int projectID) {
+        return subprojectRepository.showSubproject(projectID);
     }
 
     public Subproject findSubprojectByID(int id) {
         return subprojectRepository.findSubprojectByID(id);
     }
 
-    public Subproject addSubproject(Subproject subproject) {
-        return subprojectRepository.addSubproject(subproject);
+    public Subproject addSubproject(Subproject subproject, int projectID) {
+        return subprojectRepository.addSubproject(subproject, projectID);
     }
 
     public void deleteSubproject(int id) {
         subprojectRepository.deleteSubproject(id);
     }
 
-    public void  updateSubproject(Subproject subproject) {
-        subprojectRepository.updateSubproject(subproject);
+    public void  updateSubproject(Subproject subproject, int projectID) {
+        subprojectRepository.updateSubproject(subproject, projectID);
     }
 }

@@ -22,7 +22,8 @@
     </div>
 </header>
 
-<a th:href="@{/OnTheDot/addTask}" class="btn">create</a>
+<a th:href="@{/OnTheDot/addTask(subprojectID=${subprojectID})}" class="btn">create task</a>
+
 
 <table>
     <tr>
@@ -43,9 +44,11 @@
         <td>
             <form th:action="@{/OnTheDot/deleteTask}" method="post">
                 <input type="hidden" name="taskID" th:value="${t.taskID}">
+                <input type="hidden" name="subprojectID" th:value="${subprojectID}">
                 <button type="submit">Delete</button>
             </form>
-            <a th:href="@{/OnTheDot/editTask(id=${t.taskID})}" class="btn">Edit</a>
+            <a th:href="@{/OnTheDot/editTask(taskID=${t.taskID}, subprojectID=${subprojectID})}" class="btn">Edit</a>
+
         </td>
     </tr>
 </table>

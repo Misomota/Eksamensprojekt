@@ -23,6 +23,7 @@
 </header>
 
 <h1>Subprojects</h1>
+<a th:href="@{/OnTheDot/addSubproject(projectID=${projectID})}" class="btn">Create Subproject</a>
 
 <div th:if="${subprojects.isEmpty()}">
     <h2>No subprojects found. Please click create to make your first subproject.</h2>
@@ -30,18 +31,15 @@
 
 <table>
     <tr th:if="${!subprojects.isEmpty()}" th:each="p : ${subprojects}">
-        <td th:text="${p.subprojectName}"></td>
         <td>
-            <form th:action="@{/OnTheDot/addSubproject}" method="post">
-                <input type="hidden" name="subprojectID" th:value="${p.subprojectID}">
-                <button type="submit">Create</button>
-            </form>
-            <form th:action="@{/OnTheDot/editSubproject}" method="post">
-                <input type="hidden" name="subprojectID" th:value="${p.subprojectID}">
-                <button type="submit">Edit</button>
-            </form>
+            <a th:href="@{/OnTheDot/task(subprojectID=${p.subprojectID})}"
+               th:text="${p.subprojectName}"></a>
+        </td>
+        <td>
+            <a th:href="@{/OnTheDot/editSubproject(subprojectID=${p.subprojectID},projectID=${projectID})}" class="btn">Edit</a>
             <form th:action="@{/OnTheDot/deleteSubproject}" method="post">
                 <input type="hidden" name="subprojectID" th:value="${p.subprojectID}">
+                <input type="hidden" name="projectID" th:value="${projectID}">
                 <button type="submit">Delete</button>
             </form>
         </td>

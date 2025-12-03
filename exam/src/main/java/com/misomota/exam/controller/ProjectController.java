@@ -49,13 +49,16 @@ public class ProjectController {
     }
 
     @GetMapping("/editProject")
-    public String editProject(@RequestParam("id") int projectID, Model model) {
+    public String editProject(@RequestParam("projectID") int projectID, Model model, HttpSession session) {
+        if (!isLoggedIn(session)) {
+            return "redirect:/account/login";
+        }
         Project project = projectService.findProjectByID(projectID);
         if (project != null) {
             model.addAttribute("project", project);
             return "editProject";
         } else {
-            return "redirect:/OnTheDot/home";
+            return "redirect:/OnTheDot/projects";
         }
     }
 
