@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Projects</title>
-    <link rel="stylesheet" href="/button.css">
     <link rel="stylesheet" href="/header.css">
+    <link rel="stylesheet" href="/projectAndSubproject.css">
 </head>
 <body>
 
@@ -31,11 +31,15 @@
 
 <table>
     <tr th:if="${!projects.isEmpty()}" th:each="p : ${projects}">
-        <td th:text="${p.projectName}"></td>
         <td>
-            <form th:action="@{/OnTheDot/deleteProject}" method="post">
+            <a th:href="@{/OnTheDot/subproject(projectID=${p.projectID})}"
+               th:text="${p.projectName}"></a>
+        </td>
+        <td>
+            <a th:href="@{/OnTheDot/editProject(projectID=${p.projectID})}" class="btn">Edit</a>
+            <form th:action="@{/OnTheDot/deleteProject}" method="post" style="display:inline;">
                 <input type="hidden" name="projectID" th:value="${p.projectID}">
-                <button type="submit">Delete</button>
+                <button type="submit">Delete️</button>
             </form>
         </td>
     </tr>

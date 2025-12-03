@@ -29,8 +29,8 @@ public class TaskRepository {
                     rs.getString("resource")
             );
 
-    public Task addTask(Task task) {
-        String sql = "INSERT INTO task (taskName, startDate, deadline, timeEstimate, `resource`) VALUES (?, ?, ?, ?, ?)";
+    public Task addTask(Task task, int subprojectID) {
+        String sql = "INSERT INTO task (taskName, startDate, deadline, timeEstimate, `resource`, subprojectID) VALUES (?, ?, ?, ?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -41,6 +41,7 @@ public class TaskRepository {
             ps.setDate(3, java.sql.Date.valueOf(task.getDeadline()));
             ps.setInt(4, task.getTimeEstimate());
             ps.setString(5,task.getResource());
+            ps.setInt(6, subprojectID);
             return ps;
         }, keyHolder);
 
@@ -48,9 +49,9 @@ public class TaskRepository {
         return new Task(newID, task.getTaskName(), task.getStartDate(), task.getDeadline(),task.getTimeEstimate(), task.getResource());
     }
 
-    public List<Task> showTask() {
-        String sql = "SELECT taskID, taskName, startDate, deadline, timeEstimate, `resource` FROM task";
-        return jdbcTemplate.query(sql, taskRowMapper);
+    public List<Task> showTask(int subprojectID) {
+        String sql = "SELECT taskID, taskName, startDate, deadline, timeEstimate, `resource` FROM task WHERE subprojectID = ?";
+        return jdbcTemplate.query(sql, taskRowMapper, subprojectID);
     }
 
     public Task findTaskByID(int id) {
