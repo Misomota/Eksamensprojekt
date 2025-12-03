@@ -4,11 +4,13 @@ import com.misomota.exam.model.Task;
 import com.misomota.exam.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class TaskService {
     private final TaskRepository taskRepository;
+    private static final int hoursPerDayPerPerson = 8;
 
     public TaskService(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
@@ -32,5 +34,29 @@ public class TaskService {
 
     public void updateTask(Task task) {
         taskRepository.updateTask(task);
+    }
+
+    public double calculateRequiredDays(Task task) {
+        int totalHours = task.getTimeEstimate();
+        int person = task.getPersonAssigned();
+        if (person<=0) {
+            throw new IllegalArgumentException("The amount of people assigned must be greater than 0");
+        }
+        return (double) totalHours / (hoursPerDayPerPerson * person);
+    }
+
+    public boolean canFinishBeforeTime(Task task) {
+        int hoursPerDay = task.getPersonAssigned() * 8;
+        double requiredDays = (double) task.getTimeEstimate() / hoursPerDay;
+
+        LocalDate current = task.getStartDate();
+        int availableDays = 0;
+
+        while (!current.isAfter(task.getDeadline())) {
+            availableDays++;
+            current = current.plusDays(1);
+        }
+
+        return requiredDays <= availableDays;
     }
 }

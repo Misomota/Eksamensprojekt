@@ -26,11 +26,12 @@ public class TaskRepository {
                     rs.getDate("startDate").toLocalDate(),
                     rs.getDate("deadline").toLocalDate(),
                     rs.getInt("timeEstimate"),
+                    rs.getInt("personAssigned"),
                     rs.getString("resource")
             );
 
     public Task addTask(Task task, int subprojectID) {
-        String sql = "INSERT INTO task (taskName, startDate, deadline, timeEstimate, `resource`, subprojectID) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO task (taskName, startDate, deadline, timeEstimate, personAssigned, `resource`, subprojectID) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -40,27 +41,28 @@ public class TaskRepository {
             ps.setDate(2, java.sql.Date.valueOf(task.getStartDate()));
             ps.setDate(3, java.sql.Date.valueOf(task.getDeadline()));
             ps.setInt(4, task.getTimeEstimate());
-            ps.setString(5,task.getResource());
-            ps.setInt(6, subprojectID);
+            ps.setInt(5, task.getPersonAssigned());
+            ps.setString(6,task.getResource());
+            ps.setInt(7, subprojectID);
             return ps;
         }, keyHolder);
 
         int newID = keyHolder.getKey() != null ? keyHolder.getKey().intValue() : -1;
-        return new Task(newID, task.getTaskName(), task.getStartDate(), task.getDeadline(),task.getTimeEstimate(), task.getResource());
+        return new Task(newID, task.getTaskName(), task.getStartDate(), task.getDeadline(),task.getTimeEstimate(), task.getPersonAssigned(), task.getResource());
     }
 
     public List<Task> showTask(int subprojectID) {
-        String sql = "SELECT taskID, taskName, startDate, deadline, timeEstimate, `resource` FROM task WHERE subprojectID = ?";
+        String sql = "SELECT taskID, taskName, startDate, deadline, timeEstimate, personAssigned, `resource` FROM task WHERE subprojectID = ?";
         return jdbcTemplate.query(sql, taskRowMapper, subprojectID);
     }
 
     public Task findTaskByID(int id) {
-        String sql = "SELECT taskID, taskName, startDate, deadline, timeEstimate, resource FROM task WHERE taskID = ?";
+        String sql = "SELECT taskID, taskName, startDate, deadline, timeEstimate, personAssigned, resource FROM task WHERE taskID = ?";
         return jdbcTemplate.queryForObject(sql, taskRowMapper, id);
     }
 
     public void updateTask(Task task) {
-        String sql = "UPDATE task SET taskName = ?, startDate = ?, deadline = ?, timeEstimate = ?, `resource` = ? WHERE taskID = ?";
+        String sql = "UPDATE task SET taskName = ?, startDate = ?, deadline = ?, timeEstimate = ?, personAssigned = ?, `resource` = ? WHERE taskID = ?";
         jdbcTemplate.update(sql, task.getTaskName(), java.sql.Date.valueOf(task.getStartDate()), java.sql.Date.valueOf(task.getDeadline()), task.getTimeEstimate(), task.getResource(), task.getTaskID());
     }
 

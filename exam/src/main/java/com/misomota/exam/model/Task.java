@@ -8,18 +8,20 @@ public class Task {
     private LocalDate startDate;
     private LocalDate deadline;
     private int timeEstimate;
+    private int personAssigned;
     private String resource;
 
     public Task() {
 
     }
 
-    public Task(int taskID ,String taskName, LocalDate startDate, LocalDate deadline, int timeEstimate, String resource) {
+    public Task(int taskID ,String taskName, LocalDate startDate, LocalDate deadline, int timeEstimate,int personsAssigned, String resource) {
         this.taskID = taskID;
         this.taskName = taskName;
         this.startDate = startDate;
         this.deadline = deadline;
         this.timeEstimate = timeEstimate;
+        this.personAssigned = personsAssigned;
         this.resource = resource;
     }
 
@@ -70,4 +72,13 @@ public class Task {
     public void setResource(String resource) {
         this.resource = resource;
     }
+
+    public int getPersonAssigned() {
+        return personAssigned;
+    }
+
+    public void setPersonAssigned(int personAssigned) {
+        this.personAssigned = personAssigned;
+    }
+
 }
