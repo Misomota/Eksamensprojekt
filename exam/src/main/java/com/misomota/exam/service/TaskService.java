@@ -4,8 +4,6 @@ import com.misomota.exam.model.Task;
 import com.misomota.exam.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -28,15 +26,11 @@ public class TaskService {
         return taskRepository.addTask(task);
     }
 
-    public void deleteTask(int id) {
-        taskRepository.deleteTask(id);
+    public void deleteTask(int taksID) {
+        taskRepository.deleteTask(taksID);
     }
 
-    public void updateTaskName(int task, String newName) {
-        taskRepository.updateTaskName(task, newName);
-    }
-
-    public void updateTaskDate(int taskID, LocalDate startDate, LocalDateTime deadline, int timeEstimate, String resource) {
-        taskRepository.updateTaskDates(taskID, startDate, deadline, timeEstimate, resource);
+    public void updateTask(Task task) {
+        taskRepository.updateTask(task);
     }
 }
