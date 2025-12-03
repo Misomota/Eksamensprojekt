@@ -22,8 +22,8 @@ public class ProjectService {
         return projectRepository.readProject();
     }
 
-    public Project readProjectByID(int id) {
-        return projectRepository.readProjectByID(id);
+    public Project findProjectByID(int id) {
+        return projectRepository.findProjectByID(id);
     }
 
     public void updateProject(Project project) {

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit project</title>
+</head>
+<body>
+
+<h2>Edit project</h2>
+
+<form th:action="@{/OnTheDot/editProject}" th:object="${project}" method="post">
+    <input type="hidden" th:field="*{projectID}" />
+
+    <div>
+        <div class="group">
+            <input th:field="*{projectName}" placeholder="Project name" type="search" class="input" required>
+        </div>
+
+    </div>
+
+    <div class="buttonRow">
+        <button type="submit" id="submitButton" class ="btn">Save</button>
+        <a th:href="@{/OnTheDot/home}" class ="btn">Cancel</a>
+    </div>
+</form>
+</body>
+</html>

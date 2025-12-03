@@ -36,6 +36,10 @@
                 <input type="hidden" name="subprojectID" th:value="${p.subprojectID}">
                 <button type="submit">Create</button>
             </form>
+            <form th:action="@{/OnTheDot/editSubproject}" method="post">
+                <input type="hidden" name="subprojectID" th:value="${p.subprojectID}">
+                <button type="submit">Edit</button>
+            </form>
             <form th:action="@{/OnTheDot/deleteSubproject}" method="post">
                 <input type="hidden" name="subprojectID" th:value="${p.subprojectID}">
                 <button type="submit">Delete</button>

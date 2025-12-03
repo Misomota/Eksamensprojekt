@@ -56,7 +56,7 @@ public class ProjectRepository {
         return jdbcTemplate.query(sql, projectRowmapper);
     }
 
-    public Project readProjectByID(int projectID) {
+    public Project findProjectByID(int projectID) {
         String sql = "SELECT projectName, projectID FROM project WHERE projectID = ?";
         return jdbcTemplate.queryForObject(sql, projectRowmapper, projectID);
     }
