@@ -40,7 +40,7 @@ public class TaskService {
 
     public long calculateDuration(Task task) {
         LocalDateTime start = task.getStartDate().atStartOfDay();
-        LocalDateTime end = task.getDeadline();
+        LocalDate end = task.getDeadline();
         Duration duration = Duration.between(start, end);
         return duration.toDays();
     }

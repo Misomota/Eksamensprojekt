@@ -23,8 +23,8 @@ public class TaskController {
 
 
     @GetMapping("/task")
-    public String showTask(Model model, HttpSession session) {
-        List<Task> listOfTask = taskService.showTask();
+    public String showTask(Model model, HttpSession session, Task task) {
+        List<Task> listOfTask = taskService.showTask(task);
         model.addAttribute("tasks", listOfTask);
         return isLoggedIn(session) ? "showTask" : "redirect:/account/login";
     }
