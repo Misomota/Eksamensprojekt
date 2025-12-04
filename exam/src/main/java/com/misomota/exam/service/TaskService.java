@@ -4,6 +4,7 @@ import com.misomota.exam.model.Task;
 import com.misomota.exam.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,7 +17,11 @@ public class TaskService {
     }
 
     public List<Task> showTask(int subprojectID) {
-        return taskRepository.showTask(subprojectID);
+        List<Task> tasks = taskRepository.showTask(subprojectID);
+        for (Task task : tasks) {
+            calculateDuration(task);
+        }
+        return tasks;
     }
 
     public Task findTaskByID(int id) {
@@ -56,5 +61,11 @@ public class TaskService {
             current = current.plusDays(1);
         }
         return requiredDays <= availableDays;
+    }
+      
+    public long calculateDuration(Task task) {
+        LocalDate start = task.getStartDate();
+        LocalDate end = task.getDeadline();
+        return Duration.between(start, end).toDays();
     }
 }
