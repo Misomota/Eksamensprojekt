@@ -65,8 +65,8 @@ public class TaskRepository {
     }
 
     public void updateTask(Task task) {
-        String sql = "UPDATE task SET taskName = ?, startDate = ?, deadline = ?, timeEstimate = ?, personAssigned = ?, `resource` = ?, , duration = ? WHERE taskID = ?";
-        jdbcTemplate.update(sql, task.getTaskName(), java.sql.Date.valueOf(task.getStartDate()), java.sql.Date.valueOf(task.getDeadline()), task.getTimeEstimate(), task.getResource(), task.getTaskID(), task.getDuration());
+        String sql = "UPDATE task SET taskName = ?, startDate = ?, deadline = ?, timeEstimate = ?, personAssigned = ?, `resource` = ?, duration = ? WHERE taskID = ?";
+        jdbcTemplate.update(sql, task.getTaskName(), java.sql.Date.valueOf(task.getStartDate()), java.sql.Date.valueOf(task.getDeadline()), task.getTimeEstimate(), task.getPersonAssigned(), task.getResource(), task.getDuration(), task.getTaskID());
     }
 
 
