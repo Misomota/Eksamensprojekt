@@ -19,8 +19,8 @@ public class TaskController {
     }
 
     @GetMapping("/task")
-    public String showTask(Model model) {
-        List<Task> listOfTask = taskService.showTask();
+    public String showTask(Model model, Task task) {
+        List<Task> listOfTask = taskService.showTask(task);
         model.addAttribute("task", listOfTask);
         return "showTask";
     }
@@ -65,4 +65,5 @@ public class TaskController {
         taskService.updateTaskDate(taskID, startDate, deadline, timeEstimate, resource);
         return "redirect:/OnTheDot/task";
     }
+
 }
