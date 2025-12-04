@@ -32,6 +32,8 @@
         <th>Deadline</th>
         <th>Time estimation</th>
         <th>Resource</th>
+        <th>Duration</th>
+        <th>People assigned</th>
         <th>Action</th>
     </tr>
 
@@ -41,6 +43,8 @@
         <td th:text="${t.deadline}">Deadline</td>
         <td th:text="${t.timeEstimate}">Time estimation</td>
         <td th:text="${t.resource}">Task resource</td>
+        <td th:text="${t.duration}">Duration</td>
+        <td th:text="${t.personAssigned}">People assigned</td>
         <td>
             <form th:action="@{/OnTheDot/deleteTask}" method="post">
                 <input type="hidden" name="taskID" th:value="${t.taskID}">
