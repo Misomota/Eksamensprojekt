@@ -1,5 +1,6 @@
 package com.misomota.exam.model;
 
+
 import java.time.LocalDate;
 
 public class Task {
@@ -9,18 +10,20 @@ public class Task {
     private LocalDate deadline;
     private int timeEstimate;
     private String resource;
+    private int duration;
 
     public Task() {
 
     }
 
-    public Task(int taskID ,String taskName, LocalDate startDate, LocalDate deadline, int timeEstimate, String resource) {
+    public Task(int taskID ,String taskName, LocalDate startDate, LocalDate deadline, int timeEstimate, String resource, int duration) {
         this.taskID = taskID;
         this.taskName = taskName;
         this.startDate = startDate;
         this.deadline = deadline;
         this.timeEstimate = timeEstimate;
         this.resource = resource;
+        this.duration = duration;
     }
 
     public int getTaskID() {
@@ -51,6 +54,10 @@ public class Task {
         return resource;
     }
 
+    public int getDuration() {
+        return duration;
+    }
+
     public void setTaskName(String taskName) {
         this.taskName = taskName;
     }
@@ -69,5 +76,9 @@ public class Task {
 
     public void setResource(String resource) {
         this.resource = resource;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }
