@@ -1,14 +1,18 @@
+
 package com.misomota.exam.model;
+
 
 public class Account {
     private String username;
-    private String accountPassword;
+    private String password;
     private int accountID;
+    private Role role;
 
-    public Account(String username, String accountPassword, int accountID) {
+    public Account(String username, String password, int accountID, Role role) {
         this.username = username;
-        this.accountPassword = accountPassword;
+        this.password = password;
         this.accountID = accountID;
+        this.role = role;
     }
 
     public Account() {}
@@ -21,12 +25,12 @@ public class Account {
         this.username = username;
     }
 
-    public String getAccountPassword() {
-        return accountPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassword(String accountPassword) {
-        this.accountPassword = accountPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getAccountID() {
@@ -35,5 +39,13 @@ public class Account {
 
     public void setAccountID(int accountID) {
         this.accountID = accountID;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

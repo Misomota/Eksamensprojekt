@@ -1,12 +1,11 @@
 package com.misomota.exam.controller;
 import com.misomota.exam.model.Task;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 import com.misomota.exam.service.TaskService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -18,33 +17,47 @@ public class TaskController {
         this.taskService = taskService;
     }
 
+    private boolean isLoggedIn(HttpSession session) {
+        return session.getAttribute("account") != null;
+    }
+
+
     @GetMapping("/task")
-    public String showTask(Model model, Task task) {
-        List<Task> listOfTask = taskService.showTask(task);
-        model.addAttribute("task", listOfTask);
-        return "showTask";
+    public String showTask(Model model, HttpSession session) {
+        List<Task> listOfTask = taskService.showTask();
+        model.addAttribute("tasks", listOfTask);
+        return isLoggedIn(session) ? "showTask" : "redirect:/account/login";
     }
 
     @GetMapping("/addTask")
-    public String addTask(Model model) {
+    public String addTask(Model model, HttpSession session) {
         model.addAttribute("task", new Task());
-        return "addTask";
+        return isLoggedIn(session) ? "addTask" : "redirect:/account/login";
     }
 
     @PostMapping("/addTask")
-    public String saveTask(@ModelAttribute("task") Task task) {
+    public String saveTask(@ModelAttribute("task") Task task, HttpSession session) {
+        if (!isLoggedIn(session)) {
+            return "redirect:/account/login";
+        }
         taskService.addTask(task);
         return "redirect:/OnTheDot/task";
     }
 
     @PostMapping("/deleteTask")
-    public String deleteTask(@RequestParam("id") int taskID) {
+    public String deleteTask(@RequestParam("taskID") int taskID, HttpSession session) {
+        if (!isLoggedIn(session)) {
+            return "redirect:/account/login";
+        }
         taskService.deleteTask(taskID);
         return "redirect:/OnTheDot/task";
     }
 
     @GetMapping("/editTask")
-    public String editTask(@RequestParam("id") int taskID, Model model) {
+    public String editTask(@RequestParam("id") int taskID, Model model, HttpSession session) {
+        if (!isLoggedIn(session)) {
+            return "redirect:/account/login";
+        }
         Task task = taskService.findTaskByID(taskID);
         if (task != null) {
             model.addAttribute("task", task);
@@ -54,16 +67,12 @@ public class TaskController {
         }
     }
 
-    @PostMapping("/editTask/Name")
-    public String updateTaskName(@ModelAttribute("task") int task, String newName) {
-        taskService.updateTaskName(task, newName);
+    @PostMapping("/editTask")
+    public String updateTaskName(@ModelAttribute("task") Task task, HttpSession session) {
+        if (!isLoggedIn(session)) {
+            return "redirect:/account/login";
+        }
+        taskService.updateTask(task);
         return "redirect:/OnTheDot/task";
     }
-
-    @PostMapping("/editTask/Date")
-    public String updateTaskDate(@RequestParam int taskID, @RequestParam LocalDate startDate, @RequestParam LocalDateTime deadline, @RequestParam int timeEstimate, @RequestParam String resource) {
-        taskService.updateTaskDate(taskID, startDate, deadline, timeEstimate, resource);
-        return "redirect:/OnTheDot/task";
-    }
-
 }

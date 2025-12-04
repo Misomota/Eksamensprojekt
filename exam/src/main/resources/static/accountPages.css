@@ -1,0 +1,27 @@
+.input-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+
+button {
+    cursor: pointer;
+}
+
+p {
+    margin-top: 50px;
+    text-align: center;
+}
+
+h2 {
+    margin-top: 50px;
+    text-align: center;
+}
+
+h3 {
+    margin-top: 50px;
+    text-align: center;
+}
