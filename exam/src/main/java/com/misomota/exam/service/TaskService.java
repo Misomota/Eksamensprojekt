@@ -10,7 +10,6 @@ import java.util.List;
 @Service
 public class TaskService {
     private final TaskRepository taskRepository;
-    private static final int hoursPerDayPerPerson = 8;
 
     public TaskService(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
@@ -42,10 +41,10 @@ public class TaskService {
         if (person<=0) {
             throw new IllegalArgumentException("The amount of people assigned must be greater than 0");
         }
-        return (double) totalHours / (hoursPerDayPerPerson * person);
+        return (double) totalHours / (8 * person);
     }
 
-    public boolean canFinishBeforeTime(Task task) {
+    public boolean canFinishBeforeDeadline(Task task) {
         int hoursPerDay = task.getPersonAssigned() * 8;
         double requiredDays = (double) task.getTimeEstimate() / hoursPerDay;
 
@@ -56,7 +55,6 @@ public class TaskService {
             availableDays++;
             current = current.plusDays(1);
         }
-
         return requiredDays <= availableDays;
     }
 }
