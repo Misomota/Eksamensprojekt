@@ -32,8 +32,8 @@ public class TaskService {
         return taskRepository.addTask(task, subprojectID);
     }
 
-    public void deleteTask(int taksID) {
-        taskRepository.deleteTask(taksID);
+    public void deleteTask(int taskID) {
+        taskRepository.deleteTask(taskID);
     }
 
     public void updateTask(Task task) {
