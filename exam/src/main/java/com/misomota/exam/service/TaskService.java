@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -17,11 +16,12 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public List<Task> showTask(Task task) {
-        calculateDuration(task);
-        return taskRepository.showTask();
     public List<Task> showTask(int subprojectID) {
-        return taskRepository.showTask(subprojectID);
+        List<Task> tasks = taskRepository.showTask(subprojectID);
+        for (Task task : tasks) {
+            calculateDuration(task);
+        }
+        return tasks;
     }
 
     public Task findTaskByID(int id) {
@@ -41,9 +41,8 @@ public class TaskService {
     }
 
     public long calculateDuration(Task task) {
-        LocalDateTime start = task.getStartDate().atStartOfDay();
+        LocalDate start = task.getStartDate();
         LocalDate end = task.getDeadline();
-        Duration duration = Duration.between(start, end);
-        return duration.toDays();
+        return Duration.between(start, end).toDays();
     }
 }

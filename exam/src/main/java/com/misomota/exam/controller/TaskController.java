@@ -23,8 +23,6 @@ public class TaskController {
 
 
     @GetMapping("/task")
-    public String showTask(Model model, HttpSession session, Task task) {
-        List<Task> listOfTask = taskService.showTask(task);
     public String showTask(@RequestParam("subprojectID") int subprojectID, Model model, HttpSession session) {
         List<Task> listOfTask = taskService.showTask(subprojectID);
         model.addAttribute("tasks", listOfTask);
