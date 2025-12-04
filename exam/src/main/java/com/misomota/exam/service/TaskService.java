@@ -40,6 +40,29 @@ public class TaskService {
         taskRepository.updateTask(task);
     }
 
+    public double calculateRequiredDays(Task task) {
+        int totalHours = task.getTimeEstimate();
+        int person = task.getPersonAssigned();
+        if (person<=0) {
+            throw new IllegalArgumentException("The amount of people assigned must be greater than 0");
+        }
+        return (double) totalHours / (8 * person);
+    }
+
+    public boolean canFinishBeforeDeadline(Task task) {
+        int hoursPerDay = task.getPersonAssigned() * 8;
+        double requiredDays = (double) task.getTimeEstimate() / hoursPerDay;
+
+        LocalDate current = task.getStartDate();
+        int availableDays = 0;
+
+        while (!current.isAfter(task.getDeadline())) {
+            availableDays++;
+            current = current.plusDays(1);
+        }
+        return requiredDays <= availableDays;
+    }
+      
     public long calculateDuration(Task task) {
         LocalDate start = task.getStartDate();
         LocalDate end = task.getDeadline();
