@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -19,7 +20,8 @@ public class TaskService {
     public List<Task> showTask(int subprojectID) {
         List<Task> tasks = taskRepository.showTask(subprojectID);
         for (Task task : tasks) {
-            calculateDuration(task);
+            int duration = calculateDuration(task);
+            task.setDuration(duration);
         }
         return tasks;
     }
@@ -63,9 +65,9 @@ public class TaskService {
         return requiredDays <= availableDays;
     }
       
-    public long calculateDuration(Task task) {
+    public int calculateDuration(Task task) {
         LocalDate start = task.getStartDate();
         LocalDate end = task.getDeadline();
-        return Duration.between(start, end).toDays();
+        return (int) ChronoUnit.DAYS.between(start, end);
     }
 }
