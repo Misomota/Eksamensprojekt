@@ -28,7 +28,7 @@ public class TaskRepository {
                     rs.getDate("deadline").toLocalDate(),
                     rs.getInt("timeEstimate"),
                     rs.getInt("personAssigned"),
-                    rs.getString("resource")
+                    rs.getString("resource"),
                     rs.getInt("duration")
             );
 
