@@ -24,8 +24,8 @@
 
 <h1> Create subproject</h1>
 
-<form th:action="@{/OnTheDot/addSubprojectroject}" th:object="${subproject}" method="post">
-    <input th:field="*{subprojectID}" type="hidden">
+<form th:action="@{/OnTheDot/addSubproject}" th:object="${subproject}" method="post">
+    <input type="hidden" name="projectID" th:value="${projectID}">
 
     <div class="group">
         <input th:field="*{subprojectName}" placeholder="Name of subproject" type="search" class="input" required>
@@ -33,7 +33,7 @@
 
     <div class="button-group">
         <button type="submit" class="btn">create</button>
-        <a th:href="@{/OnTheDot/showSubproject}" class="btn">Cancel</a>
+        <a th:href="@{/OnTheDot/subproject(projectID=${projectID})}" class="btn">Cancel</a>
     </div>
 </form>
 </body>

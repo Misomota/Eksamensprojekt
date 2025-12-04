@@ -25,13 +25,14 @@ public class SubprojectRepository {
                     rs.getInt("subprojectID")
             );
 
-    public Subproject addSubproject(Subproject subproject) {
-        String sql = "INSERT INTO subproject (subprojectName) VALUES (?)";
+    public Subproject addSubproject(Subproject subproject, int projectID) {
+        String sql = "INSERT INTO subproject (subprojectName, projectID) VALUES (?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(con -> {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, subproject.getSubprojectName());
+            ps.setInt(2, projectID);
             return ps;
         }, keyHolder);
 
@@ -39,9 +40,9 @@ public class SubprojectRepository {
         return new Subproject(subproject.getSubprojectName(), newId);
     }
 
-    public List<Subproject> showSubproject() {
-        String sql = "SELECT subprojectID, subprojectName FROM subproject";
-        return jdbcTemplate.query(sql, subprojectRowMapper);
+    public List<Subproject> showSubproject(int projectID) {
+        String sql = "SELECT subprojectID, subprojectName FROM subproject WHERE projectID = ?";
+        return jdbcTemplate.query(sql, subprojectRowMapper, projectID);
     }
 
     public Subproject findSubprojectByID(int id) {
@@ -49,9 +50,9 @@ public class SubprojectRepository {
         return jdbcTemplate.queryForObject(sql, subprojectRowMapper, id);
     }
 
-    public void updateSubproject(Subproject subproject) {
-        String sql = "UPDATE subproject SET subprojectName = ? WHERE subprojectID = ?";
-        jdbcTemplate.update(sql, subproject.getSubprojectName(), subproject.getSubprojectID());
+    public void updateSubproject(Subproject subproject, int projectID) {
+        String sql = "UPDATE subproject SET subprojectName = ?, projectID = ? WHERE subprojectID = ?";
+        jdbcTemplate.update(sql, subproject.getSubprojectName(), projectID, subproject.getSubprojectID());
     }
 
     public void deleteSubproject(int subprojectID) {

@@ -23,56 +23,61 @@ public class SubprojectController {
     }
 
     @GetMapping("/subproject")
-    public String showSubproject(Model model, HttpSession session) {
-        List<Subproject> listOfSubproject = subprojectService.showSubproject();
-        model.addAttribute("subproject", listOfSubproject);
+    public String showSubproject(@RequestParam("projectID") int projectID, Model model, HttpSession session) {
+        List<Subproject> listOfSubproject = subprojectService.showSubproject(projectID);
+        model.addAttribute("subprojects", listOfSubproject);
+        model.addAttribute("projectID", projectID);
+        System.out.println("All subprojects: " + subprojectService.showSubproject(projectID));
         return isLoggedIn(session) ? "showSubproject" : "redirect:/account/login";
     }
 
     @GetMapping("/addSubproject")
-    public String addSubproject(Model model, HttpSession session) {
+    public String addSubproject(@RequestParam("projectID") int projectID, Model model, HttpSession session) {
         model.addAttribute("subproject", new Subproject());
+        model.addAttribute("projectID", projectID);
         return isLoggedIn(session) ? "addSubproject" : "redirect:/account/login";
     }
 
     @PostMapping("/addSubproject")
-    public String saveSubproject(@ModelAttribute("subproject") Subproject subproject, HttpSession session) {
+    public String saveSubproject(@RequestParam("projectID") int projectID,@ModelAttribute("subproject") Subproject subproject, HttpSession session) {
         if (!isLoggedIn(session)) {
             return "redirect:/account/login";
         }
-        subprojectService.addSubproject(subproject);
-        return "redirect:/OnTheDot/subproject";
+        subprojectService.addSubproject(subproject, projectID);
+        return "redirect:/OnTheDot/subproject?projectID=" + projectID;
     }
 
     @PostMapping("/deleteSubproject")
-    public String deleteSubproject(@RequestParam("id") int subprojectID, HttpSession session) {
+    public String deleteSubproject(@RequestParam("subprojectID") int subprojectID,@RequestParam("projectID") int projectID, HttpSession session) {
         if (!isLoggedIn(session)) {
             return "redirect:/account/login";
         }
         subprojectService.deleteSubproject(subprojectID);
-        return "redirect:/OnTheDot/subproject";
+        return "redirect:/OnTheDot/subproject?projectID=" + projectID;
     }
 
     @GetMapping("/editSubproject")
-    public String editSubproject(@RequestParam("id") int subprojectID, Model model, HttpSession session) {
+    public String editSubproject(@RequestParam("subprojectID") int subprojectID, @RequestParam("projectID") int projectID, Model model, HttpSession session) {
         if (!isLoggedIn(session)) {
             return "redirect:/account/login";
         }
         Subproject subproject = subprojectService.findSubprojectByID(subprojectID);
         if (subproject != null) {
             model.addAttribute("subproject", subproject);
+            model.addAttribute("projectID", projectID);
             return "editSubproject";
         } else {
-            return "redirect:/OnTheDot/subproject";
+            return "redirect:/OnTheDot/subproject?projectID=" + projectID;
+
         }
     }
 
     @PostMapping("/editSubproject")
-    public String updateSubproject(@ModelAttribute("subproject") Subproject subproject, HttpSession session) {
+    public String updateSubproject(@RequestParam("projectID") int projectID,@ModelAttribute("subproject") Subproject subproject, HttpSession session) {
         if (!isLoggedIn(session)) {
             return "redirect:/account/login";
         }
-        subprojectService.updateSubproject(subproject);
-        return "redirect:/OnTheDot/subproject";
+        subprojectService.updateSubproject(subproject, projectID);
+        return "redirect:/OnTheDot/subproject?projectID=" + projectID;
     }
 }
