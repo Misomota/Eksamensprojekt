@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Projects</title>
     <link rel="stylesheet" href="/header.css">
-    <link rel="stylesheet" href="/projectAndSubproject.css">
 </head>
 <body>
 
@@ -35,6 +34,7 @@
             <a th:href="@{/OnTheDot/subproject(projectID=${p.projectID})}"
                th:text="${p.projectName}"></a>
         </td>
+        <td th:text="${projectDurations[p.projectID]} + ' hours used'"></td>
         <td>
             <a th:href="@{/OnTheDot/editProject(projectID=${p.projectID})}" class="btn">Edit</a>
             <form th:action="@{/OnTheDot/deleteProject}" method="post" style="display:inline;">

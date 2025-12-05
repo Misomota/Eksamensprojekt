@@ -1,14 +1,15 @@
 package com.misomota.exam.controller;
 
 import com.misomota.exam.model.Project;
-import com.misomota.exam.model.Subproject;
 import com.misomota.exam.service.ProjectService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/OnTheDot")
@@ -29,7 +30,13 @@ public class ProjectController {
             return "redirect:/account/login";
         }
         List<Project> projectList = projectService.readProject();
+        Map<Integer, Integer> projectDurations = new HashMap<>();
+        for (Project project : projectList) {
+            int totalTime = projectService.getActualTime(project.getProjectID());
+            projectDurations.put(project.getProjectID(), totalTime);
+        }
         model.addAttribute("projects", projectList);
+        model.addAttribute("projectDurations", projectDurations);
         return "showProject";
     }
 

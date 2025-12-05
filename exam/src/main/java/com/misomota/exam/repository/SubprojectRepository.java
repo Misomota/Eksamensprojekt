@@ -50,6 +50,11 @@ public class SubprojectRepository {
         return jdbcTemplate.queryForObject(sql, subprojectRowMapper, id);
     }
 
+    public List<Subproject> findSubprojectsByProjectId(int projectID) {
+        String sql = "SELECT subprojectID, subprojectName, projectID FROM subproject WHERE projectID = ?";
+        return jdbcTemplate.query(sql, subprojectRowMapper, projectID);
+    }
+
     public void updateSubproject(Subproject subproject, int projectID) {
         String sql = "UPDATE subproject SET subprojectName = ?, projectID = ? WHERE subprojectID = ?";
         jdbcTemplate.update(sql, subproject.getSubprojectName(), projectID, subproject.getSubprojectID());

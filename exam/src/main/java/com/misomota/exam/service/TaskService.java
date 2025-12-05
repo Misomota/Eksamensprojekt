@@ -1,6 +1,8 @@
 package com.misomota.exam.service;
 
+import com.misomota.exam.model.Subproject;
 import com.misomota.exam.model.Task;
+import com.misomota.exam.repository.SubprojectRepository;
 import com.misomota.exam.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +13,11 @@ import java.util.List;
 @Service
 public class TaskService {
     private final TaskRepository taskRepository;
+    private final SubprojectRepository subprojectRepository;
 
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository, SubprojectRepository subprojectRepository) {
         this.taskRepository = taskRepository;
+        this.subprojectRepository = subprojectRepository;
     }
 
     public List<Task> showTask(int subprojectID) {
@@ -52,5 +56,17 @@ public class TaskService {
     public int timeEstimate(Task task) {
         int hoursPerDay = task.getDuration() * 8;
         return hoursPerDay;
+    }
+
+    public int getActualTimeForProject(int projectID) {
+        List<Subproject> subprojects = subprojectRepository.findSubprojectsByProjectId(projectID);
+        int totalActualTime = 0;
+        for (Subproject s : subprojects) {
+            List<Task> tasks = taskRepository.showTask(s.getSubprojectID());
+            for (Task task : tasks) {
+                totalActualTime += task.getActualTimeUsed();
+            }
+        }
+        return totalActualTime;
     }
 }
