@@ -24,11 +24,15 @@ DROP TABLE IF EXISTS task;
 CREATE TABLE IF NOT EXISTS task(
 taskID INT AUTO_INCREMENT,
 taskName VARCHAR(100) NOT NULL,
-projectID INT NOT NULL,
 subprojectID INT,
+startDate DATE,
+deadline DATETIME,
+timeEstimate INT,
+personAssigned INT,
+resource VARCHAR(100),
+duration INT,
+acutalTimeUsed INT,
 PRIMARY KEY(taskID),
-FOREIGN KEY(projectID) REFERENCES project(projectID)
-ON DELETE CASCADE,
 FOREIGN KEY (subprojectID) REFERENCES subproject(subprojectID)
 ON DELETE CASCADE
 );
@@ -36,7 +40,7 @@ ON DELETE CASCADE
 DROP TABLE IF EXISTS account;
 CREATE TABLE IF NOT EXISTS account(
 username VARCHAR(300) NOT NULL UNIQUE,
-accountPassword VARCHAR(100) NOT NULL,
+password VARCHAR(100) NOT NULL,
 accountID INT AUTO_INCREMENT,
 role VARCHAR(20),
 PRIMARY KEY (accountID)
