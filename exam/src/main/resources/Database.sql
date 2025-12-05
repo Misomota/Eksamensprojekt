@@ -31,7 +31,7 @@ timeEstimate INT,
 personAssigned INT,
 resource VARCHAR(100),
 duration INT,
-acutalTimeUsed INT,
+actualTimeUsed INT,
 PRIMARY KEY(taskID),
 FOREIGN KEY (subprojectID) REFERENCES subproject(subprojectID)
 ON DELETE CASCADE
@@ -42,6 +42,6 @@ CREATE TABLE IF NOT EXISTS account(
 username VARCHAR(300) NOT NULL UNIQUE,
 password VARCHAR(100) NOT NULL,
 accountID INT AUTO_INCREMENT,
-role VARCHAR(20),
+role VARCHAR(100),
 PRIMARY KEY (accountID)
 );
