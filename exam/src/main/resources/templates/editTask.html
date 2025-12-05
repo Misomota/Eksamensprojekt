@@ -28,7 +28,8 @@
   <input type="hidden" name="subprojectID" th:value="${subprojectID}" />
 
   <div>
-    <input th:field="*{taskName}" placeholder="Name of task" type="text" class="input" required/>
+    <input type="hidden" th:field="*{taskID}"/>
+    <input th:field="*{taskName}" placeholder="Name of task" type="search" class="input" required/>
     <input th:field="*{startDate}" placeholder="start date" type="date" class="input" required/>
     <input th:field="*{deadline}" placeholder="deadline" type="date" class="input" required/>
     <input th:field="*{personAssigned}" placeholder="People assigned" type="text" class="input" required/>
