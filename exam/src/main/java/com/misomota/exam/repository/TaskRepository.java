@@ -29,7 +29,8 @@ public class TaskRepository {
                     rs.getInt("timeEstimate"),
                     rs.getInt("personAssigned"),
                     rs.getString("resource"),
-                    rs.getInt("duration")
+                    rs.getInt("duration"),
+                    rs.getInt("actualTimeUsed")
             );
 
     public Task addTask(Task task, int subprojectID) {
@@ -51,7 +52,7 @@ public class TaskRepository {
         }, keyHolder);
 
         int newID = keyHolder.getKey() != null ? keyHolder.getKey().intValue() : -1;
-        return new Task(newID, task.getTaskName(), task.getStartDate(), task.getDeadline(),task.getTimeEstimate(), task.getPersonAssigned(), task.getResource(), task.getDuration());
+        return new Task(newID, task.getTaskName(), task.getStartDate(), task.getDeadline(),task.getTimeEstimate(), task.getPersonAssigned(), task.getResource(), task.getDuration(), task.getActualTimeUsed());
     }
 
     public List<Task> showTask(int subprojectID) {

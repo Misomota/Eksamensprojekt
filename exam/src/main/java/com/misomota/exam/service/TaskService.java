@@ -4,7 +4,6 @@ import com.misomota.exam.model.Task;
 import com.misomota.exam.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -22,6 +21,8 @@ public class TaskService {
         for (Task task : tasks) {
             int duration = calculateDuration(task);
             task.setDuration(duration);
+            int hoursEstimated = timeEstimate(task);
+            task.setTimeEstimate(hoursEstimated);
         }
         return tasks;
     }
@@ -41,33 +42,15 @@ public class TaskService {
     public void updateTask(Task task) {
         taskRepository.updateTask(task);
     }
-
-    public double calculateRequiredDays(Task task) {
-        int totalHours = task.getTimeEstimate();
-        int person = task.getPersonAssigned();
-        if (person<=0) {
-            throw new IllegalArgumentException("The amount of people assigned must be greater than 0");
-        }
-        return (double) totalHours / (8 * person);
-    }
-
-    public boolean canFinishBeforeDeadline(Task task) {
-        int hoursPerDay = task.getPersonAssigned() * 8;
-        double requiredDays = (double) task.getTimeEstimate() / hoursPerDay;
-
-        LocalDate current = task.getStartDate();
-        int availableDays = 0;
-
-        while (!current.isAfter(task.getDeadline())) {
-            availableDays++;
-            current = current.plusDays(1);
-        }
-        return requiredDays <= availableDays;
-    }
       
     public int calculateDuration(Task task) {
         LocalDate start = task.getStartDate();
         LocalDate end = task.getDeadline();
         return (int) ChronoUnit.DAYS.between(start, end);
+    }
+
+    public int timeEstimate(Task task) {
+        int hoursPerDay = task.getDuration() * 8;
+        return hoursPerDay;
     }
 }

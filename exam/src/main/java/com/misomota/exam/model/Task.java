@@ -12,13 +12,14 @@ public class Task {
     private int personAssigned;
     private String resource;
     private int duration;
+    private int actualTimeUsed;
 
     public Task() {
 
     }
 
 
-    public Task(int taskID ,String taskName, LocalDate startDate, LocalDate deadline, int timeEstimate,int personsAssigned, String resource, int duration) {
+    public Task(int taskID ,String taskName, LocalDate startDate, LocalDate deadline, int timeEstimate,int personsAssigned, String resource, int duration, int actualTimeUsed) {
         this.taskID = taskID;
         this.taskName = taskName;
         this.startDate = startDate;
@@ -27,6 +28,7 @@ public class Task {
         this.personAssigned = personsAssigned;
         this.resource = resource;
         this.duration = duration;
+        this.actualTimeUsed = actualTimeUsed;
     }
 
     public int getTaskID() {
@@ -61,6 +63,10 @@ public class Task {
         return duration;
     }
 
+    public int getActualTimeUsed() {
+        return actualTimeUsed;
+    }
+
     public void setTaskName(String taskName) {
         this.taskName = taskName;
     }
@@ -91,5 +97,9 @@ public class Task {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public void setActualTimeUsed(int actualTimeUsed) {
+        this.actualTimeUsed = actualTimeUsed;
     }
 }
