@@ -61,13 +61,13 @@ public class ProjectRepository {
         return jdbcTemplate.queryForObject(sql, projectRowmapper, projectID);
     }
 
-    public void updateProject(Project project) {
-        String sql = "UPDATE project SET projectName = ? WHERE projectID = ?";
-        jdbcTemplate.update(sql, project.getProjectName(), project.getProjectID());
+    public int updateProject(Project project) {
+        return jdbcTemplate.update("UPDATE project SET projectName = ? WHERE projectID = ?",
+                project.getProjectName(), project.getProjectID());
     }
 
-    public void deleteProject(int projectID) {
-        String sql = "DELETE FROM project WHERE projectID = ?";
-        jdbcTemplate.update(sql, projectID);
+    public int deleteProject(int projectID) {
+        return jdbcTemplate.update("DELETE FROM project WHERE projectID = ?",
+                projectID);
     }
 }
