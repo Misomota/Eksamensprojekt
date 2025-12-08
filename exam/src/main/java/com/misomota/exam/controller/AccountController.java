@@ -1,5 +1,6 @@
 package com.misomota.exam.controller;
 
+import com.misomota.exam.DRY.Session;
 import com.misomota.exam.model.Account;
 import com.misomota.exam.service.AccountService;
 import jakarta.servlet.http.HttpSession;
@@ -16,13 +17,9 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    private boolean isLoggedIn(HttpSession session) {
-        return session.getAttribute("account") != null;
-    }
-
     @GetMapping("/login")
     public String loginPage(Model model, HttpSession session) {
-        if (isLoggedIn(session)) {
+        if (Session.isLoggedIn(session)) {
             return "redirect:/OnTheDot/projects";
         }
         model.addAttribute("login", new Account());
