@@ -30,7 +30,7 @@ public class SubprojectService {
         subprojectRepository.deleteSubproject(id);
     }
 
-    public void  updateSubproject(Subproject subproject, int projectID) {
-        subprojectRepository.updateSubproject(subproject, projectID);
+    public void  updateSubproject(Subproject subproject) {
+        subprojectRepository.updateSubproject(subproject);
     }
 }

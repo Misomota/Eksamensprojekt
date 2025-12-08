@@ -31,7 +31,7 @@ timeEstimate INT,
 personAssigned INT,
 resource VARCHAR(100),
 duration INT,
-acutalTimeUsed INT,
+actualTimeUsed INT,
 PRIMARY KEY(taskID),
 FOREIGN KEY (subprojectID) REFERENCES subproject(subprojectID)
 ON DELETE CASCADE
