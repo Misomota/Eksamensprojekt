@@ -73,11 +73,11 @@ public class SubprojectController {
     }
 
     @PostMapping("/editSubproject")
-    public String updateSubproject(@RequestParam("projectID") int projectID,@ModelAttribute("subproject") Subproject subproject, HttpSession session) {
+    public String updateSubproject(@RequestParam("projectID") int projectID, @ModelAttribute("subproject") Subproject subproject, HttpSession session) {
         if (!isLoggedIn(session)) {
             return "redirect:/account/login";
         }
-        subprojectService.updateSubproject(subproject, projectID);
+        subprojectService.updateSubproject(subproject);
         return "redirect:/OnTheDot/subproject?projectID=" + projectID;
     }
 }

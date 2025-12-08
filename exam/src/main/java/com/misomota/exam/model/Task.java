@@ -19,13 +19,13 @@ public class Task {
     }
 
 
-    public Task(int taskID ,String taskName, LocalDate startDate, LocalDate deadline, int timeEstimate,int personsAssigned, String resource, int duration, int actualTimeUsed) {
+    public Task(int taskID ,String taskName, LocalDate startDate, LocalDate deadline, int timeEstimate,int personAssigned, String resource, int duration, int actualTimeUsed) {
         this.taskID = taskID;
         this.taskName = taskName;
         this.startDate = startDate;
         this.deadline = deadline;
         this.timeEstimate = timeEstimate;
-        this.personAssigned = personsAssigned;
+        this.personAssigned = personAssigned;
         this.resource = resource;
         this.duration = duration;
         this.actualTimeUsed = actualTimeUsed;

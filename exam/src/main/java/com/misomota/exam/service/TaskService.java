@@ -46,7 +46,7 @@ public class TaskService {
     public int calculateDuration(Task task) {
         LocalDate start = task.getStartDate();
         LocalDate end = task.getDeadline();
-        return (int) ChronoUnit.DAYS.between(start, end);
+        return (int) ChronoUnit.DAYS.between(start, end) + 1;
     }
 
     public int timeEstimate(Task task) {

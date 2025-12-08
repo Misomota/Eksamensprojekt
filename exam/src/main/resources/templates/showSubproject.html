@@ -36,7 +36,7 @@
                th:text="${p.subprojectName}"></a>
         </td>
         <td>
-            <a th:href="@{/OnTheDot/editSubproject(subprojectID=${p.subprojectID},projectID=${projectID})}" class="btn">Edit</a>
+            <a th:href="@{/OnTheDot/editSubproject(subprojectID=${p.subprojectID}, projectID=${projectID})}" class="btn">Edit</a>
             <form th:action="@{/OnTheDot/deleteSubproject}" method="post">
                 <input type="hidden" name="subprojectID" th:value="${p.subprojectID}">
                 <input type="hidden" name="projectID" th:value="${projectID}">
