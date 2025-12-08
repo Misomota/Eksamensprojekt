@@ -2,41 +2,30 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Create Task</title>
+    <title th:text="#{action.create} + ' ' + #{entity.task}"></title>
     <link rel="stylesheet" href="/button.css">
     <link rel="stylesheet" href="/forms.css">
     <link rel="stylesheet" href="/header.css">
 </head>
 <body>
-<header class="topbar">
-    <a href="/OnTheDot/projects" class="logo-link">
-        <img src="/images/logo.PNG" alt="Logo" class="logo"></a>
+<div th:replace="~{header :: mainHeader}"></div>
 
-    <h1> On The Dot</h1>
-
-    <div class="right-items">
-        <a href="https://github.com/Misomota/Eksamensprojekt" class="logo-link">
-            <img src="/images/github.PNG" alt="Logo" class="logo"></a>
-
-        <a th:href="@{/account/logout}">Sign Out</a>
-    </div>
-</header>
-
-<h1>Create Task</h1>
+<h1 th:text="#{action.create} + ' ' + #{entity.task}"></h1>
 
 <form th:action="@{/OnTheDot/addTask}" th:object="${task}" method="post">
     <input type="hidden" name="subprojectID" th:value="${subprojectID}">
 
-        <input th:field="*{taskName}" placeholder="Name of task" type="search" class="input" required>
-        <input th:field="*{startDate}" placeholder="start date" type="date" class="input" required>
-        <input th:field="*{deadline}" placeholder="deadline" type="date" class="input" required>
-        <input th:field="*{personAssigned}" placeholder="people assigned" type="text" class="input" required>
-        <input th:field="*{actualTimeUsed}" placeholder="actual time used" type="number" class="input" required>
-
+    <div class="group">
+        <input th:field="*{taskName}" th:placeholder="#{field.name}" class="input" required>
+        <input th:field="*{startDate}" th:placeholder="#{field.startDate}" type="date" class="input" required>
+        <input th:field="*{deadline}" th:placeholder="#{field.deadline}" type="date" class="input" required>
+        <input th:field="*{personAssigned}" th:placeholder="#{field.personAssigned}" class="input" required>
+        <input th:field="*{actualTimeUsed}" th:placeholder="#{field.actualTimeUsed}" type="number" class="input" required>
+    </div>
 
     <div class="button-group">
-        <button type="submit" class="btn">Create</button>
-        <a th:href="@{/OnTheDot/task(subprojectID=${subprojectID})}" class="btn">Cancel</a>
+        <button type="submit" class="btn" th:text="#{action.create}"></button>
+        <a th:href="@{/OnTheDot/task(subprojectID=${subprojectID})}" class="btn" th:text="#{action.cancel}"></a>
     </div>
 </form>
 </body>

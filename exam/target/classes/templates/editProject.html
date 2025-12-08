@@ -1,42 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Edit project</title>
+    <title th:text="#{action.edit} + ' ' + #{entity.project}"></title>
     <link rel="stylesheet" href="/forms.css">
-    <link rel="stylesheet" href="/header.css">
     <link rel="stylesheet" href="/button.css">
+    <link rel="stylesheet" href="/header.css">
 </head>
 <body>
-<header class="topbar">
-    <a href="/OnTheDot/projects" class="logo-link">
-        <img src="/images/logo.PNG" alt="Logo" class="logo"></a>
+<div th:replace="~{header :: mainHeader}"></div>
 
-    <h1> On The Dot</h1>
-
-    <div class="right-items">
-        <a href="https://github.com/Misomota/Eksamensprojekt" class="logo-link">
-            <img src="/images/github.PNG" alt="Logo" class="logo"></a>
-
-        <a th:href="@{/account/logout}">Sign Out</a>
-    </div>
-</header>
-
-<h2>Edit project</h2>
+<h1 th:text="#{action.edit} + ' ' + #{entity.project}"></h1>
 
 <form th:action="@{/OnTheDot/editProject}" th:object="${project}" method="post">
-    <input type="hidden" th:field="*{projectID}" />
+    <input type="hidden" th:field="*{projectID}"/>
 
-    <div>
-        <div class="group">
-            <input th:field="*{projectName}" placeholder="Project name" type="text" class="input" required/>
-        </div>
-
+    <div class="group">
+        <input th:field="*{projectName}" th:placeholder="#{field.name}" class="input" required/>
     </div>
 
-    <div class="buttonRow">
-        <button type="submit" class ="btn">Save</button>
-        <a th:href="@{/OnTheDot/projects}" class="btn">Cancel</a>
+    <div class="button-group">
+        <button type="submit" class="btn" th:text="#{action.save}"></button>
+        <a th:href="@{/OnTheDot/projects}" class="btn" th:text="#{action.cancel}"></a>
     </div>
 </form>
 </body>
