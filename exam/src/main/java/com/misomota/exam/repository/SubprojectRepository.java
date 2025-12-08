@@ -50,13 +50,11 @@ public class SubprojectRepository {
         return jdbcTemplate.queryForObject(sql, subprojectRowMapper, id);
     }
 
-    public void updateSubproject(Subproject subproject) {
-        String sql = "UPDATE subproject SET subprojectName = ? WHERE subprojectID = ?";
-        jdbcTemplate.update(sql, subproject.getSubprojectName(), subproject.getSubprojectID());
+    public int updateSubproject(Subproject subproject) {
+        return jdbcTemplate.update("UPDATE subproject SET subprojectName = ? WHERE subprojectID = ?", subproject.getSubprojectName(), subproject.getSubprojectID());
     }
 
-    public void deleteSubproject(int subprojectID) {
-        String sql = "DELETE FROM subproject WHERE subprojectID = ?";
-        jdbcTemplate.update(sql, subprojectID);
+    public int deleteSubproject(int subprojectID) {
+        return jdbcTemplate.update("DELETE FROM subproject WHERE subprojectID = ?", subprojectID);
     }
 }

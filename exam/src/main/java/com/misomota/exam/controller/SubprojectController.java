@@ -1,5 +1,6 @@
 package com.misomota.exam.controller;
 
+import com.misomota.exam.DRY.Session;
 import com.misomota.exam.model.Subproject;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
@@ -18,29 +19,25 @@ public class SubprojectController {
         this.subprojectService = subprojectService;
     }
 
-    private boolean isLoggedIn(HttpSession session) {
-        return session.getAttribute("account") != null;
-    }
-
     @GetMapping("/subproject")
     public String showSubproject(@RequestParam("projectID") int projectID, Model model, HttpSession session) {
         List<Subproject> listOfSubproject = subprojectService.showSubproject(projectID);
         model.addAttribute("subprojects", listOfSubproject);
         model.addAttribute("projectID", projectID);
         System.out.println("All subprojects: " + subprojectService.showSubproject(projectID));
-        return isLoggedIn(session) ? "showSubproject" : "redirect:/account/login";
+        return Session.isLoggedIn(session) ? "showSubproject" : "redirect:/account/login";
     }
 
     @GetMapping("/addSubproject")
     public String addSubproject(@RequestParam("projectID") int projectID, Model model, HttpSession session) {
         model.addAttribute("subproject", new Subproject());
         model.addAttribute("projectID", projectID);
-        return isLoggedIn(session) ? "addSubproject" : "redirect:/account/login";
+        return Session.isLoggedIn(session) ? "addSubproject" : "redirect:/account/login";
     }
 
     @PostMapping("/addSubproject")
     public String saveSubproject(@RequestParam("projectID") int projectID,@ModelAttribute("subproject") Subproject subproject, HttpSession session) {
-        if (!isLoggedIn(session)) {
+        if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
         subprojectService.addSubproject(subproject, projectID);
@@ -49,7 +46,7 @@ public class SubprojectController {
 
     @PostMapping("/deleteSubproject")
     public String deleteSubproject(@RequestParam("subprojectID") int subprojectID,@RequestParam("projectID") int projectID, HttpSession session) {
-        if (!isLoggedIn(session)) {
+        if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
         subprojectService.deleteSubproject(subprojectID);
@@ -58,7 +55,7 @@ public class SubprojectController {
 
     @GetMapping("/editSubproject")
     public String editSubproject(@RequestParam("subprojectID") int subprojectID, @RequestParam("projectID") int projectID, Model model, HttpSession session) {
-        if (!isLoggedIn(session)) {
+        if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
         Subproject subproject = subprojectService.findSubprojectByID(subprojectID);
@@ -74,10 +71,10 @@ public class SubprojectController {
 
     @PostMapping("/editSubproject")
     public String updateSubproject(@RequestParam("projectID") int projectID, @ModelAttribute("subproject") Subproject subproject, HttpSession session) {
-        if (!isLoggedIn(session)) {
+        if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
-        subprojectService.updateSubproject(subproject);
+        subprojectService.updateSubproject(subproject, subproject.getSubprojectID());
         return "redirect:/OnTheDot/subproject?projectID=" + projectID;
     }
 }

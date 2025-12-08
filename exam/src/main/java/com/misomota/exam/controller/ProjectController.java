@@ -1,5 +1,6 @@
 package com.misomota.exam.controller;
 
+import com.misomota.exam.DRY.Session;
 import com.misomota.exam.model.Project;
 import com.misomota.exam.model.Subproject;
 import com.misomota.exam.service.ProjectService;
@@ -20,13 +21,9 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-    private boolean isLoggedIn(HttpSession session) {
-        return session.getAttribute("account") != null;
-    }
-
     @GetMapping("/projects")
     public String showAllProjects(Model model, HttpSession session) {
-        if (!isLoggedIn(session)) {
+        if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
         List<Project> projectList = projectService.readProject();
@@ -37,12 +34,12 @@ public class ProjectController {
     @GetMapping("/addProject")
     public String addProject(Model model, HttpSession session) {
         model.addAttribute("project",new Project());
-        return isLoggedIn(session) ? "addProject" : "redirect:/account/login";
+        return Session.isLoggedIn(session) ? "addProject" : "redirect:/account/login";
     }
 
     @PostMapping("/addProject")
     public String saveProject(@ModelAttribute("project") Project project, HttpSession session) {
-        if (!isLoggedIn(session)) {
+        if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
         projectService.createProject(project);
@@ -51,7 +48,7 @@ public class ProjectController {
 
     @GetMapping("/editProject")
     public String editProject(@RequestParam("projectID") int projectID, Model model, HttpSession session) {
-        if (!isLoggedIn(session)) {
+        if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
         Project project = projectService.findProjectByID(projectID);
@@ -65,7 +62,7 @@ public class ProjectController {
 
     @PostMapping("/editProject")
     public String updateProject(@ModelAttribute("project") Project project, HttpSession session) {
-        if (!isLoggedIn(session)) {
+        if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
         projectService.updateProject(project, project.getProjectID());
@@ -74,7 +71,7 @@ public class ProjectController {
 
     @PostMapping("/deleteProject")
     public String deleteProject(@RequestParam("projectID") int id,  HttpSession session) {
-        if (!isLoggedIn(session)) {
+        if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
         projectService.deleteProject(id);
