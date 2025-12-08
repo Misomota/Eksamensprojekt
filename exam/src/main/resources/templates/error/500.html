@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>500 - server error</title>
+</head>
+<body>
+<div class="container error-500">
+    <h1>500 – Internal Server Error</h1>
+    <p th:text="${message}">An unexpected error occurred. Please try again later.</p>
+    <a class="back-link" th:href="@{/}">Back</a>
+</div>
+</body>
+</html>
