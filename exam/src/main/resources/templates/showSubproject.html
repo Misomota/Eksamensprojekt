@@ -13,7 +13,7 @@
 <a th:href="@{/OnTheDot/addSubproject(projectID=${projectID})}" class="btn" th:text="#{action.create} + ' ' + #{entity.subproject}"></a>
 
 <div th:if="${subprojects.isEmpty()}">
-    <h2 th:text="#{field.empty} + ' ' + #{entity.subproject} + '. ' + #{field.create.new}"></h2>
+    <h2 th:text="#{entity.subproject} + ' ' + #{field.empty} + '. '  + #{field.create.new}"></h2>
 </div>
 
 <table th:if="${!subprojects.isEmpty()}">

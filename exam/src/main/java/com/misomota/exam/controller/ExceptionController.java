@@ -5,8 +5,10 @@ import com.misomota.exam.DRY.DuplicateProfileException;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import com.misomota.exam.DRY.NotFoundException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+@ControllerAdvice
 public class ExceptionController {
     @ExceptionHandler(NotFoundException.class)
     public String handleNotFound(NotFoundException ex, Model model) {

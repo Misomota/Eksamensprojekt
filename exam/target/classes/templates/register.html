@@ -20,13 +20,12 @@
         <input type="password" th:field="*{password}" th:placeholder="#{field.password}" required/>
 
         <label th:text="#{field.role}"></label>
-        <select th:field="*{role}">
-            <option th:value="EMPLOYEE" th:text="#{role.user}"></option>
-            <option th:value="MANAGER" th:text="#{role.admin}"></option>
+        <select th:field="*{role}" required>
+            <option th:value="USER" th:text="#{role.user}"></option>
+            <option th:value="ADMIN" th:text="#{role.admin}"></option>
         </select>
 
-        <button type="submit" class="btn" th:text="#{action.register}"></button>
-        <button type="reset" class="btn" th:text="#{action.cancel}"></button>
+        <button type="submit" th:text="#{action.register}"></button>
     </div>
 </form>
 
