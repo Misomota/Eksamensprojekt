@@ -2,31 +2,30 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title th:text="#{login.title}"></title>
     <link rel="stylesheet" href="/header.css">
     <link rel="stylesheet" href="/accountPages.css">
 </head>
 <body>
+<div th:replace="~{header :: mainHeader}"></div>
 
-<header class="topbar">
-    <h1>On The Dot</h1>
+<h1 th:text="#{login.title}"></h1>
 
-    <div class="right-items">
-        <a href="https://github.com/Misomota/Eksamensprojekt" class="logo-link">
-            <img src="/images/github.PNG" alt="Logo" class="logo"></a>
-    </div>
-</header>
-
-<h2>Login</h2>
 
 <div class="input-form">
-<form th:action="@{/account/login}" method="post">
-    <input type="text" name="username" placeholder="Username"/>
-    <input type="password" name="password" placeholder="Password"/>
-    <button type="submit">Login</button>
-</form>
+    <form th:action="@{/account/login}" method="post">
+        <label th:text="#{field.username}"></label>
+        <input type="text" name="username" th:placeholder="#{field.username}" required/>
+
+        <label th:text="#{field.password}"></label>
+        <input type="password" name="password" th:placeholder="#{field.password}" required/>
+
+        <button type="submit" class="btn" th:text="#{action.login}"></button>
+    </form>
 </div>
 
-<p>Do you not have an account? <a th:href="@{/account/register}">Register here</a></p>
+<p>
+    <a th:href="@{/account/register}" th:text="#{action.register}"></a>
+</p>
 </body>
 </html>

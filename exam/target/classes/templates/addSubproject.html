@@ -2,38 +2,28 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Create subproject</title>
+    <title th:text="#{action.create} + ' ' + #{entity.subproject}"></title>
     <link rel="stylesheet" href="/button.css">
     <link rel="stylesheet" href="/forms.css">
     <link rel="stylesheet" href="/header.css">
 </head>
 <body>
-<header class="topbar">
-    <a href="/OnTheDot/projects" class="logo-link">
-        <img src="/images/logo.PNG" alt="Logo" class="logo"></a>
+<div th:replace="~{header :: mainHeader}"></div>
 
-    <h1> On The Dot</h1>
-
-    <div class="right-items">
-        <a href="https://github.com/Misomota/Eksamensprojekt" class="logo-link">
-            <img src="/images/github.PNG" alt="Logo" class="logo"></a>
-
-        <a th:href="@{/account/logout}">Sign Out</a>
-    </div>
-</header>
-
-<h1> Create subproject</h1>
+<h1 th:text="#{action.create} + ' ' + #{entity.subproject}"></h1>
 
 <form th:action="@{/OnTheDot/addSubproject}" th:object="${subproject}" method="post">
     <input type="hidden" name="projectID" th:value="${projectID}">
 
     <div class="group">
-        <input th:field="*{subprojectName}" placeholder="Name of subproject" type="search" class="input" required>
+        <input th:field="*{subprojectName}"
+               th:placeholder="#{field.name}"
+               class="input" required>
     </div>
 
     <div class="button-group">
-        <button type="submit" class="btn">create</button>
-        <a th:href="@{/OnTheDot/subproject(projectID=${projectID})}" class="btn">Cancel</a>
+        <button type="submit" class="btn" th:text="#{action.create}"></button>
+        <a th:href="@{/OnTheDot/subproject(projectID=${projectID})}" class="btn" th:text="#{action.cancel}"></a>
     </div>
 </form>
 </body>

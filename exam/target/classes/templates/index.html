@@ -2,27 +2,19 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Welcome</title>
+  <title th:text="#{welcome.title}"></title>
   <link rel="stylesheet" href="/header.css">
   <link rel="stylesheet" href="/accountPages.css">
 </head>
 <body>
-<header class="topbar">
-  <h1>On The Dot</h1>
+<div th:replace="~{header :: mainHeader}"></div>
 
-  <div class="right-items">
-    <a href="https://github.com/Misomota/Eksamensprojekt" class="logo-link">
-      <img src="/images/github.PNG" alt="Logo" class="logo"></a>
-  </div>
-</header>
-
-<h2>Welcome</h2>
-
-<h3>What would you like to do?</h3>
+<h1 th:text="#{welcome.title}"></h1>
+<h3 th:text="#{welcome.subtitle}"></h3>
 
 <div class="input-form">
-<a th:href="@{/account/login}">Login</a>
-<a th:href="@{/account/register}">Register</a>
+  <a th:href="@{/account/login}" class="btn" th:text="#{action.login}"></a>
+  <a th:href="@{/account/register}" class="btn" th:text="#{action.register}"></a>
 </div>
 </body>
 </html>
