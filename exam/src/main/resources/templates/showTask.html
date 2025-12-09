@@ -37,6 +37,12 @@
             <form th:action="@{/OnTheDot/deleteTask}" method="post" style="display:inline;">
                 <input type="hidden" name="taskID" th:value="${t.taskID}">
                 <input type="hidden" name="subprojectID" th:value="${subprojectID}">
+            </form>
+
+        <div class="btn">
+            <button type="submit">Delete</button>
+            <a th:href="@{/OnTheDot/editTask(taskID=${t.taskID}, subprojectID=${subprojectID})}" class="btn">Edit</a>
+        </div>
                 <button type="submit" th:text="#{action.delete}"></button>
             </form>
             <a th:href="@{/OnTheDot/editTask(taskID=${t.taskID}, subprojectID=${subprojectID})}" class="btn" th:text="#{action.edit}"></a>
