@@ -3,6 +3,7 @@ package com.misomota.exam.repository;
 import com.misomota.exam.model.Account;
 import com.misomota.exam.model.Role;
 import com.misomota.exam.model.Task;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -39,7 +40,7 @@ public class AccountRepository {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, account.getUsername());
             ps.setString(2, account.getPassword());
-            ps.setString(3, account.getRole().name());
+            ps.setString(3, account.getRole() != null ? account.getRole().name() : Role.USER.name());
             return ps;
         }, keyHolder);
 
@@ -52,6 +53,10 @@ public class AccountRepository {
 
     public Account findAccountByUsername(String username) {
         String sql = "SELECT accountID, username, password, role FROM account WHERE username = ?";
-            return jdbcTemplate.queryForObject(sql,accountRowmapper, username);
+        try {
+            return jdbcTemplate.queryForObject(sql, accountRowmapper, username);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 }

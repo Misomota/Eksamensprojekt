@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>error</title>
+    <title th:text="#{error.generic.title}"></title>
 </head>
 <body>
 <div class="container error-generic">
-    <h1 th:text="${status + ' – ' + error}">Error</h1>
-    <p th:text="${message}">Something went wrong.</p>
-    <a class="back-link" th:href="@{/}">Back</a>
+    <h1 th:text="#{error.generic.title}"></h1>
+    <p th:text="#{error.generic.message}"></p>
+    <a class="back-link" th:href="@{/}" th:text="#{action.back}"></a>
 </div>
 </body>
 </html>

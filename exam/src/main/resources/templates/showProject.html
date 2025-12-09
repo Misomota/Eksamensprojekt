@@ -2,44 +2,30 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Projects</title>
+    <title th:text="#{entity.project}"></title>
     <link rel="stylesheet" href="/header.css">
-    <link rel="stylesheet" href="/projectAndSubproject.css">
+    <link rel="stylesheet" href="/button.css">
 </head>
 <body>
+<div th:replace="~{header :: mainHeader}"></div>
 
-<header class="topbar">
-    <a href="/OnTheDot/projects" class="logo-link">
-        <img src="/images/logo.PNG" alt="Logo" class="logo"></a>
-
-    <h1> On The Dot</h1>
-
-    <div class="right-items">
-        <a href="https://github.com/Misomota/Eksamensprojekt" class="logo-link">
-            <img src="/images/github.PNG" alt="Logo" class="logo"></a>
-
-        <a th:href="@{/account/logout}">Sign Out</a>
-    </div>
-</header>
-
-<h1>Projects</h1>
-<a th:href="@{/OnTheDot/addProject}" class="btn">create new project</a>
+<h1 th:text="#{entity.project}"></h1>
+<a th:href="@{/OnTheDot/addProject}" class="btn" th:text="#{action.create} + ' ' + #{entity.project}"></a>
 
 <div th:if="${projects.isEmpty()}">
-    <h2>No projects found. Please click create to make your first project.</h2>
+    <h2 th:text="#{field.empty} + ' ' + #{entity.project} + '. ' + #{field.create.new}"></h2>
 </div>
 
-<table>
-    <tr th:if="${!projects.isEmpty()}" th:each="p : ${projects}">
+<table th:if="${!projects.isEmpty()}">
+    <tr th:each="p : ${projects}">
         <td>
-            <a th:href="@{/OnTheDot/subproject(projectID=${p.projectID})}"
-               th:text="${p.projectName}"></a>
+            <a th:href="@{/OnTheDot/subproject(projectID=${p.projectID})}" th:text="${p.projectName}"></a>
         </td>
         <td>
-            <a th:href="@{/OnTheDot/editProject(projectID=${p.projectID})}" class="btn">Edit</a>
+            <a th:href="@{/OnTheDot/editProject(projectID=${p.projectID})}" class="btn" th:text="#{action.edit}"></a>
             <form th:action="@{/OnTheDot/deleteProject}" method="post" style="display:inline;">
                 <input type="hidden" name="projectID" th:value="${p.projectID}">
-                <button type="submit">Delete️</button>
+                <button type="submit" th:text="#{action.delete}"></button>
             </form>
         </td>
     </tr>

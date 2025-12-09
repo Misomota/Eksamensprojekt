@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>500 - server error</title>
+    <title th:text="#{error.server.title}"></title>
 </head>
 <body>
 <div class="container error-500">
-    <h1>500 – Internal Server Error</h1>
-    <p th:text="${message}">An unexpected error occurred. Please try again later.</p>
-    <a class="back-link" th:href="@{/}">Back</a>
+    <h1 th:text="#{error.server.title}"></h1>
+    <p th:text="#{error.server.message}"></p>
+    <a class="back-link" th:href="@{/}" th:text="#{action.back}"></a>
 </div>
 </body>
 </html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="mainHeader" class="topbar">
+    <a href="/OnTheDot/projects" class="logo-link">
+      <img src="/images/logo.PNG" th:alt="#{header.logo.alt}" class="logo"/>
+    </a>
+
+    <h1 th:text="#{header.websitename}"></h1>
+
+    <div class="right-items">
+      <a href="https://github.com/Misomota/Eksamensprojekt" class="logo-link">
+        <img src="/images/github.PNG" th:alt="#{header.github.alt}" class="logo"/>
+      </a>
+
+      <a th:if="${session.account != null}" th:href="@{/account/logout}" th:text="#{header.signout}"></a>
+    </div>
+  </header>
+</body>
+</html>

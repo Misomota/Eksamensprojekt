@@ -2,40 +2,35 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Register an account</title>
+    <title th:text="#{register.title}"></title>
     <link rel="stylesheet" href="/header.css">
     <link rel="stylesheet" href="/accountPages.css">
 </head>
 <body>
-<header class="topbar">
-    <h1>On The Dot</h1>
+<div th:replace="~{header :: mainHeader}"></div>
 
-    <div class="right-items">
-        <a href="https://github.com/Misomota/Eksamensprojekt" class="logo-link">
-            <img src="/images/github.PNG" alt="Logo" class="logo"></a>
-    </div>
-</header>
-
-<h2>Register</h2>
+<h1 th:text="#{register.title}"></h1>
 
 <form th:action="@{/account/register}" th:object="${register}" method="post">
-
     <div class="input-form">
-        <label>Username:</label>
-        <input type="text" th:field="*{username}" placeholder="Enter username" required/>
+        <label th:text="#{field.username}"></label>
+        <input type="text" th:field="*{username}" th:placeholder="#{field.username}" required/>
 
-        <label>Password:</label>
-        <input type="password" th:field="*{password}" placeholder="Enter password" required/>
+        <label th:text="#{field.password}"></label>
+        <input type="password" th:field="*{password}" th:placeholder="#{field.password}" required/>
 
-        <select name="role">
-            <option value="USER">USER</option>
-            <option value="ADMIN">ADMIN</option>
+        <label th:text="#{field.role}"></label>
+        <select th:field="*{role}" required>
+            <option th:value="USER" th:text="#{role.user}"></option>
+            <option th:value="ADMIN" th:text="#{role.admin}"></option>
         </select>
 
-        <button type="submit">Register</button>
+        <button type="submit" th:text="#{action.register}"></button>
     </div>
 </form>
 
-<p>Already have an account? <a th:href="@{/account/login}">Login here</a></p>
+<p>
+    <a th:href="@{/account/login}" th:text="#{action.login}"></a>
+</p>
 </body>
 </html>

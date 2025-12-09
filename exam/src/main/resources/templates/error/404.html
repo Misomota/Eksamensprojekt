@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>404 - not found</title>
+    <title th:text="#{error.notfound.title}"></title>
 </head>
 <body>
 <div class="container error-404">
-    <h1>404 – Not Found</h1>
-    <p th:text="${message}">The requested resource could not be found.</p>
-    <a class="back-link" th:href="@{/}">Back</a>
+    <h1 th:text="#{error.notfound.title}"></h1>
+    <p th:text="#{error.notfound.message}"></p>
+    <a class="back-link" th:href="@{/}" th:text="#{action.back}"></a>
 </div>
 </body>
 </html>

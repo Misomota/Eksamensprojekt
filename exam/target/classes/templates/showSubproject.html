@@ -2,45 +2,31 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title></title>
-    <link rel="stylesheet" href="/button.css">
+    <title th:text="#{entity.subproject}"></title>
     <link rel="stylesheet" href="/header.css">
+    <link rel="stylesheet" href="/button.css">
 </head>
 <body>
+<div th:replace="~{header :: mainHeader}"></div>
 
-<header class="topbar">
-    <a href="/OnTheDot/projects" class="logo-link">
-        <img src="/images/logo.PNG" alt="Logo" class="logo"></a>
-
-    <h1> On The Dot</h1>
-
-    <div class="right-items">
-        <a href="https://github.com/Misomota/Eksamensprojekt" class="logo-link">
-            <img src="/images/github.PNG" alt="Logo" class="logo"></a>
-
-        <a th:href="@{/account/logout}">Sign Out</a>
-    </div>
-</header>
-
-<h1>Subprojects</h1>
-<a th:href="@{/OnTheDot/addSubproject(projectID=${projectID})}" class="btn">Create Subproject</a>
+<h1 th:text="#{entity.subproject}"></h1>
+<a th:href="@{/OnTheDot/addSubproject(projectID=${projectID})}" class="btn" th:text="#{action.create} + ' ' + #{entity.subproject}"></a>
 
 <div th:if="${subprojects.isEmpty()}">
-    <h2>No subprojects found. Please click create to make your first subproject.</h2>
+    <h2 th:text="#{entity.subproject} + ' ' + #{field.empty} + '. '  + #{field.create.new}"></h2>
 </div>
 
-<table>
-    <tr th:if="${!subprojects.isEmpty()}" th:each="p : ${subprojects}">
+<table th:if="${!subprojects.isEmpty()}">
+    <tr th:each="s : ${subprojects}">
         <td>
-            <a th:href="@{/OnTheDot/task(subprojectID=${p.subprojectID})}"
-               th:text="${p.subprojectName}"></a>
+            <a th:href="@{/OnTheDot/task(subprojectID=${s.subprojectID})}" th:text="${s.subprojectName}"></a>
         </td>
         <td>
-            <a th:href="@{/OnTheDot/editSubproject(subprojectID=${p.subprojectID}, projectID=${projectID})}" class="btn">Edit</a>
-            <form th:action="@{/OnTheDot/deleteSubproject}" method="post">
-                <input type="hidden" name="subprojectID" th:value="${p.subprojectID}">
+            <a th:href="@{/OnTheDot/editSubproject(subprojectID=${s.subprojectID}, projectID=${projectID})}" class="btn" th:text="#{action.edit}"></a>
+            <form th:action="@{/OnTheDot/deleteSubproject}" method="post" style="display:inline;">
+                <input type="hidden" name="subprojectID" th:value="${s.subprojectID}">
                 <input type="hidden" name="projectID" th:value="${projectID}">
-                <button type="submit">Delete</button>
+                <button type="submit" th:text="#{action.delete}"></button>
             </form>
         </td>
     </tr>
