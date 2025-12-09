@@ -22,11 +22,6 @@ public class TaskService {
 
     public List<Task> readTask(int subprojectID) {
         List<Task> tasks = taskRepository.readTask(subprojectID);
-
-        if (tasks == null) {
-            throw new NotFoundException("No tasks found");
-        }
-
         for (Task task : tasks) {
             int duration = calculateDuration(task);
             task.setDuration(duration);
@@ -46,11 +41,7 @@ public class TaskService {
     }
 
     public Task createTask(Task task, int subprojectID) {
-        try {
-            return taskRepository.createTask(task, subprojectID);
-        } catch (DataAccessException dataAccessException) {
-            throw new DatabaseOperationException("Failed to create project", dataAccessException);
-        }
+        return taskRepository.createTask(task, subprojectID);
     }
 
     public void deleteTask(int id) {

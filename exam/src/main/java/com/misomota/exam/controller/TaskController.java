@@ -23,7 +23,7 @@ public class TaskController {
 
 
     @GetMapping("/task")
-    public String showTask(@RequestParam("subprojectID") int subprojectID, Model model, HttpSession session) {
+    public String readTask(@RequestParam("subprojectID") int subprojectID, Model model, HttpSession session) {
         List<Task> listOfTask = taskService.readTask(subprojectID);
         model.addAttribute("tasks", listOfTask);
         model.addAttribute("subprojectID", subprojectID);
@@ -31,7 +31,7 @@ public class TaskController {
     }
 
     @GetMapping("/addTask")
-    public String addTask(@RequestParam("subprojectID") int subprojectID, Model model, HttpSession session) {
+    public String createTask(@RequestParam("subprojectID") int subprojectID, Model model, HttpSession session) {
         model.addAttribute("task", new Task());
         model.addAttribute("subprojectID", subprojectID);
         return isLoggedIn(session) ? "addTask" : "redirect:/account/login";
