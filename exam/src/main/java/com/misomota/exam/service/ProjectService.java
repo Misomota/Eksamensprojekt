@@ -36,7 +36,7 @@ public class ProjectService {
 
     public Project findProjectByID(int id) {
         Project projects = projectRepository.findProjectByID(id);
-        ;
+
         if (projects == null) {
             throw new NotFoundException("No projects found");
         }
