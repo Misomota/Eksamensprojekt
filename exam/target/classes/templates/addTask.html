@@ -15,13 +15,12 @@
 <form th:action="@{/OnTheDot/addTask}" th:object="${task}" method="post">
     <input type="hidden" name="subprojectID" th:value="${subprojectID}">
 
-    <div class="group">
-        <input th:field="*{taskName}" th:placeholder="#{field.name}" class="input" required>
-        <input th:field="*{startDate}" th:placeholder="#{field.startDate}" type="date" class="input" required>
-        <input th:field="*{deadline}" th:placeholder="#{field.deadline}" type="date" class="input" required>
-        <input th:field="*{personAssigned}" th:placeholder="#{field.personAssigned}" class="input" required>
-        <input th:field="*{actualTimeUsed}" th:placeholder="#{field.actualTimeUsed}" type="number" class="input" required>
-    </div>
+        <input th:field="*{taskName}" placeholder="Name of task" type="search" class="input" required>
+        <input th:field="*{startDate}" placeholder="start date" type="date" class="input" required>
+        <input th:field="*{deadline}" placeholder="deadline" type="date" class="input" required>
+        <input th:field="*{personAssigned}" placeholder="people assigned" type="text" class="input" required>
+<!--        <input th:field="*{actualTimeUsed}" placeholder="actual time used" type="number" class="input" required>-->
+
 
     <div class="button-group">
         <button type="submit" class="btn" th:text="#{action.create}"></button>

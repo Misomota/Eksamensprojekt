@@ -23,15 +23,15 @@ public class TaskController {
 
 
     @GetMapping("/task")
-    public String showTask(@RequestParam("subprojectID") int subprojectID, Model model, HttpSession session) {
-        List<Task> listOfTask = taskService.showTask(subprojectID);
+    public String readTask(@RequestParam("subprojectID") int subprojectID, Model model, HttpSession session) {
+        List<Task> listOfTask = taskService.readTask(subprojectID);
         model.addAttribute("tasks", listOfTask);
         model.addAttribute("subprojectID", subprojectID);
         return isLoggedIn(session) ? "showTask" : "redirect:/account/login";
     }
 
     @GetMapping("/addTask")
-    public String addTask(@RequestParam("subprojectID") int subprojectID, Model model, HttpSession session) {
+    public String createTask(@RequestParam("subprojectID") int subprojectID, Model model, HttpSession session) {
         model.addAttribute("task", new Task());
         model.addAttribute("subprojectID", subprojectID);
         return isLoggedIn(session) ? "addTask" : "redirect:/account/login";
@@ -42,7 +42,7 @@ public class TaskController {
         if (!isLoggedIn(session)) {
             return "redirect:/account/login";
         }
-        taskService.addTask(task, subprojectID);
+        taskService.createTask(task, subprojectID);
         return "redirect:/OnTheDot/task?subprojectID=" + subprojectID;
 
     }
@@ -78,7 +78,7 @@ public class TaskController {
         if (!isLoggedIn(session)) {
             return "redirect:/account/login";
         }
-        taskService.updateTask(task);
+        taskService.updateTask(task, task.getTaskID());
         return "redirect:/OnTheDot/task?subprojectID=" + subprojectID;
     }
 }
