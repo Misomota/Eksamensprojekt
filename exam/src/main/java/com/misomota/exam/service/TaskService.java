@@ -16,8 +16,8 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public List<Task> showTask(int subprojectID) {
-        List<Task> tasks = taskRepository.showTask(subprojectID);
+    public List<Task> readTask(int subprojectID) {
+        List<Task> tasks = taskRepository.readTask(subprojectID);
         for (Task task : tasks) {
             int duration = calculateDuration(task);
             task.setDuration(duration);
@@ -31,8 +31,8 @@ public class TaskService {
         return taskRepository.findTaskByID(id);
     }
 
-    public Task addTask(Task task, int subprojectID) {
-        return taskRepository.addTask(task, subprojectID);
+    public Task createTask(Task task, int subprojectID) {
+        return taskRepository.createTask(task, subprojectID);
     }
 
     public void deleteTask(int taskID) {
