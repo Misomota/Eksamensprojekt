@@ -12,10 +12,8 @@
 
 <h2>Gantt Diagram</h2>
 
-<a th:href="@{/OnTheDot/task(subprojectID=${subprojectID})}">
-  Back
+<a th:href="@{/OnTheDot/task(subprojectID=${subprojectID})}" th:text="#{action.back}"></button>
 </a>
-
 
   <div class="gantt-container">
     <div th:each="task : ${tasks}" class="task-row">
