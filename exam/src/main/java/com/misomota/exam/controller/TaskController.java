@@ -78,7 +78,7 @@ public class TaskController {
         if (!isLoggedIn(session)) {
             return "redirect:/account/login";
         }
-        taskService.updateTask(task);
+        taskService.updateTask(task, task.getTaskID());
         return "redirect:/OnTheDot/task?subprojectID=" + subprojectID;
     }
 }

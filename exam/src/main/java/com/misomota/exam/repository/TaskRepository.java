@@ -66,14 +66,14 @@ public class TaskRepository {
         return jdbcTemplate.queryForObject(sql, taskRowMapper, id);
     }
 
-    public void updateTask(Task task) {
-        String sql = "UPDATE task SET taskName = ?, startDate = ?, deadline = ?, timeEstimate = ?, personAssigned = ?, `resource` = ?, duration = ?, actualTimeUsed = ? WHERE taskID = ?";
-        jdbcTemplate.update(sql, task.getTaskName(), java.sql.Date.valueOf(task.getStartDate()), java.sql.Date.valueOf(task.getDeadline()), task.getTimeEstimate(), task.getPersonAssigned(), task.getResource(), task.getDuration(), task.getActualTimeUsed(), task.getTaskID());
+    public int updateTask(Task task) {
+        return jdbcTemplate.update("UPDATE task SET taskName = ?, startDate = ?, deadline = ?, timeEstimate = ?, personAssigned = ?, `resource` = ?, duration = ?, actualTimeUsed = ? WHERE taskID = ?",
+                task.getTaskName(), java.sql.Date.valueOf(task.getStartDate()), java.sql.Date.valueOf(task.getDeadline()), task.getTimeEstimate(), task.getPersonAssigned(), task.getResource(), task.getDuration(), task.getActualTimeUsed(), task.getTaskID());
     }
 
 
-    public void deleteTask(int taskID) {
-        String sql = "DELETE FROM task WHERE taskID = ?";
-        jdbcTemplate.update(sql, taskID);
+    public int deleteTask(int taskID) {
+        return jdbcTemplate.update("DELETE FROM task WHERE taskID = ?",
+                taskID);
     }
 }
