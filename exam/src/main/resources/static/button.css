@@ -5,6 +5,8 @@
     border: none;
     font-weight: 500;
     cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
 }
 
 button:hover {
