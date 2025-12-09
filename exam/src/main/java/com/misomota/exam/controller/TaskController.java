@@ -6,6 +6,8 @@ import com.misomota.exam.service.TaskService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Controller
@@ -80,5 +82,28 @@ public class TaskController {
         }
         taskService.updateTask(task, task.getTaskID());
         return "redirect:/OnTheDot/task?subprojectID=" + subprojectID;
+    }
+
+    @GetMapping("/ganttDiagram")
+    public String readGantt(@RequestParam("subprojectID") int subprojectID, Model model, HttpSession session) {
+        if (!isLoggedIn(session)) {
+            return "redirect:/account/login";
+        }
+        List<Task> tasks = taskService.readTask(subprojectID);
+
+        LocalDate projectStart = tasks.stream()
+                .map(Task::getStartDate)
+                .min(LocalDate::compareTo)
+                .orElse(LocalDate.now());
+
+        tasks.forEach(task -> {
+            long offsetDays = ChronoUnit.DAYS.between(projectStart, task.getStartDate());
+            task.setTimeEstimate((int) offsetDays);
+        });
+
+        model.addAttribute("tasks", tasks);
+        model.addAttribute("projectStart", projectStart);
+        model.addAttribute("subprojectID", subprojectID);
+        return "ganttDiagram";
     }
 }

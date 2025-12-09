@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Gantt Diagram</title>
+  <link rel="stylesheet" href="/header.css">
+  <link rel="stylesheet" href="/ganttDiagram.css">
+  <link rel="stylesheet" href="/button.css">
+</head>
+<body>
+<div th:replace="~{header :: mainHeader}"></div>
+
+<h2>Gantt Diagram</h2>
+
+<a th:href="@{/OnTheDot/task(subprojectID=${subprojectID})}">
+  Back
+</a>
+
+
+  <div class="gantt-container">
+    <div th:each="task : ${tasks}" class="task-row">
+      <div class="task-name" th:text="${task.taskName}"></div>
+      <div class="task-bar-container">
+        <div class="task-bar"
+             th:style="'left:' + (${task.timeEstimate} * 40) + 'px; width:' + (${task.duration} * 40) + 'px;'"
+             th:text="${task.duration + 'd'}">
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
