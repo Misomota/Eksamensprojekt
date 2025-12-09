@@ -5,6 +5,7 @@
     <title>Tasks</title>
     <link rel="stylesheet" href="/task.css">
     <link rel="stylesheet" href="/header.css">
+    <link rel="stylesheet" href="/button.css">
 </head>
 <body>
 
@@ -50,10 +51,12 @@
             <form th:action="@{/OnTheDot/deleteTask}" method="post">
                 <input type="hidden" name="taskID" th:value="${t.taskID}">
                 <input type="hidden" name="subprojectID" th:value="${subprojectID}">
-                <button type="submit">Delete</button>
             </form>
-            <a th:href="@{/OnTheDot/editTask(taskID=${t.taskID}, subprojectID=${subprojectID})}" class="btn">Edit</a>
 
+        <div class="btn">
+            <button type="submit">Delete</button>
+            <a th:href="@{/OnTheDot/editTask(taskID=${t.taskID}, subprojectID=${subprojectID})}" class="btn">Edit</a>
+        </div>
         </td>
     </tr>
 </table>
