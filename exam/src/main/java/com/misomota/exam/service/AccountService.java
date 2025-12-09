@@ -1,8 +1,12 @@
 package com.misomota.exam.service;
 
+import com.misomota.exam.DRY.DatabaseOperationException;
+import com.misomota.exam.DRY.DuplicateProfileException;
+import com.misomota.exam.DRY.NotFoundException;
 import com.misomota.exam.model.Account;
 import com.misomota.exam.model.Role;
 import com.misomota.exam.repository.AccountRepository;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 
@@ -15,21 +19,45 @@ public class AccountService {
     }
 
     public Account saveAccount(Account account) {
-        if (account.getRole() == null) {
-            account.setRole(Role.USER);
+        try {
+            Account existing = accountRepository.findAccountByUsername(account.getUsername());
+            if (existing != null) {
+                throw new DuplicateProfileException("Account already exists");
+            }
+            if (account.getRole() == null) {
+                account.setRole(Role.USER);
+            }
+            return accountRepository.saveAccount(account);
+
+        } catch (Exception e) {
+            throw new DatabaseOperationException("Error while saving account", e);
         }
-        return accountRepository.saveAccount(account);
     }
 
     public Account findAccountByUsername(String username) {
-        return accountRepository.findAccountByUsername(username);
+        try {
+            Account account = accountRepository.findAccountByUsername(username);
+            if (account == null) {
+                throw new NotFoundException("Account not found");
+            }
+            return account;
+        } catch (DataAccessException dataAccessException) {
+            throw new DatabaseOperationException("Couldn´t retrieve account", dataAccessException);
+        }
     }
 
     public boolean login(String username, String pw) {
-        Account account = accountRepository.findAccountByUsername(username);
-        if (account != null) {
-            return account.getPassword().equals(pw);
+        try {
+            Account account = accountRepository.findAccountByUsername(username);
+            if (account == null) {
+                throw new NotFoundException("Account not found");
+            }
+            if (!account.getPassword().equals(pw)) {
+                return false;
+            }
+            return true;
+        } catch (DataAccessException dataAccessException) {
+            throw new DatabaseOperationException("Couldn´t retireve account during login", dataAccessException);
         }
-            return false;
     }
 }
