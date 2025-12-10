@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{action.create} + ' ' + #{entity.task}"></title>
+    <link rel="stylesheet" href="/overview.css">
     <link rel="stylesheet" href="/button.css">
     <link rel="stylesheet" href="/forms.css">
     <link rel="stylesheet" href="/header.css">
@@ -10,22 +11,42 @@
 <body>
 <div th:replace="~{header :: mainHeader}"></div>
 
+<main class="page">
 <h1 th:text="#{action.create} + ' ' + #{entity.task}"></h1>
 
 <form th:action="@{/OnTheDot/addTask}" th:object="${task}" method="post">
     <input type="hidden" name="subprojectID" th:value="${subprojectID}">
 
-        <input th:field="*{taskName}" placeholder="Name of task" type="search" class="input" required>
-        <input th:field="*{startDate}" placeholder="start date" type="date" class="input" required>
-        <input th:field="*{deadline}" placeholder="deadline" type="date" class="input" required>
-        <input th:field="*{personAssigned}" placeholder="people assigned" type="text" class="input" required>
-<!--        <input th:field="*{actualTimeUsed}" placeholder="actual time used" type="number" class="input" required>-->
+    <div>
+        <label th:for="*{taskName}">Task name</label>
+        <input th:field="*{taskName}" type="text" class="input" required>
+    </div>
 
+    <div>
+        <label th:for="*{startDate}">Start date</label>
+        <input th:field="*{startDate}" type="date" class="input" required>
+    </div>
+
+    <div>
+        <label th:for="*{deadline}">Deadline</label>
+        <input th:field="*{deadline}" type="date" class="input" required>
+    </div>
+
+    <div>
+        <label th:for="*{personAssigned}">People assigned</label>
+        <input th:field="*{personAssigned}" type="text" class="input" required>
+    </div>
+
+    <div>
+        <label th:for="*{actualTimeUsed}">Actual time used</label>
+        <input th:field="*{actualTimeUsed}" type="number" class="input" required>
+    </div>
 
     <div class="button-group">
         <button type="submit" class="btn" th:text="#{action.create}"></button>
         <a th:href="@{/OnTheDot/task(subprojectID=${subprojectID})}" class="btn" th:text="#{action.cancel}"></a>
     </div>
 </form>
+</main>
 </body>
 </html>

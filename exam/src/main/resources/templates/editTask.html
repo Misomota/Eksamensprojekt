@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title th:text="#{action.edit} + ' ' + #{entity.task}"></title>
-  <link rel="stylesheet" href="/forms.css">
-  <link rel="stylesheet" href="/button.css">
-  <link rel="stylesheet" href="/header.css">
+    <meta charset="UTF-8">
+    <title th:text="#{action.edit} + ' ' + #{entity.task}"></title>
+    <link rel="stylesheet" href="/overview.css">
+    <link rel="stylesheet" href="/forms.css">
+    <link rel="stylesheet" href="/button.css">
+    <link rel="stylesheet" href="/header.css">
 </head>
 <body>
 <div th:replace="~{header :: mainHeader}"></div>
@@ -13,21 +14,42 @@
 <h1 th:text="#{action.edit} + ' ' + #{entity.task}"></h1>
 
 <form th:action="@{/OnTheDot/editTask}" th:object="${task}" method="post">
-  <input type="hidden" th:field="*{taskID}"/>
-  <input type="hidden" name="subprojectID" th:value="${subprojectID}"/>
+    <input type="hidden" th:field="*{taskID}"/>
+    <input type="hidden" name="subprojectID" th:value="${subprojectID}"/>
 
-  <div class="group">
-    <input th:field="*{taskName}" th:placeholder="#{field.name}" class="input" required/>
-    <input th:field="*{startDate}" th:placeholder="#{field.startDate}" type="date" class="input" required/>
-    <input th:field="*{deadline}" th:placeholder="#{field.deadline}" type="date" class="input" required/>
-    <input th:field="*{personAssigned}" th:placeholder="#{field.personAssigned}" class="input" required/>
-    <input th:field="*{actualTimeUsed}" th:placeholder="#{field.actualTimeUsed}" type="number" class="input" required/>
-  </div>
+    <main class="page">
 
-  <div class="button-group">
-    <button type="submit" class="btn" th:text="#{action.save}"></button>
-    <a th:href="@{/OnTheDot/task(subprojectID=${subprojectID})}" class="btn" th:text="#{action.cancel}"></a>
-  </div>
+        <div>
+            <label th:for="*{taskName}">Task name</label>
+            <input th:field="*{taskName}" th:placeholder="#{field.name}" class="input" required/>
+        </div>
+
+        <div>
+            <label th:for="*{startDate}">Start date</label>
+            <input th:field="*{startDate}" th:placeholder="#{field.startDate}" type="date" class="input" required/>
+        </div>
+
+        <div>
+            <label th:for="*{deadline}">Deadline</label>
+            <input th:field="*{deadline}" th:placeholder="#{field.deadline}" type="date" class="input" required/>
+        </div>
+
+        <div>
+            <label th:for="*{personAssigned}">People assigned</label>
+            <input th:field="*{personAssigned}" th:placeholder="#{field.personAssigned}" class="input" required/>
+        </div>
+
+        <div>
+            <label th:for="*{actualTimeUsed}">Actual time used</label>
+            <input th:field="*{actualTimeUsed}" th:placeholder="#{field.actualTimeUsed}" type="number" class="input" required/>
+        </div>
+
+
+        <div class="button-group">
+            <button type="submit" class="btn" th:text="#{action.save}"></button>
+            <a th:href="@{/OnTheDot/task(subprojectID=${subprojectID})}" class="btn" th:text="#{action.cancel}"></a>
+        </div>
+    </main>
 </form>
 </body>
 </html>

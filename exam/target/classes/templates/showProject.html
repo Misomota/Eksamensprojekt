@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{entity.project}"></title>
+    <link rel="stylesheet" href="/overview.css">
     <link rel="stylesheet" href="/header.css">
     <link rel="stylesheet" href="/button.css">
 </head>
 <body>
 <div th:replace="~{header :: mainHeader}"></div>
 
-<h1 th:text="#{entity.project}"></h1>
+<main class="page">
+    <h1 th:text="#{entity.project}"></h1>
 <a th:href="@{/OnTheDot/addProject}" class="btn" th:text="#{action.create} + ' ' + #{entity.project}"></a>
 
 <div th:if="${projects.isEmpty()}">
@@ -30,5 +32,6 @@
         </td>
     </tr>
 </table>
+</main>
 </body>
 </html>

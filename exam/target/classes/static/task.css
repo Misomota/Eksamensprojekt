@@ -1,12 +1,15 @@
 table {
-    border: 1px solid black;
+    border: solid #94928F;
     border-collapse: collapse;
     width: 100%;
-
 }
 
 th, td {
-    border: 1px solid black;
+    border: solid #94928F;
     padding: 5px;
     text-align: center;
+}
+
+tr {
+    color: #666564;
 }
