@@ -10,7 +10,8 @@
 <body>
 <div th:replace="~{header :: mainHeader}"></div>
 
-<h1 th:text="#{action.create} + ' ' + #{entity.subproject}"></h1>
+<div class="form-project">
+    <h1 th:text="#{action.create} + ' ' + #{entity.subproject}"></h1>
 
 <form th:action="@{/OnTheDot/addSubproject}" th:object="${subproject}" method="post">
     <input type="hidden" name="projectID" th:value="${projectID}">
@@ -26,5 +27,6 @@
         <a th:href="@{/OnTheDot/subproject(projectID=${projectID})}" class="btn" th:text="#{action.cancel}"></a>
     </div>
 </form>
+</div>
 </body>
 </html>
