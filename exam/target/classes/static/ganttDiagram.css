@@ -1,0 +1,46 @@
+h2 {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.gantt-container {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    overflow-x: auto;
+    min-width: 800px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.task-row {
+    display: flex;
+    align-items: center;
+    height: 25px;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+}
+
+.task-name {
+    width: 150px;
+    text-align: right;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.task-bar-container {
+    flex: 1;
+    position: relative;
+    height: 25px;
+}
+
+.task-bar {
+    position: absolute;
+    height: 100%;
+    background-color: #4678a3;
+    color: white;
+    text-align: center;
+    line-height: 25px;
+    border-radius: 4px;
+}

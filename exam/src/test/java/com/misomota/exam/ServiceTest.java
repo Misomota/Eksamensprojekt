@@ -140,17 +140,18 @@ public class ServiceTest {
     //Hvis updateProject ikke findes
     @Test
     void updateProject_ReturnsNull() {
-        //Arrange
-        String projectName = "projectName";
+        // Arrange
         int projectID = 1;
-        Project p = new Project(projectName, projectID);
+        Project updatedProject = new Project("projectName", projectID);
         Project existingProject = new Project("oldName", projectID);
 
-//        when(projectService.findProjectByID(projectID)).thenReturn(existingProject);
-
+        when(projectRepository.findProjectByID(projectID)).thenReturn(existingProject);
         when(projectRepository.updateProject(any(Project.class))).thenReturn(0);
 
         // Act + Assert
-        assertThrows(NotFoundException.class, () -> projectService.updateProject(p, projectID));
+        assertThrows(NotFoundException.class, () ->
+                projectService.updateProject(updatedProject, projectID)
+        );
     }
+
 }

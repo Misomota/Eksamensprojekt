@@ -14,6 +14,8 @@
 <h1 th:text="#{entity.subproject}"></h1>
 <a th:href="@{/OnTheDot/addSubproject(projectID=${projectID})}" class="btn" th:text="#{action.create} + ' ' + #{entity.subproject}"></a>
 
+<a th:href="@{/OnTheDot/projects}" class="btn" th:text="#{action.back}"></a>
+
 <div th:if="${subprojects.isEmpty()}">
     <h2 th:text="#{entity.subproject} + ' ' + #{field.empty} + '. '  + #{field.create.new}"></h2>
 </div>
