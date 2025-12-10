@@ -10,20 +10,22 @@
 <body>
 <div th:replace="~{header :: mainHeader}"></div>
 
-<h1 th:text="#{action.edit} + ' ' + #{entity.subproject}"></h1>
+<div class="form-project">
+    <h1 th:text="#{action.edit} + ' ' + #{entity.subproject}"></h1>
 
-<form th:action="@{/OnTheDot/editSubproject}" th:object="${subproject}" method="post">
-    <input type="hidden" th:field="*{subprojectID}"/>
-    <input type="hidden" name="projectID" th:value="${projectID}"/>
+    <form class="form-card" th:action="@{/OnTheDot/editSubproject}" th:object="${subproject}" method="post">
+        <input type="hidden" th:field="*{subprojectID}"/>
+        <input type="hidden" name="projectID" th:value="${projectID}"/>
 
-    <div class="group">
-        <input th:field="*{subprojectName}" th:placeholder="#{field.name}" class="input" required/>
-    </div>
+        <div class="group">
+            <input th:field="*{subprojectName}" th:placeholder="#{field.name}" class="input" required/>
+        </div>
 
-    <div class="button-group">
-        <button type="submit" class="btn" th:text="#{action.save}"></button>
-        <a th:href="@{/OnTheDot/subproject(projectID=${projectID})}" class="btn" th:text="#{action.cancel}"></a>
-    </div>
-</form>
+        <div class="button-group">
+            <button type="submit" class="btn" th:text="#{action.save}"></button>
+            <a th:href="@{/OnTheDot/subproject(projectID=${projectID})}" class="btn" th:text="#{action.cancel}"></a>
+        </div>
+    </form>
+</div>
 </body>
 </html>

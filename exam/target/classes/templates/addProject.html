@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{action.create} + ' ' + #{entity.project}"></title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/button.css">
     <link rel="stylesheet" href="/forms.css">
     <link rel="stylesheet" href="/header.css">
@@ -11,9 +12,8 @@
 
 <div th:replace="~{header :: mainHeader}"></div>
 
-<h1 th:text="#{action.create} + ' ' + #{entity.project}"></h1>
-
-<form th:action="@{/OnTheDot/addProject}" th:object="${project}" method="post">
+<form class="form-project" th:action="@{/OnTheDot/addProject}" th:object="${project}" method="post">
+    <h1 th:text="#{action.create} + ' ' + #{entity.project}"></h1>
     <input th:field="*{projectID}" type="hidden">
 
     <div class="group">
