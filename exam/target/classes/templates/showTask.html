@@ -11,15 +11,14 @@
 <body>
 <div th:replace="~{header :: mainHeader}"></div>
 
-<!-- Knapperne står nu ved siden af hinanden -->
 <div class="button-group">
     <a th:href="@{/OnTheDot/addTask(subprojectID=${subprojectID})}" class="btn"
        th:text="#{action.create} + ' ' + #{entity.task}"></a>
-
-   <a th:href="@{/OnTheDot/ganttDiagram(subprojectID=${subprojectID})}"
+   
+<a th:href="@{/OnTheDot/ganttDiagram(subprojectID=${subprojectID})}"
    class="btn" th:text="#{gantt.diagram}">
 </a>
-
+  
 </div>
 
 <table>
@@ -38,7 +37,7 @@
         <img th:src="#{item.empty.image}" alt="Empty Task">
     </div>
 
-    <table th:if="${!tasks.isEmpty()}">
+    <div th:if="${!tasks.isEmpty()}"></div>
 
     <tr th:each="t : ${tasks}">
         <td th:text="${t.taskName}"></td>
@@ -62,7 +61,7 @@
             </a>
         </td>
     </tr>
-</table>
+
 </table>
 
 </body>
