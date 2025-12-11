@@ -33,10 +33,6 @@
         <th th:text="#{action.edit} + '/' + #{action.delete}"></th>
     </tr>
 
-    <div th:if="${tasks.isEmpty()}">
-        <img th:src="#{item.empty.image}" alt="Empty Task">
-    </div>
-
     <div th:if="${!tasks.isEmpty()}"></div>
 
     <tr th:each="t : ${tasks}">
@@ -60,8 +56,14 @@
                th:text="#{action.edit}">
             </a>
         </td>
+
     </tr>
 
 </table>
+
+<div th:if="${tasks.isEmpty()}">
+    <img th:src="#{item.empty.image}" alt="Empty Task" width="150" height="150">
+</div>
+
 </body>
 </html>
