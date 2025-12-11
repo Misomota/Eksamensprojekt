@@ -3,29 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{login.title}"></title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/header.css">
+    <link rel="stylesheet" href="/forms.css">
     <link rel="stylesheet" href="/accountPages.css">
 </head>
 <body>
 <div th:replace="~{header :: mainHeader}"></div>
 
-<h1 th:text="#{login.title}"></h1>
+<div class="page">
 
+    <h1 th:text="#{login.title}"></h1>
 
-<div class="input-form">
-    <form th:action="@{/account/login}" method="post">
-        <label th:text="#{field.username}"></label>
-        <input type="text" name="username" th:placeholder="#{field.username}" required/>
+    <div class="form-card">
 
-        <label th:text="#{field.password}"></label>
-        <input type="password" name="password" th:placeholder="#{field.password}" required/>
+        <form th:action="@{/account/login}" method="post">
 
-        <button type="submit" class="btn" th:text="#{action.login}"></button>
-    </form>
+            <div class="group">
+                <label th:text="#{field.username}"></label>
+                <input type="text" name="username" th:placeholder="#{field.username}" class="input" required/>
+            </div>
+
+            <div class="group">
+                <label th:text="#{field.password}"></label>
+                <input type="password" name="password" th:placeholder="#{field.password}" class="input" required/>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn" th:text="#{action.login}"></button>
+            </div>
+
+        </form>
+
+        <p class="small-link">
+            <a th:href="@{/account/register}" th:text="#{action.register}"></a>
+        </p>
+    </div>
+
 </div>
-
-<p>
-    <a th:href="@{/account/register}" th:text="#{action.register}"></a>
-</p>
 </body>
 </html>

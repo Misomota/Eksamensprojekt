@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title th:text="#{welcome.title}"></title>
-  <link rel="stylesheet" href="/header.css">
-  <link rel="stylesheet" href="/accountPages.css">
+    <meta charset="UTF-8">
+    <title th:text="#{welcome.title}"></title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/header.css">
+    <link rel="stylesheet" href="/forms.css">
+    <link rel="stylesheet" href="/accountPages.css">
 </head>
 <body>
 <div th:replace="~{header :: mainHeader}"></div>
 
-<h1 th:text="#{welcome.title}"></h1>
-<h3 th:text="#{welcome.subtitle}"></h3>
+<div class="page">
+    <h1 th:text="#{welcome.title}"></h1>
+    <h3 th:text="#{welcome.subtitle}"></h3>
 
-<div class="input-form">
-  <a th:href="@{/account/login}" class="btn" th:text="#{action.login}"></a>
-  <a th:href="@{/account/register}" class="btn" th:text="#{action.register}"></a>
+    <div class="button-group input-form">
+        <a th:href="@{/account/login}" class="btn" th:text="#{action.login}"></a>
+        <a th:href="@{/account/register}" class="btn" th:text="#{action.register}"></a>
+    </div>
 </div>
 </body>
 </html>
