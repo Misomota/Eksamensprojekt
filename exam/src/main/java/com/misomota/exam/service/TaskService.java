@@ -99,4 +99,11 @@ public class TaskService {
 
         return duration * 8;
     }
+
+    public int sumHoursForSubproject(int subprojectID) {
+        List<Task> tasks = taskRepository.readTask(subprojectID);
+        return tasks.stream()
+                .mapToInt(Task::getActualTimeUsed)
+                .sum();
+    }
 }

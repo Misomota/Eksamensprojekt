@@ -3,6 +3,7 @@ package com.misomota.exam.model;
 public class Project {
     private String projectName;
     private int projectID;
+    private int totalHours;
 
     public Project(String projectName, int projectID) {
         this.projectName = projectName;
@@ -26,4 +27,10 @@ public class Project {
     public void setProjectID(int projectID) {
         this.projectID = projectID;
     }
+
+    public int getTotalHours() {
+        return totalHours; }
+
+    public void setTotalHours(int totalHours) {
+        this.totalHours = totalHours; }
 }

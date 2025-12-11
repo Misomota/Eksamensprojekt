@@ -36,6 +36,9 @@
                        th:href="@{/OnTheDot/subproject(projectID=${p.projectID})}">
                     </a>
                 </td>
+
+                <td th:text="${p.totalHours} + ' timer brugt'"></td>
+
                 <td class="actions">
                     <a th:href="@{/OnTheDot/editProject(projectID=${p.projectID})}"
                        class="btn small"
@@ -50,7 +53,6 @@
             </tr>
             </tbody>
         </table>
-
     </div>
 </main>
 </body>
