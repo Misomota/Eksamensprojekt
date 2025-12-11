@@ -27,7 +27,7 @@
     <div class="project-card">
 
     <div th:if="${subprojects.isEmpty()}">
-        <img th:src="#{item.empty.image}" alt="Empty Subproject" width="150" height="150">
+        <img th:src="#{item.empty.image}" alt="Empty Project" width="200" height="200" class="center-image">
     </div>
 
         <table th:if="${!subprojects.isEmpty()}" class="project-table">

@@ -12,13 +12,11 @@
 <div th:replace="~{header :: mainHeader}"></div>
 
 <div class="top-button-wrapper">
-    <!-- Primær knap til venstre -->
     <div class="top-button-left">
         <a th:href="@{/OnTheDot/addTask(subprojectID=${subprojectID})}" class="btn"
            th:text="#{action.create} + ' ' + #{entity.task}"></a>
     </div>
 
-    <!-- Sekundære knapper til højre -->
     <div class="top-button-right">
         <a th:href="@{/OnTheDot/ganttDiagram(subprojectID=${subprojectID})}" class="btn"
            th:text="#{gantt.diagram}"></a>
@@ -47,8 +45,8 @@
         <td th:text="${t.taskName}"></td>
         <td th:text="${t.startDate}"></td>
         <td th:text="${t.deadline}"></td>
-        <td th:text="${t.timeEstimate}"></td>
-        <td th:text="${t.duration}"></td>
+        <td th:text="${t.timeEstimate} + ' timer'"></td>
+        <td th:text="${t.duration} + ' dage'"></td>
         <td th:text="${t.personAssigned}"></td>
         <td th:text="${t.actualTimeUsed}"></td>
 
@@ -70,7 +68,7 @@
 </table>
 
 <div th:if="${tasks.isEmpty()}">
-    <img th:src="#{item.empty.image}" alt="Empty Task" width="150" height="150">
+    <img th:src="#{item.empty.image}" alt="Empty Project" width="200" height="200" class="center-image">
 </div>
 
 </body>

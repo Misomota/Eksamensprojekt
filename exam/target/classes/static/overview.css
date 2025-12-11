@@ -77,3 +77,8 @@
     justify-content: flex-end;
     align-items: center;
 }
+.center-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

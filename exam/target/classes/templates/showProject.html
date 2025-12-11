@@ -23,8 +23,8 @@
     <div class="project-card">
 
          <div th:if="${projects.isEmpty()}">
-        <img th:src="#{item.empty.image}" alt="Empty Project" width="150" height="150">
-    </div>
+             <img th:src="#{item.empty.image}" alt="Empty Project" width="200" height="200" class="center-image">
+         </div>
 
         <table th:if="${!projects.isEmpty()}" class="project-table">
             <tbody>
