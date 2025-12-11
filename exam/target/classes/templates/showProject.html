@@ -14,6 +14,7 @@
 
 <main class="page">
 
+
     <div class="page-header">
         <h1 th:text="#{entity.project}"></h1>
         <a th:href="@{/OnTheDot/addProject}" class="btn primary"
@@ -22,10 +23,9 @@
 
     <div class="project-card">
 
-        <div th:if="${projects.isEmpty()}" class="empty-state">
-            <h2 th:text="#{entity.project} + ' ' + #{field.empty}"></h2>
-            <p th:text="#{field.create.new}"></p>
-        </div>
+         <div th:if="${projects.isEmpty()}">
+        <img th:src="#{item.empty.image}" alt="Empty Project">
+    </div>
 
         <table th:if="${!projects.isEmpty()}" class="project-table">
             <tbody>
