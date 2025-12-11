@@ -75,31 +75,12 @@ td .btn:hover {
     box-shadow: 0 3px 8px rgba(0,0,0,0.12);
 }
 
-td .btn.edit {
-    background: #F1C89C;
-    color: #2b2b2b;
-}
-
-td .btn.edit:hover {
-    background: #E5B685;
-}
-
-td .btn.danger {
-    background: #ffdad6;
-    color: #7a2121;
-}
-
-td .btn.danger:hover {
-    background: #ffc8c3;
-}
-
 .footer-buttons {
     margin-top: 20px;
 }
 
 .footer-buttons a.btn {
     padding: 0.6rem 1.2rem;
-    font-weight: 600;
 }
 
 @media (max-width: 768px) {
