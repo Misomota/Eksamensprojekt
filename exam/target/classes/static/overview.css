@@ -77,17 +77,3 @@
     justify-content: flex-end;
     align-items: center;
 }
-
-.btn.small {
-    padding: 0.4rem 1rem;
-    font-size: 0.9rem;
-}
-
-.btn.danger {
-    background: #ffdad6;
-    color: #7a2121;
-}
-
-.btn.danger:hover {
-    background: #ffc8c3;
-}
