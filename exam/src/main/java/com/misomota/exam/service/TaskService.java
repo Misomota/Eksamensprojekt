@@ -59,6 +59,10 @@ public class TaskService {
             Task existing = findTaskByID(id);
 
             existing.setTaskName(task.getTaskName());
+            existing.setStartDate(task.getStartDate());
+            existing.setDeadline(task.getDeadline());
+            existing.setPersonAssigned(task.getPersonAssigned());
+            existing.setActualTimeUsed(task.getActualTimeUsed());
 
             int rows = taskRepository.updateTask(existing);
             if (rows == 0) throw new NotFoundException(id);
@@ -67,7 +71,7 @@ public class TaskService {
             throw new DatabaseOperationException("Failed to update project", e);
         }
     }
-      
+
     public int calculateDuration(Task task) {
         if (task == null) {
             throw new IllegalArgumentException("Task cannot be null");

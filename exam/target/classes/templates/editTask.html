@@ -15,7 +15,7 @@
 <div class="add-task-page">
     <h1 th:text="#{action.edit} + ' ' + #{entity.task}"></h1>
 
-    <div class="form-project"> <!-- tilføj en centrerende container -->
+    <div class="form-project">
         <form class="form-card" th:action="@{/OnTheDot/editTask}" th:object="${task}" method="post">
             <input type="hidden" th:field="*{taskID}"/>
             <input type="hidden" name="subprojectID" th:value="${subprojectID}"/>
