@@ -122,3 +122,58 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.12);
 }
+
+select.input {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 1rem;
+    border: 2px solid #e1e5ea;
+    border-radius: 10px;
+    transition: 0.25s;
+    box-sizing: border-box;
+    background: #fffaf3;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%234678a3' viewBox='0 0 20 20'><path d='M5.25 7.5l4.75 4.75L14.75 7.5'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px;
+    cursor: pointer;
+}
+
+select.input:hover {
+    border-color: #4678a3;
+}
+
+select.input:focus {
+    outline: none;
+    border-color: #4678a3;
+    box-shadow: 0 0 0 4px rgba(70,120,163,0.15);
+}
+
+.small-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.small-link a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 1.4rem;
+    border-radius: 8px;
+    border: 2px solid #4678a3;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #4678a3;
+    transition: 0.3s;
+}
+
+.small-link a:hover {
+    background: #4678a3;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}

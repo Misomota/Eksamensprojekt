@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{entity.task}"></title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/header.css">
     <link rel="stylesheet" href="/task.css">
     <link rel="stylesheet" href="/button.css">
@@ -10,8 +11,15 @@
 <body>
 <div th:replace="~{header :: mainHeader}"></div>
 
-
-<a th:href="@{/OnTheDot/addTask(subprojectID=${subprojectID})}" class="btn" th:text="#{action.create} + ' ' + #{entity.task}"></a>
+<div class="button-group">
+    <a th:href="@{/OnTheDot/addTask(subprojectID=${subprojectID})}" class="btn"
+       th:text="#{action.create} + ' ' + #{entity.task}"></a>
+   
+<a th:href="@{/OnTheDot/ganttDiagram(subprojectID=${subprojectID})}"
+   class="btn" th:text="#{gantt.diagram}">
+</a>
+  
+</div>
 
 <table>
     <tr>
@@ -39,25 +47,22 @@
         <td th:text="${t.duration}"></td>
         <td th:text="${t.personAssigned}"></td>
         <td th:text="${t.actualTimeUsed}"></td>
+
         <td>
             <form th:action="@{/OnTheDot/deleteTask}" method="post" style="display:inline;">
                 <input type="hidden" name="taskID" th:value="${t.taskID}">
                 <input type="hidden" name="subprojectID" th:value="${subprojectID}">
-                <button class="btn" type="submit" th:text="#{action.delete}"></button>
+                <button class="btn danger" type="submit" th:text="#{action.delete}"></button>
             </form>
 
-            <a class="btn"
-                th:href="@{/OnTheDot/editTask(taskID=${t.taskID}, subprojectID=${subprojectID})}"
-                th:text="#{action.edit}">
+            <a class="btn edit"
+               th:href="@{/OnTheDot/editTask(taskID=${t.taskID}, subprojectID=${subprojectID})}"
+               th:text="#{action.edit}">
             </a>
         </td>
     </tr>
 </table>
 </table>
-
-<a th:href="@{/OnTheDot/ganttDiagram(subprojectID=${subprojectID})}"
-   class="btn" th:text="#{gantt.diagram}">
-</a>
 
 </body>
 </html>

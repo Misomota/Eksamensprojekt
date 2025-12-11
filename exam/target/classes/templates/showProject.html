@@ -3,36 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{entity.project}"></title>
-    <link rel="stylesheet" href="/overview.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/header.css">
+    <link rel="stylesheet" href="/forms.css">
     <link rel="stylesheet" href="/button.css">
+    <link rel="stylesheet" href="/overview.css">
 </head>
 <body>
 <div th:replace="~{header :: mainHeader}"></div>
 
 <main class="page">
-    <h1 th:text="#{entity.project}"></h1>
-<a th:href="@{/OnTheDot/addProject}" class="btn" th:text="#{action.create} + ' ' + #{entity.project}"></a>
 
-    <div th:if="${projects.isEmpty()}">
+
+    <div class="page-header">
+        <h1 th:text="#{entity.project}"></h1>
+        <a th:href="@{/OnTheDot/addProject}" class="btn primary"
+           th:text="#{action.create} + ' ' + #{entity.project}"></a>
+    </div>
+
+    <div class="project-card">
+
+         <div th:if="${projects.isEmpty()}">
         <img th:src="#{item.empty.image}" alt="Empty Project">
     </div>
 
+        <table th:if="${!projects.isEmpty()}" class="project-table">
+            <tbody>
+            <tr th:each="p : ${projects}">
+                <td>
+                    <a class="project-name"
+                       th:text="${p.projectName}"
+                       th:href="@{/OnTheDot/subproject(projectID=${p.projectID})}">
+                    </a>
+                </td>
+                <td class="actions">
+                    <a th:href="@{/OnTheDot/editProject(projectID=${p.projectID})}"
+                       class="btn small"
+                       th:text="#{action.edit}"></a>
 
-<table th:if="${!projects.isEmpty()}">
-    <tr th:each="p : ${projects}">
-        <td>
-            <a th:href="@{/OnTheDot/subproject(projectID=${p.projectID})}" th:text="${p.projectName}"></a>
-        </td>
-        <td>
-            <a th:href="@{/OnTheDot/editProject(projectID=${p.projectID})}" class="btn" th:text="#{action.edit}"></a>
-            <form th:action="@{/OnTheDot/deleteProject}" method="post" style="display:inline;">
-                <input type="hidden" name="projectID" th:value="${p.projectID}">
-                <button type="submit" th:text="#{action.delete}"></button>
-            </form>
-        </td>
-    </tr>
-</table>
+                    <form th:action="@{/OnTheDot/deleteProject}" method="post">
+                        <input type="hidden" name="projectID" th:value="${p.projectID}">
+                        <button type="submit" class="btn small danger"
+                                th:text="#{action.delete}"></button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
 </main>
 </body>
 </html>

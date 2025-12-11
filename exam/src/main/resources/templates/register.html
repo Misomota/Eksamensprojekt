@@ -3,34 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{register.title}"></title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/header.css">
+    <link rel="stylesheet" href="/forms.css">
     <link rel="stylesheet" href="/accountPages.css">
 </head>
 <body>
 <div th:replace="~{header :: mainHeader}"></div>
 
-<h1 th:text="#{register.title}"></h1>
+<div class="page">
 
-<form th:action="@{/account/register}" th:object="${register}" method="post">
-    <div class="input-form">
-        <label th:text="#{field.username}"></label>
-        <input type="text" th:field="*{username}" th:placeholder="#{field.username}" required/>
+    <h1 th:text="#{register.title}"></h1>
 
-        <label th:text="#{field.password}"></label>
-        <input type="password" th:field="*{password}" th:placeholder="#{field.password}" required/>
+    <div class="form-card">
 
-        <label th:text="#{field.role}"></label>
-        <select th:field="*{role}" required>
-            <option th:value="USER" th:text="#{role.user}"></option>
-            <option th:value="ADMIN" th:text="#{role.admin}"></option>
-        </select>
+        <form th:action="@{/account/register}" th:object="${register}" method="post">
 
-        <button type="submit" th:text="#{action.register}"></button>
+            <div class="group">
+                <label th:text="#{field.username}"></label>
+                <input type="text" th:field="*{username}" th:placeholder="#{field.username}" class="input" required/>
+            </div>
+
+            <div class="group">
+                <label th:text="#{field.password}"></label>
+                <input type="password" th:field="*{password}" th:placeholder="#{field.password}" class="input" required/>
+            </div>
+
+            <div class="group">
+                <label th:text="#{field.role}"></label>
+                <select th:field="*{role}" class="input" required>
+                    <option th:value="USER" th:text="#{role.user}"></option>
+                    <option th:value="ADMIN" th:text="#{role.admin}"></option>
+                </select>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn" th:text="#{action.register}"></button>
+            </div>
+
+        </form>
+
+        <div class="small-link">
+            <a th:href="@{/account/login}" th:text="#{action.login}"></a>
+        </div>
+
     </div>
-</form>
 
-<p>
-    <a th:href="@{/account/login}" th:text="#{action.login}"></a>
-</p>
+</div>
 </body>
 </html>
