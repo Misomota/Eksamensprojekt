@@ -4,6 +4,7 @@ public class Subproject {
 
    private String subprojectName;
     private int subprojectID;
+    private int totalHours;
 
     public Subproject(String subprojectName, int subprojectID) {
         this.subprojectName = subprojectName;
@@ -27,5 +28,13 @@ public class Subproject {
 
     public void setSubprojectID(int subprojectID) {
         this.subprojectID = subprojectID;
+    }
+
+    public int getTotalHours() {
+        return totalHours;
+    }
+
+    public void setTotalHours(int totalHours) {
+        this.totalHours = totalHours;
     }
 }

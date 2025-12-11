@@ -4,6 +4,8 @@ import com.misomota.exam.DRY.Session;
 import com.misomota.exam.model.Project;
 import com.misomota.exam.model.Subproject;
 import com.misomota.exam.service.ProjectService;
+import com.misomota.exam.service.SubprojectService;
+import com.misomota.exam.service.TaskService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +18,13 @@ import java.util.List;
 @RequestMapping("/OnTheDot")
 public class ProjectController {
     private final ProjectService projectService;
+    private final SubprojectService subprojectService;
+    private final TaskService taskService;
 
-    public ProjectController(ProjectService projectService) {
+    public ProjectController(ProjectService projectService,  SubprojectService subprojectService, TaskService taskService) {
         this.projectService = projectService;
+        this.subprojectService = subprojectService;
+        this.taskService = taskService;
     }
 
     @GetMapping("/projects")
@@ -26,10 +32,28 @@ public class ProjectController {
         if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
+
         List<Project> projectList = projectService.readProject();
+
+        for (Project p : projectList) {
+
+            // hent alle subprojects
+            List<Subproject> subs = subprojectService.showSubproject(p.getProjectID());
+
+            int totalProjectHours = 0;
+
+            for (Subproject sp : subs) {
+                int subHours = taskService.sumHoursForSubproject(sp.getSubprojectID());
+                totalProjectHours += subHours;
+            }
+
+            p.setTotalHours(totalProjectHours);
+        }
+
         model.addAttribute("projects", projectList);
         return "showProject";
     }
+
 
     @GetMapping("/addProject")
     public String addProject(Model model, HttpSession session) {

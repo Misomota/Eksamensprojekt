@@ -2,6 +2,7 @@ package com.misomota.exam.controller;
 
 import com.misomota.exam.DRY.Session;
 import com.misomota.exam.model.Subproject;
+import com.misomota.exam.service.TaskService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 import com.misomota.exam.service.SubprojectService;
@@ -14,17 +15,25 @@ import java.util.List;
 @RequestMapping("/OnTheDot")
 public class SubprojectController {
     private final SubprojectService subprojectService;
+    private final TaskService taskService;
 
-    public SubprojectController(SubprojectService subprojectService) {
+    public SubprojectController(SubprojectService subprojectService, TaskService taskService) {
         this.subprojectService = subprojectService;
+        this.taskService = taskService;
     }
 
     @GetMapping("/subproject")
     public String showSubproject(@RequestParam("projectID") int projectID, Model model, HttpSession session) {
         List<Subproject> listOfSubproject = subprojectService.showSubproject(projectID);
+
+        for (Subproject sp : listOfSubproject) {
+            int hours = taskService.sumHoursForSubproject(sp.getSubprojectID());
+            sp.setTotalHours(hours);
+        }
+
         model.addAttribute("subprojects", listOfSubproject);
         model.addAttribute("projectID", projectID);
-        System.out.println("All subprojects: " + subprojectService.showSubproject(projectID));
+
         return Session.isLoggedIn(session) ? "showSubproject" : "redirect:/account/login";
     }
 
