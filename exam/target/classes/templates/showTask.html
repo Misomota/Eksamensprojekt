@@ -6,6 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/header.css">
     <link rel="stylesheet" href="/task.css">
+    <link rel="stylesheet" href="/forms.css">
     <link rel="stylesheet" href="/button.css">
 </head>
 <body>
@@ -14,12 +15,14 @@
 <div class="button-group">
     <a th:href="@{/OnTheDot/addTask(subprojectID=${subprojectID})}" class="btn"
        th:text="#{action.create} + ' ' + #{entity.task}"></a>
-   
-<a th:href="@{/OnTheDot/ganttDiagram(subprojectID=${subprojectID})}"
-   class="btn" th:text="#{gantt.diagram}">
-</a>
-  
+
+    <a th:href="@{/OnTheDot/ganttDiagram(subprojectID=${subprojectID})}" class="btn"
+       th:text="#{gantt.diagram}"></a>
+
+    <a th:href="@{/OnTheDot/subproject(projectID=${projectID})}" class="btn secondary"
+       th:text="#{action.back}"></a>
 </div>
+
 
 <table>
     <tr>

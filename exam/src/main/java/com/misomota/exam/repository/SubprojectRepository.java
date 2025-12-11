@@ -22,7 +22,9 @@ public class SubprojectRepository {
     private final RowMapper<Subproject> subprojectRowMapper = (rs, rowNum) ->
             new Subproject(
                     rs.getString("subprojectName"),
-                    rs.getInt("subprojectID")
+                    rs.getInt("subprojectID"),
+                    0, //totalHours sættes til 0 her
+                    rs.getInt("projectID")
             );
 
     public Subproject addSubproject(Subproject subproject, int projectID) {
@@ -37,16 +39,16 @@ public class SubprojectRepository {
         }, keyHolder);
 
         int newId = keyHolder.getKey() != null ? keyHolder.getKey().intValue() : -1;
-        return new Subproject(subproject.getSubprojectName(), newId);
+        return new Subproject(subproject.getSubprojectName(), newId, 0, projectID);
     }
 
     public List<Subproject> showSubproject(int projectID) {
-        String sql = "SELECT subprojectID, subprojectName FROM subproject WHERE projectID = ?";
+        String sql = "SELECT subprojectID, subprojectName, projectID FROM subproject WHERE projectID = ?";
         return jdbcTemplate.query(sql, subprojectRowMapper, projectID);
     }
 
     public Subproject findSubprojectByID(int id) {
-        String sql = "SELECT subprojectID, subprojectName FROM subproject WHERE subprojectID = ?";
+        String sql = "SELECT subprojectID, subprojectName, projectID FROM subproject WHERE subprojectID = ?";
         return jdbcTemplate.queryForObject(sql, subprojectRowMapper, id);
     }
 

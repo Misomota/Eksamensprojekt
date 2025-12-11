@@ -5,10 +5,13 @@ public class Subproject {
    private String subprojectName;
     private int subprojectID;
     private int totalHours;
+    private int projectID;
 
-    public Subproject(String subprojectName, int subprojectID) {
+    public Subproject(String subprojectName, int subprojectID, int totalHours, int projectID) {
         this.subprojectName = subprojectName;
         this.subprojectID = subprojectID;
+        this.totalHours = totalHours;
+        this.projectID = projectID;
     }
 
     public Subproject() {
@@ -36,5 +39,13 @@ public class Subproject {
 
     public void setTotalHours(int totalHours) {
         this.totalHours = totalHours;
+    }
+
+    public int getProjectID() {
+        return projectID;
+    }
+
+    public void setProjectID(int projectID) {
+        this.projectID = projectID;
     }
 }
