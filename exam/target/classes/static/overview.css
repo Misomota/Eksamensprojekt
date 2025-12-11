@@ -1,0 +1,93 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+    padding-top: 35px;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 800px;
+}
+
+.page-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.project-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    width: 800px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.empty-state {
+    text-align: center;
+    margin: 60px 0;
+}
+
+.project-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.project-table tr {
+    border-bottom: 1px solid #eceff3;
+    transition: 0.25s;
+}
+
+.project-table tr:last-child {
+    border-bottom: none;
+}
+
+.project-table tr:hover {
+    background: #f9f9fb;
+}
+
+.project-table td {
+    padding: 16px 8px;
+}
+
+.project-table .project-name {
+    display: inline-block;
+    padding: 8px 14px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #3A7CA5;
+    text-decoration: none !important;
+    transition: all 0.25s ease;
+}
+
+.project-table .project-name:hover {
+    border-color: #3A7CA5;
+    background: #e9f4ff;
+}
+
+.actions {
+    text-align: right;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.btn.small {
+    padding: 0.4rem 1rem;
+    font-size: 0.9rem;
+}
+
+.btn.danger {
+    background: #ffdad6;
+    color: #7a2121;
+}
+
+.btn.danger:hover {
+    background: #ffc8c3;
+}
