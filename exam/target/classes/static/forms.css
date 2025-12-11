@@ -29,7 +29,7 @@
 
 .add-task-page .form-project {
     width: 100%;
-    max-width: 500px; 
+    max-width: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;

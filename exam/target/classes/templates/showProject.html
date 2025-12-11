@@ -14,9 +14,10 @@
     <h1 th:text="#{entity.project}"></h1>
 <a th:href="@{/OnTheDot/addProject}" class="btn" th:text="#{action.create} + ' ' + #{entity.project}"></a>
 
-<div th:if="${projects.isEmpty()}">
-    <h2 th:text=" #{entity.project} + ' ' + #{field.empty}  + '. ' + #{field.create.new}"></h2>
-</div>
+    <div th:if="${projects.isEmpty()}">
+        <img th:src="#{item.empty.image}" alt="Empty Project">
+    </div>
+
 
 <table th:if="${!projects.isEmpty()}">
     <tr th:each="p : ${projects}">

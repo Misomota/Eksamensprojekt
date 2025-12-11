@@ -25,6 +25,12 @@
         <th th:text="#{action.edit} + '/' + #{action.delete}"></th>
     </tr>
 
+    <div th:if="${tasks.isEmpty()}">
+        <img th:src="#{item.empty.image}" alt="Empty Task">
+    </div>
+
+    <table th:if="${!tasks.isEmpty()}">
+
     <tr th:each="t : ${tasks}">
         <td th:text="${t.taskName}"></td>
         <td th:text="${t.startDate}"></td>
@@ -47,10 +53,10 @@
         </td>
     </tr>
 </table>
+</table>
 
 <a th:href="@{/OnTheDot/ganttDiagram(subprojectID=${subprojectID})}"
-   class="btn">
-    View Gantt Diagram
+   class="btn" th:text="#{gantt.diagram}">
 </a>
 
 </body>
