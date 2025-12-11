@@ -44,26 +44,23 @@
     background: #E5B685;
 }
 
-/* Wrapper til topknapper */
 .top-button-wrapper {
     display: flex;
-    justify-content: space-between; /* Venstre + højre grupper */
+    justify-content: space-between;
     align-items: center;
     margin: 25px 0;
-    flex-wrap: wrap; /* Responsivt på små skærme */
-    gap: 10px; /* Luft mellem grupper på små skærme */
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-/* Venstre gruppe */
 .top-button-left .btn {
     min-width: 140px;
     text-align: center;
 }
 
-/* Højre gruppe */
 .top-button-right {
     display: flex;
-    gap: 12px; /* Luft mellem knapper */
+    gap: 12px;
 }
 
 .top-button-right .btn {
