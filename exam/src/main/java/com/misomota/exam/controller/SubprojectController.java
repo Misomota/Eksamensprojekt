@@ -24,7 +24,7 @@ public class SubprojectController {
 
     @GetMapping("/subproject")
     public String showSubproject(@RequestParam("projectID") int projectID, Model model, HttpSession session) {
-        List<Subproject> listOfSubproject = subprojectService.showSubproject(projectID);
+        List<Subproject> listOfSubproject = subprojectService.readSubproject(projectID);
 
         for (Subproject sp : listOfSubproject) {
             int hours = taskService.sumHoursForSubproject(sp.getSubprojectID());

@@ -1,5 +1,8 @@
 package com.misomota.exam.controller;
+import com.misomota.exam.DRY.Session;
+import com.misomota.exam.model.Subproject;
 import com.misomota.exam.model.Task;
+import com.misomota.exam.service.SubprojectService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 import com.misomota.exam.service.TaskService;
@@ -14,15 +17,12 @@ import java.util.List;
 @RequestMapping("/OnTheDot")
 public class TaskController {
     private final TaskService taskService;
+    private final SubprojectService subprojectService;
 
-    public TaskController(TaskService taskService) {
+    public TaskController(TaskService taskService, SubprojectService subprojectService) {
         this.taskService = taskService;
+        this.subprojectService = subprojectService;
     }
-
-    private boolean isLoggedIn(HttpSession session) {
-        return session.getAttribute("account") != null;
-    }
-
 
     @GetMapping("/task")
     public String readTask(@RequestParam("subprojectID") int subprojectID, Model model, HttpSession session) {

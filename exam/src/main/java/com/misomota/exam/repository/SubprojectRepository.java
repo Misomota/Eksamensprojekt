@@ -42,7 +42,7 @@ public class SubprojectRepository {
         return new Subproject(subproject.getSubprojectName(), newId, 0, projectID);
     }
 
-    public List<Subproject> showSubproject(int projectID) {
+    public List<Subproject> readSubproject(int projectID) {
         String sql = "SELECT subprojectID, subprojectName, projectID FROM subproject WHERE projectID = ?";
         return jdbcTemplate.query(sql, subprojectRowMapper, projectID);
     }
