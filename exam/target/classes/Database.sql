@@ -26,7 +26,7 @@ taskID INT AUTO_INCREMENT,
 taskName VARCHAR(100) NOT NULL,
 subprojectID INT,
 startDate DATE,
-deadline DATE,
+deadline DATETIME,
 timeEstimate INT,
 personAssigned INT,
 duration INT,
@@ -45,15 +45,11 @@ role VARCHAR(100),
 PRIMARY KEY (accountID)
 );
 
+DROP TABLE IF EXISTS resource;
 CREATE TABLE resource (
 resourceID INT AUTO_INCREMENT PRIMARY KEY,
-resourceName VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE task_resource (
+resourceName VARCHAR(255) NOT NULL,
 taskID INT NOT NULL,
-resourceID INT NOT NULL,
-PRIMARY KEY (taskID, resourceID),
-FOREIGN KEY (taskID) REFERENCES task(taskID),
-FOREIGN KEY (resourceID) REFERENCES resource(resourceID)
+FOREIGN KEY (taskID) REFERENCES task(taskID)
+ON DELETE CASCADE
 );

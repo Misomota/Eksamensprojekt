@@ -25,14 +25,6 @@ public class ResourceService {
         }
     }
 
-    public int createResourceToTask(int taskId, int resourceId) {
-        if (!resourceRepository.isResourceAssignedToTask(taskId, resourceId)) {
-            return resourceRepository.createResourceToTask(taskId, resourceId);
-        } else {
-            throw new IllegalArgumentException("Resource is already assigned to this task");
-        }
-    }
-
     public List<Resource> readResources(int taskId) {
        List<Resource> resourceList = resourceRepository.readResources(taskId);
        if (resourceList == null) {
@@ -53,6 +45,7 @@ public class ResourceService {
         try {
             Resource existing = findResourceByID(id);
             existing.setResourceName(resource.getResourceName());
+            existing.setTaskID(resource.getTaskID());
 
             int rows = resourceRepository.updateResources(existing);
             if (rows == 0) throw new NotFoundException(id);
@@ -62,9 +55,9 @@ public class ResourceService {
         }
     }
 
-    public void deleteResource(int taskId, int resourceId) {
+    public void deleteResource(int resourceId) {
         try {
-            resourceRepository.deleteResourceFromTask(taskId, resourceId);
+            resourceRepository.deleteResource(resourceId);
         } catch (DataAccessException e) {
             throw new DatabaseOperationException("Failed to delete resource", e);
         }
