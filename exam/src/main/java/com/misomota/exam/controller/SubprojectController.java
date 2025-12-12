@@ -49,7 +49,7 @@ public class SubprojectController {
         if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
-        subprojectService.addSubproject(subproject, projectID);
+        subprojectService.createSubproject(subproject, projectID);
         return "redirect:/OnTheDot/subproject?projectID=" + projectID;
     }
 

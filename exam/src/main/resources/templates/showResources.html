@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resources</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/header.css">
+    <link rel="stylesheet" href="/forms.css">
+    <link rel="stylesheet" href="/button.css">
+    <link rel="stylesheet" href="/overview.css">
+</head>
+
+<body>
+
+<div th:replace="~{header :: mainHeader}"></div>
+
+<main class="page">
+    <div class="page-header">
+        <h1 th:text="#{entity.resource}"></h1>
+        <div class="header-buttons">
+            <a th:href="@{/OnTheDot/addResource(taskID=${taskID})}"
+               th:text="#{action.create} + ' ' + #{entity.resource}"></a>
+            <a th:href="@{/OnTheDot/task(subprojectID=${subprojectID})}" class="btn" th:text="#{action.back}"></a>
+        </div>
+    </div>
+
+    <div class="project-card">
+        <div th:if="${resources.isEmpty()}">
+            <img th:src="#{item.empty.image}" alt="No Resources">
+        </div>
+
+        <table th:if="${!resources.isEmpty()}" class="project-table">
+            <tbody>
+
+            <tr th:each="r : ${resources}">
+                <td>
+                    <span class="project-name"
+                          th:text="${r.resourceName}">
+                    </span>
+                </td>
+
+                <td class="actions">
+                    <a th:href="@{/OnTheDot/updateResource(resourceID=${r.resourceID}, taskID=${taskID})}"
+                       class="btn small"
+                       th:text="#{action.edit}"></a>
+
+                    <form th:action="@{/OnTheDot/deleteResource}" method="post">
+                        <input type="hidden" name="taskID" th:value="${taskID}">
+                        <input type="hidden" name="resourceID" th:value="${r.resourceID}">
+                        <button type="submit" class="btn small danger" th:text="#{action.delete}"></button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+</body>
+</html>

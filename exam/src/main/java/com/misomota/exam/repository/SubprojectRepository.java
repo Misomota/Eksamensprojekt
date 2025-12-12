@@ -27,7 +27,7 @@ public class SubprojectRepository {
                     rs.getInt("projectID")
             );
 
-    public Subproject addSubproject(Subproject subproject, int projectID) {
+    public Subproject createSubproject(Subproject subproject, int projectID) {
         String sql = "INSERT INTO subproject (subprojectName, projectID) VALUES (?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 

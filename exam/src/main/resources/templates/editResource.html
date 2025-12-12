@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{action.edit} + ' ' + #{entity.resource}"></title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/forms.css">
+  <link rel="stylesheet" href="/button.css">
+  <link rel="stylesheet" href="/header.css">
+</head>
+<body>
+<div th:replace="~{header :: mainHeader}"></div>
+
+<div class="form-project">
+  <h1 th:text="#{action.edit} + ' ' + #{entity.subproject}"></h1>
+
+  <form th:action="@{/OnTheDot/updateResource}" th:object="${resource}" method="post" class="form-card">
+    <input type="hidden" name="taskID" th:value="${taskID}" />
+    <input type="hidden" th:field="*{resourceID}" />
+
+    <div class="group">
+      <input th:field="*{resourceName}" th:placeholder="#{field.name}" class="input" required/>
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="btn" th:text="#{action.save}"></button>
+      <a th:href="@{/OnTheDot/resource(taskID=${taskID})}" class="btn" th:text="#{action.cancel}"></a>
+    </div>
+  </form>
+</div>
+</body>
+</html>
+
+
+
+
+
