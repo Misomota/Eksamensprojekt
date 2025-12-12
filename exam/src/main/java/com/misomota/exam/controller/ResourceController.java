@@ -20,21 +20,24 @@ public class ResourceController {
     }
 
     @GetMapping("/addResource")
-    public String createResource(@RequestParam("taskID") int taskID, Model model, HttpSession httpSession) {
-        model.addAttribute("resource", new Resource());
-        model.addAttribute("taskID", taskID);
-        return Session.isLoggedIn(httpSession) ? "addResource" : "redirect:/account/login";
-    }
-
-    @PostMapping("/addResource")
-    public String saveResource(@RequestParam("taskID") int taskID, @ModelAttribute("resource") Resource resource, HttpSession session) {
+    public String createResource(@RequestParam("taskID") int taskID, Model model, HttpSession session) {
         if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
-        Resource created = resourceService.createResource(resource);
-        resourceService.createResourceToTask(taskID, created.getResourceID());
-        return "redirect:/OnTheDot/resource?taskID=" + taskID;
+        Resource resource = new Resource();
+        resource.setTaskID(taskID);
+        model.addAttribute("resource", resource);
+        model.addAttribute("taskID", taskID);
+        return "addResource";
+    }
 
+    @PostMapping("/addResource")
+    public String saveResource(@ModelAttribute("resource") Resource resource, HttpSession session) {
+        if (!Session.isLoggedIn(session)) {
+            return "redirect:/account/login";
+        }
+        resourceService.createResource(resource);
+        return "redirect:/OnTheDot/resource?taskID=" + resource.getTaskID();
     }
 
     @GetMapping("/resource")
@@ -60,12 +63,12 @@ public class ResourceController {
     }
 
     @PostMapping("/updateResource")
-    public String updateResource(@RequestParam("taskID") int taskID, @ModelAttribute("resource") Resource resource, HttpSession session) {
+    public String updateResource(@ModelAttribute("resource") Resource resource, HttpSession session) {
         if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
         resourceService.updateResource(resource, resource.getResourceID());
-        return "redirect:/OnTheDot/resource?taskID=" + taskID;
+        return "redirect:/OnTheDot/resource?taskID=" + resource.getTaskID();
     }
 
 
@@ -74,7 +77,7 @@ public class ResourceController {
         if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
-        resourceService.deleteResource(taskID, resourceID);
+        resourceService.deleteResource(resourceID);
         return "redirect:/OnTheDot/resource?taskID=" + taskID;
     }
 }

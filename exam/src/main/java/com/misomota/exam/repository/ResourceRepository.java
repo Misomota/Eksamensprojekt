@@ -13,6 +13,7 @@ import java.util.List;
 
 @Repository
 public class ResourceRepository {
+
     private final JdbcTemplate jdbcTemplate;
 
     public ResourceRepository(JdbcTemplate jdbcTemplate) {
@@ -20,47 +21,51 @@ public class ResourceRepository {
     }
 
     private final RowMapper<Resource> resourceRowMapper = (rs, rowNum) ->
-            new Resource(rs.getInt("resourceID"), rs.getString("resourceName"));
+            new Resource(
+                    rs.getInt("resourceID"),
+                    rs.getString("resourceName"),
+                    rs.getInt("taskID")
+            );
+
 
     public Resource findResourceByID(int resourceID) {
-        String sql = "SELECT resourceName, resourceID FROM resource WHERE resourceID = ?";
+        String sql = "SELECT resourceID, resourceName, taskID FROM resource WHERE resourceID = ?";
         return jdbcTemplate.queryForObject(sql, resourceRowMapper, resourceID);
     }
 
     public Resource createResource(Resource resource) {
-        String sql = "INSERT INTO resource (resourceName) VALUES (?)";
+        String sql = "INSERT INTO resource (resourceName, taskID) VALUES (?, ?)";
+
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps =
+                    connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, resource.getResourceName());
+            ps.setInt(2, resource.getTaskID());
             return ps;
         }, keyHolder);
-        int id = keyHolder.getKey() != null ? keyHolder.getKey().intValue() : -1;
-        return new Resource(id, resource.getResourceName());
-    }
 
-    public int createResourceToTask(int taskID, int resourceID) {
-        String sql = "INSERT INTO task_resource (taskID, resourceID) VALUES (?, ?)";
-        return jdbcTemplate.update(sql, taskID, resourceID);
+        int id = keyHolder.getKey() != null ? keyHolder.getKey().intValue() : -1;
+
+        return new Resource(id, resource.getResourceName(), resource.getTaskID());
     }
 
     public List<Resource> readResources(int taskID) {
-        String sql = "SELECT r.resourceID, r.resourceName FROM resource r " + "JOIN task_resource tr ON r.resourceID = tr.resourceID " + "WHERE tr.taskID = ?";
+        String sql = "SELECT resourceID, resourceName, taskID FROM resource WHERE taskID = ?";
         return jdbcTemplate.query(sql, resourceRowMapper, taskID);
     }
 
     public int updateResources(Resource resource) {
-        return jdbcTemplate.update("UPDATE resource SET resourceName = ? WHERE resourceID = ?", resource.getResourceName(), resource.getResourceID());
+        String sql = "UPDATE resource SET resourceName = ?, taskID = ? WHERE resourceID = ?";
+        return jdbcTemplate.update(sql,
+                resource.getResourceName(),
+                resource.getTaskID(),
+                resource.getResourceID()
+        );
     }
 
-    public int deleteResourceFromTask(int taskID, int resourceID) {
-        String sql = "DELETE FROM task_resource WHERE taskID = ? AND resourceID = ?";
-        return jdbcTemplate.update(sql, taskID, resourceID);
-    }
-
-    public boolean isResourceAssignedToTask(int taskId, int resourceId) {
-        String sql = "SELECT COUNT(*) FROM task_resource WHERE taskID = ? AND resourceID = ?";
-        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, taskId, resourceId);
-        return count != null && count > 0;
+    public int deleteResource(int resourceID) {
+        String sql = "DELETE FROM resource WHERE resourceID = ?";
+        return jdbcTemplate.update(sql, resourceID);
     }
 }
