@@ -38,7 +38,7 @@ public class ProjectController {
         for (Project p : projectList) {
 
             // hent alle subprojects
-            List<Subproject> subs = subprojectService.showSubproject(p.getProjectID());
+            List<Subproject> subs = subprojectService.readSubproject(p.getProjectID());
 
             int totalProjectHours = 0;
 
