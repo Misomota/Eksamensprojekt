@@ -23,7 +23,7 @@
 
 <table>
     <tr>
-        <th th:text="#{entity.task}+'/'+#{field.name}"></th>
+        <th th:text="#{entity.task}+' '+#{field.name}"></th>
         <th th:text="#{field.startDate}"></th>
         <th th:text="#{field.deadline}"></th>
         <th th:text="#{field.timeEstimate}"></th>
@@ -45,7 +45,12 @@
         <td th:text="${t.deadline}"></td>
         <td th:text="${t.timeEstimate}"></td>
         <td th:text="${t.duration}"></td>
-        <td th:text="${t.personAssigned}"></td>
+        <td>
+            <a th:href="@{/OnTheDot/resource(taskID=${t.taskID})}"
+               th:text="${t.personAssigned}"
+               class="resource-link">
+            </a>
+        </td>
         <td th:text="${t.actualTimeUsed}"></td>
 
         <td>

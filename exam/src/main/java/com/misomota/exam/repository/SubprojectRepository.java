@@ -25,7 +25,7 @@ public class SubprojectRepository {
                     rs.getInt("subprojectID")
             );
 
-    public Subproject addSubproject(Subproject subproject, int projectID) {
+    public Subproject createSubproject(Subproject subproject, int projectID) {
         String sql = "INSERT INTO subproject (subprojectName, projectID) VALUES (?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -40,7 +40,7 @@ public class SubprojectRepository {
         return new Subproject(subproject.getSubprojectName(), newId);
     }
 
-    public List<Subproject> showSubproject(int projectID) {
+    public List<Subproject> readSubproject(int projectID) {
         String sql = "SELECT subprojectID, subprojectName FROM subproject WHERE projectID = ?";
         return jdbcTemplate.query(sql, subprojectRowMapper, projectID);
     }

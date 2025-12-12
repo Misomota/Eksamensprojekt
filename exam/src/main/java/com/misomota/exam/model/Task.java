@@ -10,7 +10,6 @@ public class Task {
     private LocalDate deadline;
     private int timeEstimate;
     private int personAssigned;
-    private String resource;
     private int duration;
     private int actualTimeUsed;
 
@@ -19,14 +18,13 @@ public class Task {
     }
 
 
-    public Task(int taskID ,String taskName, LocalDate startDate, LocalDate deadline, int timeEstimate,int personAssigned, String resource, int duration, int actualTimeUsed) {
+    public Task(int taskID ,String taskName, LocalDate startDate, LocalDate deadline, int timeEstimate,int personAssigned, int duration, int actualTimeUsed) {
         this.taskID = taskID;
         this.taskName = taskName;
         this.startDate = startDate;
         this.deadline = deadline;
         this.timeEstimate = timeEstimate;
         this.personAssigned = personAssigned;
-        this.resource = resource;
         this.duration = duration;
         this.actualTimeUsed = actualTimeUsed;
     }
@@ -55,10 +53,6 @@ public class Task {
         return timeEstimate;
     }
 
-    public String getResource() {
-        return resource;
-    }
-
     public int getDuration() {
         return duration;
     }
@@ -81,10 +75,6 @@ public class Task {
 
     public void setTimeEstimate(int timeEstimate) {
         this.timeEstimate = timeEstimate;
-    }
-
-    public void setResource(String resource) {
-        this.resource = resource;
     }
 
     public int getPersonAssigned() {

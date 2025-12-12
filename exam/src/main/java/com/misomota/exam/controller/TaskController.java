@@ -1,4 +1,5 @@
 package com.misomota.exam.controller;
+import com.misomota.exam.DRY.Session;
 import com.misomota.exam.model.Task;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
@@ -19,29 +20,24 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    private boolean isLoggedIn(HttpSession session) {
-        return session.getAttribute("account") != null;
-    }
-
-
     @GetMapping("/task")
     public String readTask(@RequestParam("subprojectID") int subprojectID, Model model, HttpSession session) {
         List<Task> listOfTask = taskService.readTask(subprojectID);
         model.addAttribute("tasks", listOfTask);
         model.addAttribute("subprojectID", subprojectID);
-        return isLoggedIn(session) ? "showTask" : "redirect:/account/login";
+        return Session.isLoggedIn(session) ? "showTask" : "redirect:/account/login";
     }
 
     @GetMapping("/addTask")
     public String createTask(@RequestParam("subprojectID") int subprojectID, Model model, HttpSession session) {
         model.addAttribute("task", new Task());
         model.addAttribute("subprojectID", subprojectID);
-        return isLoggedIn(session) ? "addTask" : "redirect:/account/login";
+        return Session.isLoggedIn(session) ? "addTask" : "redirect:/account/login";
     }
 
     @PostMapping("/addTask")
     public String saveTask(@RequestParam("subprojectID" )int subprojectID,@ModelAttribute("task") Task task, HttpSession session) {
-        if (!isLoggedIn(session)) {
+        if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
         taskService.createTask(task, subprojectID);
@@ -51,7 +47,7 @@ public class TaskController {
 
     @PostMapping("/deleteTask")
     public String deleteTask(@RequestParam("taskID") int taskID,@RequestParam("subprojectID") int subprojectID, HttpSession session) {
-        if (!isLoggedIn(session)) {
+        if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
         taskService.deleteTask(taskID);
@@ -61,7 +57,7 @@ public class TaskController {
 
     @GetMapping("/editTask")
     public String editTask(@RequestParam("taskID") int taskID, @RequestParam("subprojectID") int subprojectID, Model model, HttpSession session) {
-        if (!isLoggedIn(session)) {
+        if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
         Task task = taskService.findTaskByID(taskID);
@@ -77,7 +73,7 @@ public class TaskController {
 
     @PostMapping("/editTask")
     public String updateTaskName(@RequestParam("subprojectID") int subprojectID, @ModelAttribute("task") Task task, HttpSession session) {
-        if (!isLoggedIn(session)) {
+        if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
         taskService.updateTask(task, task.getTaskID());
@@ -86,7 +82,7 @@ public class TaskController {
 
     @GetMapping("/ganttDiagram")
     public String readGantt(@RequestParam("subprojectID") int subprojectID, Model model, HttpSession session) {
-        if (!isLoggedIn(session)) {
+        if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
         List<Task> tasks = taskService.readTask(subprojectID);

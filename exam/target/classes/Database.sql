@@ -26,10 +26,9 @@ taskID INT AUTO_INCREMENT,
 taskName VARCHAR(100) NOT NULL,
 subprojectID INT,
 startDate DATE,
-deadline DATETIME,
+deadline DATE,
 timeEstimate INT,
 personAssigned INT,
-resource VARCHAR(100),
 duration INT,
 actualTimeUsed INT,
 PRIMARY KEY(taskID),
@@ -44,4 +43,17 @@ password VARCHAR(100) NOT NULL,
 accountID INT AUTO_INCREMENT,
 role VARCHAR(100),
 PRIMARY KEY (accountID)
+);
+
+CREATE TABLE resource (
+resourceID INT AUTO_INCREMENT PRIMARY KEY,
+resourceName VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE task_resource (
+taskID INT NOT NULL,
+resourceID INT NOT NULL,
+PRIMARY KEY (taskID, resourceID),
+FOREIGN KEY (taskID) REFERENCES task(taskID),
+FOREIGN KEY (resourceID) REFERENCES resource(resourceID)
 );

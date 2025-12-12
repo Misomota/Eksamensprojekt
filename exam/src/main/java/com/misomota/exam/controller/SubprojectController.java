@@ -21,10 +21,10 @@ public class SubprojectController {
 
     @GetMapping("/subproject")
     public String showSubproject(@RequestParam("projectID") int projectID, Model model, HttpSession session) {
-        List<Subproject> listOfSubproject = subprojectService.showSubproject(projectID);
+        List<Subproject> listOfSubproject = subprojectService.readSubproject(projectID);
         model.addAttribute("subprojects", listOfSubproject);
         model.addAttribute("projectID", projectID);
-        System.out.println("All subprojects: " + subprojectService.showSubproject(projectID));
+        System.out.println("All subprojects: " + subprojectService.readSubproject(projectID));
         return Session.isLoggedIn(session) ? "showSubproject" : "redirect:/account/login";
     }
 
@@ -40,7 +40,7 @@ public class SubprojectController {
         if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
-        subprojectService.addSubproject(subproject, projectID);
+        subprojectService.createSubproject(subproject, projectID);
         return "redirect:/OnTheDot/subproject?projectID=" + projectID;
     }
 

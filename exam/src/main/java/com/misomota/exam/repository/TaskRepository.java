@@ -28,13 +28,12 @@ public class TaskRepository {
                     rs.getDate("deadline").toLocalDate(),
                     rs.getInt("timeEstimate"),
                     rs.getInt("personAssigned"),
-                    rs.getString("resource"),
                     rs.getInt("duration"),
                     rs.getInt("actualTimeUsed")
             );
 
     public Task createTask(Task task, int subprojectID) {
-        String sql = "INSERT INTO task (taskName, startDate, deadline, timeEstimate, personAssigned, `resource`, duration, subprojectID, actualTimeUsed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO task (taskName, startDate, deadline, timeEstimate, personAssigned, duration, subprojectID, actualTimeUsed) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -45,32 +44,30 @@ public class TaskRepository {
             ps.setDate(3, Date.valueOf(task.getDeadline()));
             ps.setInt(4, task.getTimeEstimate());
             ps.setInt(5, task.getPersonAssigned());
-            ps.setString(6,task.getResource());
-            ps.setInt(7, task.getDuration());
-            ps.setInt(8, subprojectID);
-            ps.setInt(9, task.getActualTimeUsed());
+            ps.setInt(6, task.getDuration());
+            ps.setInt(7, subprojectID);
+            ps.setInt(8, task.getActualTimeUsed());
             return ps;
         }, keyHolder);
 
         int newID = keyHolder.getKey() != null ? keyHolder.getKey().intValue() : -1;
-        return new Task(newID, task.getTaskName(), task.getStartDate(), task.getDeadline(),task.getTimeEstimate(), task.getPersonAssigned(), task.getResource(), task.getDuration(), task.getActualTimeUsed());
+        return new Task(newID, task.getTaskName(), task.getStartDate(), task.getDeadline(),task.getTimeEstimate(), task.getPersonAssigned(), task.getDuration(), task.getActualTimeUsed());
     }
 
     public List<Task> readTask(int subprojectID) {
-        String sql = "SELECT taskID, taskName, startDate, deadline, timeEstimate, personAssigned, `resource`, duration, actualTimeUsed FROM task WHERE subprojectID = ?";
+        String sql = "SELECT taskID, taskName, startDate, deadline, timeEstimate, personAssigned, duration, actualTimeUsed FROM task WHERE subprojectID = ?";
         return jdbcTemplate.query(sql, taskRowMapper, subprojectID);
     }
 
     public Task findTaskByID(int id) {
-        String sql = "SELECT taskID, taskName, startDate, deadline, timeEstimate, personAssigned, resource, duration, actualTimeUsed FROM task WHERE taskID = ?";
+        String sql = "SELECT taskID, taskName, startDate, deadline, timeEstimate, personAssigned, duration, actualTimeUsed FROM task WHERE taskID = ?";
         return jdbcTemplate.queryForObject(sql, taskRowMapper, id);
     }
 
     public int updateTask(Task task) {
-        return jdbcTemplate.update("UPDATE task SET taskName = ?, startDate = ?, deadline = ?, timeEstimate = ?, personAssigned = ?, `resource` = ?, duration = ?, actualTimeUsed = ? WHERE taskID = ?",
-                task.getTaskName(), java.sql.Date.valueOf(task.getStartDate()), java.sql.Date.valueOf(task.getDeadline()), task.getTimeEstimate(), task.getPersonAssigned(), task.getResource(), task.getDuration(), task.getActualTimeUsed(), task.getTaskID());
+        return jdbcTemplate.update("UPDATE task SET taskName = ?, startDate = ?, deadline = ?, timeEstimate = ?, personAssigned = ?, duration = ?, actualTimeUsed = ? WHERE taskID = ?",
+                task.getTaskName(), java.sql.Date.valueOf(task.getStartDate()), java.sql.Date.valueOf(task.getDeadline()), task.getTimeEstimate(), task.getPersonAssigned(), task.getDuration(), task.getActualTimeUsed(), task.getTaskID());
     }
-
 
     public int deleteTask(int taskID) {
         return jdbcTemplate.update("DELETE FROM task WHERE taskID = ?",
