@@ -20,6 +20,10 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
+    public Task createTask(Task task, int subprojectID) {
+        return taskRepository.createTask(task, subprojectID);
+    }
+
     public List<Task> readTask(int subprojectID) {
         List<Task> tasks = taskRepository.readTask(subprojectID);
         for (Task task : tasks) {
@@ -40,20 +44,6 @@ public class TaskService {
         return task;
     }
 
-    public Task createTask(Task task, int subprojectID) {
-        return taskRepository.createTask(task, subprojectID);
-    }
-
-    public void deleteTask(int id) {
-        try {
-            int rows = taskRepository.deleteTask(id);
-            if (rows == 0) throw new NotFoundException(id);
-        } catch (DataAccessException e) {
-            throw new DatabaseOperationException("Failed to delete project", e);
-        }
-
-    }
-
     public Task updateTask(Task task, int id) {
         try {
             Task existing = findTaskByID(id);
@@ -70,6 +60,16 @@ public class TaskService {
         } catch (DataAccessException e) {
             throw new DatabaseOperationException("Failed to update project", e);
         }
+    }
+
+    public void deleteTask(int id) {
+        try {
+            int rows = taskRepository.deleteTask(id);
+            if (rows == 0) throw new NotFoundException(id);
+        } catch (DataAccessException e) {
+            throw new DatabaseOperationException("Failed to delete project", e);
+        }
+
     }
 
     public int calculateDuration(Task task) {

@@ -40,7 +40,7 @@
                     </a>
                 </td>
 
-                <td th:text="${s.totalHours} + ' timer brugt'"></td>
+                <td th:text="${s.totalHours} + #{field.hours} + ' ' + #{field.used}"></td>
 
                 <td class="actions">
                     <a th:href="@{/OnTheDot/editSubproject(subprojectID=${s.subprojectID}, projectID=${projectID})}"

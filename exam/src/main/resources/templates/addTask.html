@@ -21,27 +21,27 @@
         <input type="hidden" name="subprojectID" th:value="${subprojectID}">
 
         <div class="group">
-            <label th:for="*{taskName}">Task name</label>
+            <label th:for="*{taskName}" th:text="#{entity.task} + ' '+ #{field.name}"></label>
             <input th:field="*{taskName}" type="text" class="input" required>
         </div>
 
         <div class="group">
-            <label th:for="*{startDate}">Start date</label>
+            <label th:for="*{startDate}" th:text="#{field.startDate}"></label>
             <input th:field="*{startDate}" type="date" class="input" required>
         </div>
 
         <div class="group">
-            <label th:for="*{deadline}">Deadline</label>
+            <label th:for="*{deadline}" th:text="#{field.deadline}"></label>
             <input th:field="*{deadline}" type="date" class="input" required>
         </div>
 
         <div class="group">
-            <label th:for="*{personAssigned}">People assigned</label>
+            <label th:for="*{personAssigned}" th:text="#{field.personAssigned}"></label>
             <input th:field="*{personAssigned}" type="text" class="input" required>
         </div>
 
         <div class="group">
-            <label th:for="*{actualTimeUsed}">Actual time used</label>
+            <label th:for="*{actualTimeUsed}" th:text="#{field.actualTimeUsed}"></label>
             <input th:field="*{actualTimeUsed}" type="number" class="input" required>
         </div>
 
