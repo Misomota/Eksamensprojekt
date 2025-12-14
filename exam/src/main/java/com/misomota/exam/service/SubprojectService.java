@@ -17,6 +17,14 @@ public class SubprojectService {
         this.subprojectRepository = subprojectRepository;
     }
 
+    public Subproject createSubproject(Subproject subproject, int projectID) {
+        try {
+            return subprojectRepository.createSubproject(subproject, projectID);
+        } catch (DataAccessException dataAccessException) {
+            throw new DatabaseOperationException("Failed to create subproject: ", dataAccessException);
+        }
+    }
+
     public List<Subproject> readSubproject(int projectID) {
         List<Subproject> subprojects = subprojectRepository.readSubproject(projectID);
         if (subprojects == null) {
@@ -31,14 +39,6 @@ public class SubprojectService {
             throw new NotFoundException("no subproject found");
         }
         return subproject;
-    }
-
-    public Subproject createSubproject(Subproject subproject, int projectID) {
-        try {
-            return subprojectRepository.createSubproject(subproject, projectID);
-        } catch (DataAccessException dataAccessException) {
-            throw new DatabaseOperationException("Failed to create subproject: ", dataAccessException);
-        }
     }
 
     public Subproject updateSubproject(Subproject subproject, int id) {

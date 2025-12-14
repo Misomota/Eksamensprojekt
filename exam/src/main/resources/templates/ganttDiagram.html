@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Gantt Diagram</title>
+  <title th:text="#{gantt.diagram}"></title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/header.css">
   <link rel="stylesheet" href="/ganttDiagram.css">
@@ -11,7 +11,7 @@
 <body>
 <div th:replace="~{header :: mainHeader}"></div>
 
-<h2>Gantt Diagram</h2>
+<h2 th:text="#{gantt.diagram}"></h2>
 
 <a th:href="@{/OnTheDot/task(subprojectID=${subprojectID})}" class="btn" th:text="#{action.back}"></a>
 
