@@ -1,11 +1,14 @@
 com/misomota/exam/controller/HomeController.class
 com/misomota/exam/service/ProjectService.class
+com/misomota/exam/repository/ResourceRepository.class
+com/misomota/exam/service/ResourceService.class
 com/misomota/exam/controller/TaskController.class
 com/misomota/exam/repository/SubprojectRepository.class
 com/misomota/exam/controller/AccountController.class
 com/misomota/exam/service/TaskService.class
 com/misomota/exam/DRY/Session.class
 com/misomota/exam/DRY/DatabaseOperationException.class
+com/misomota/exam/model/Resource.class
 com/misomota/exam/service/AccountService.class
 com/misomota/exam/repository/AccountRepository.class
 com/misomota/exam/DRY/DuplicateProfileException.class
@@ -17,6 +20,7 @@ com/misomota/exam/controller/SubprojectController.class
 com/misomota/exam/model/Task.class
 com/misomota/exam/ExamApplication.class
 com/misomota/exam/controller/ExceptionController.class
+com/misomota/exam/controller/ResourceController.class
 com/misomota/exam/controller/ProjectController.class
 com/misomota/exam/repository/TaskRepository.class
 com/misomota/exam/repository/ProjectRepository.class

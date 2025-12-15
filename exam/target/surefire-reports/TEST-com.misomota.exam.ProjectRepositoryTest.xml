@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.misomota.exam.ServiceTest" time="0.729" tests="8" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.misomota.exam.ProjectRepositoryTest" time="0.787" tests="4" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -29,6 +29,8 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="FILE_LOG_CHARSET" value="UTF-8"/>
+    <property name="java.awt.headless" value="true"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
     <property name="surefire.real.class.path" value="/Users/monataherzadeh/IdeaProjects/Eksamensprojekt/exam/target/surefire/surefirebooter-20251214204110531_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
@@ -49,6 +51,8 @@
     <property name="user.dir" value="/Users/monataherzadeh/IdeaProjects/Eksamensprojekt/exam"/>
     <property name="os.arch" value="aarch64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="PID" value="11546"/>
+    <property name="CONSOLE_LOG_CHARSET" value="UTF-8"/>
     <property name="native.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/Users/monataherzadeh/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
     <property name="java.vm.info" value="mixed mode, sharing"/>
@@ -60,19 +64,27 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="createProject_ReturnsNull" classname="com.misomota.exam.ServiceTest" time="0.693">
-    <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
-WARNING: A Java agent has been loaded dynamically (/Users/monataherzadeh/.m2/repository/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar)
-WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
-WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
-WARNING: Dynamic loading of agents will be disallowed by default in a future release
-]]></system-err>
+  <testcase name="testReadProject" classname="com.misomota.exam.ProjectRepositoryTest" time="0.045">
+    <system-out><![CDATA[20:41:11.631 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.misomota.exam.ProjectRepositoryTest]: ProjectRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+20:41:11.705 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.misomota.exam.ExamApplication for test class com.misomota.exam.ProjectRepositoryTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.7)
+
+2025-12-14T20:41:11.937+01:00  INFO 11546 --- [           main] c.misomota.exam.ProjectRepositoryTest    : Starting ProjectRepositoryTest using Java 25 with PID 11546 (started by monataherzadeh in /Users/monataherzadeh/IdeaProjects/Eksamensprojekt/exam)
+2025-12-14T20:41:11.937+01:00  INFO 11546 --- [           main] c.misomota.exam.ProjectRepositoryTest    : No active profile set, falling back to 1 default profile: "default"
+2025-12-14T20:41:12.110+01:00  INFO 11546 --- [           main] beddedDataSourceBeanFactoryPostProcessor : Replacing 'dataSource' DataSource bean with embedded version
+2025-12-14T20:41:12.142+01:00  INFO 11546 --- [           main] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:55f7be4a-0e93-4ed8-a90d-26e17f134a1e;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+2025-12-14T20:41:12.255+01:00  INFO 11546 --- [           main] c.misomota.exam.ProjectRepositoryTest    : Started ProjectRepositoryTest in 0.511 seconds (process running for 1.69)
+]]></system-out>
   </testcase>
-  <testcase name="updateProject_ReturnsNull" classname="com.misomota.exam.ServiceTest" time="0.012"/>
-  <testcase name="createProject_ReturnsProject" classname="com.misomota.exam.ServiceTest" time="0.003"/>
-  <testcase name="findProjectByID_ReturnsProject" classname="com.misomota.exam.ServiceTest" time="0.002"/>
-  <testcase name="findProjectByID_ReturnsNull" classname="com.misomota.exam.ServiceTest" time="0.002"/>
-  <testcase name="readProject_ReturnsNull" classname="com.misomota.exam.ServiceTest" time="0.003"/>
-  <testcase name="updateProject_ReturnsProject" classname="com.misomota.exam.ServiceTest" time="0.001"/>
-  <testcase name="readProject_ReturnsProject" classname="com.misomota.exam.ServiceTest" time="0.001"/>
+  <testcase name="testCreateAndFindProject" classname="com.misomota.exam.ProjectRepositoryTest" time="0.007"/>
+  <testcase name="testUpdateProject" classname="com.misomota.exam.ProjectRepositoryTest" time="0.003"/>
+  <testcase name="testDeleteProject" classname="com.misomota.exam.ProjectRepositoryTest" time="0.003"/>
 </testsuite>
