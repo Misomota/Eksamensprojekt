@@ -2,40 +2,82 @@ package com.misomota.exam;
 
 import com.misomota.exam.model.Project;
 import com.misomota.exam.repository.ProjectRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
+import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 
-@SpringBootTest
-@ActiveProfiles("test")
-@Sql(scripts = "classpath:com/misomota/exam/resources/h2init.sql", executionPhase = BEFORE_TEST_METHOD)
+@JdbcTest
+@Import(ProjectRepository.class) // Importer dit repository, da det ikke er en Spring Data interface
 public class ProjectRepositoryTest {
 
     @Autowired
     private ProjectRepository projectRepository;
 
-    @Test
-    void readAll() {
-        List<Project> all = projectRepository.readProject();
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
-        assertThat(all).isNotNull();
-        assertThat(all.size()).isEqualTo(2);
-        assertThat(all.get(0).getProjectName()).isEqualTo("eksamensprojekt");
-        assertThat(all.get(1).getProjectName()).isEqualTo("julepyntning");
+    @BeforeEach
+    void setUp() {
+        // Opretter tabel i H2-databasen
+        jdbcTemplate.execute("CREATE TABLE IF NOT EXISTS project (" +
+                "projectID INT AUTO_INCREMENT PRIMARY KEY, " +
+                "projectName VARCHAR(255) NOT NULL)");
+        // Rydder tabellen før hver test
+        jdbcTemplate.execute("TRUNCATE TABLE project");
     }
 
     @Test
-    void insertAndReadBack() {
-        projectRepository.createProject(new Project( "nyProjekt", 3));
-        var nyProjekt = projectRepository.findProjectByID(3);
-        assertThat(nyProjekt).isNotNull();
-        assertThat(nyProjekt.getProjectName()).isEqualTo("nyProjekt");
+    void testCreateAndFindProject() {
+        // Arrange
+        Project project = new Project("Test Project", 0);
+
+        // Act
+        Project savedProject = projectRepository.createProject(project);
+        Project foundProject = projectRepository.findProjectByID(savedProject.getProjectID());
+
+        // Assert
+        assertThat(savedProject.getProjectID()).isGreaterThan(0);
+        assertThat(foundProject.getProjectName()).isEqualTo("Test Project");
+    }
+
+    @Test
+    void testReadProject() {
+        projectRepository.createProject(new Project("Project A", 0));
+        projectRepository.createProject(new Project("Project B", 0));
+
+        List<Project> projects = projectRepository.readProject();
+
+        assertThat(projects).hasSize(2);
+        assertThat(projects).extracting("projectName").containsExactlyInAnyOrder("Project A", "Project B");
+    }
+
+    @Test
+    void testUpdateProject() {
+        Project project = projectRepository.createProject(new Project("Old Name", 0));
+        project.setProjectName("New Name");
+
+        int updatedRows = projectRepository.updateProject(project);
+        Project updatedProject = projectRepository.findProjectByID(project.getProjectID());
+
+        assertThat(updatedRows).isEqualTo(1);
+        assertThat(updatedProject.getProjectName()).isEqualTo("New Name");
+    }
+
+    @Test
+    void testDeleteProject() {
+        Project project = projectRepository.createProject(new Project("To Delete", 0));
+
+        int deletedRows = projectRepository.deleteProject(project.getProjectID());
+        List<Project> projects = projectRepository.readProject();
+
+        assertThat(deletedRows).isEqualTo(1);
+        assertThat(projects).doesNotContain(project);
     }
 }
