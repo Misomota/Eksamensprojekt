@@ -4,7 +4,8 @@
 Dette projekt er et projektkalkulationsværktøj udviklet til **Alpha Solutions**.
 Systemet gør det muligt at oprette, nedbryde og estimere arbejdstid for projekter. Formålet er at give brugerer bedre overblik over tid, ressourcer og deadlines.
 
-![On The Dot](images/logo.PNG)
+![On The Dot]([https://github.com/Misomota/Eksamensprojekt/raw/main/src/main/resources/static/images/logo.PNG](https://github.com/Misomota/Eksamensprojekt/blob/main/exam/src/main/resources/static/images/logo.PNG))
+
 
 ---
 
@@ -49,4 +50,4 @@ spring.datasource.password=<dit-kodeord>
 - Kørende applikation: [On The Dot] https://onthedot-g4h6dvcradgxh4ak.swedencentral-01.azurewebsites.net
 
 Medlemmer af eksamensprojektet:
-- Mona & Mie
+* Mona & Mie
