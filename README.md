@@ -19,10 +19,11 @@ Systemet gør det muligt at oprette, nedbryde og estimere arbejdstid for projekt
 - H2 til integrationstest
 - MySQL Azure Database
 - Qodana
-Frontend
-•  HTML 
-•  CSS
-• Thymeleaf
+
+### Frontend
+-  HTML 
+-  CSS
+- Thymeleaf
 
 ---
 
