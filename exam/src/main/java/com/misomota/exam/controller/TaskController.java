@@ -13,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -139,9 +141,20 @@ public class TaskController {
             task.setTimeEstimate((int) offsetDays);
         });
 
+        int totalDays = tasks.stream()
+                .mapToInt(t -> t.getTimeEstimate() + t.getDuration())
+                .max()
+                .orElse(10);
+
+        List<String> days = new ArrayList<>();
+        for (int i = 0; i < totalDays; i++) {
+            days.add(projectStart.plusDays(i).format(DateTimeFormatter.ofPattern("MM/dd")));
+        }
+
         model.addAttribute("tasks", tasks);
         model.addAttribute("projectStart", projectStart);
         model.addAttribute("subprojectID", subprojectID);
+        model.addAttribute("days", days);
         return "ganttDiagram";
     }
 }

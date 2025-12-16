@@ -1,21 +1,38 @@
-h2 {
-    margin-top: 50px;
-    text-align: center;
-    font-size: 2rem;
-    font-weight: 700;
-}
-
 .gantt-container {
     margin: 50px auto;
     max-width: 90%;
     display: flex;
     flex-direction: column;
     gap: 5px;
-    overflow-x: auto;
+    overflow-x: auto; /* scrollable */
     border: 1px solid #ccc;
     padding: 10px;
     background: #fff;
     border-radius: 12px;
+}
+
+.gantt-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.gantt-header .task-name {
+    width: 150px; /* same width as task names */
+}
+
+.gantt-dates {
+    display: flex;
+    flex: 1;
+}
+
+.gantt-date {
+    width: 40px;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 2px 0;
+    border-right: 1px solid #eee;
 }
 
 .task-row {
@@ -50,12 +67,4 @@ h2 {
     font-size: 0.85rem;
     overflow: hidden;
     white-space: nowrap;
-}
-
-.gantt-container::-webkit-scrollbar {
-    height: 8px;
-}
-.gantt-container::-webkit-scrollbar-thumb {
-    background-color: #ccc;
-    border-radius: 4px;
 }
