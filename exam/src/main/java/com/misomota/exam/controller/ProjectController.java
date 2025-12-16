@@ -3,6 +3,7 @@ package com.misomota.exam.controller;
 import com.misomota.exam.DRY.DatabaseOperationException;
 import com.misomota.exam.DRY.NotFoundException;
 import com.misomota.exam.DRY.Session;
+import com.misomota.exam.model.Account;
 import com.misomota.exam.model.Project;
 import com.misomota.exam.model.Subproject;
 import com.misomota.exam.service.ProjectService;
@@ -34,6 +35,8 @@ public class ProjectController {
         if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
+        Account account = (Account) session.getAttribute("account");
+        model.addAttribute("account", account);
 
         List<Project> projectList = projectService.readProject();
 

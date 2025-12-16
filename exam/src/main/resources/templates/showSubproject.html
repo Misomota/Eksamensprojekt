@@ -17,7 +17,7 @@
     <div class="page-header">
         <h1 th:text="#{entity.subproject}"></h1>
         <div class="header-buttons">
-            <a th:href="@{/OnTheDot/addSubproject(projectID=${projectID})}" class="btn primary"
+            <a th:if="${account.role.name() == 'ADMIN'}" th:href="@{/OnTheDot/addSubproject(projectID=${projectID})}" class="btn primary"
                th:text="#{action.create} + ' ' + #{entity.subproject}"></a>
             <a th:href="@{/OnTheDot/projects}" class="btn secondary"
                th:text="#{action.back}"></a>
@@ -43,11 +43,11 @@
                 <td th:text="${s.totalHours} + #{field.hours} + ' ' + #{field.used}"></td>
 
                 <td class="actions">
-                    <a th:href="@{/OnTheDot/editSubproject(subprojectID=${s.subprojectID}, projectID=${projectID})}"
+                    <a th:if="${account.role.name() == 'ADMIN'}" th:href="@{/OnTheDot/editSubproject(subprojectID=${s.subprojectID}, projectID=${projectID})}"
                        class="btn small"
                        th:text="#{action.edit}"></a>
 
-                    <form th:action="@{/OnTheDot/deleteSubproject}" method="post">
+                    <form th:if="${account.role.name() == 'ADMIN'}" th:action="@{/OnTheDot/deleteSubproject}" method="post">
                         <input type="hidden" name="subprojectID" th:value="${s.subprojectID}">
                         <input type="hidden" name="projectID" th:value="${projectID}">
                         <button type="submit" class="btn small danger"

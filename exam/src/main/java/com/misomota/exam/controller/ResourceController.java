@@ -3,6 +3,7 @@ package com.misomota.exam.controller;
 import com.misomota.exam.DRY.DatabaseOperationException;
 import com.misomota.exam.DRY.NotFoundException;
 import com.misomota.exam.DRY.Session;
+import com.misomota.exam.model.Account;
 import com.misomota.exam.model.Resource;
 import com.misomota.exam.service.ResourceService;
 import jakarta.servlet.http.HttpSession;
@@ -60,6 +61,9 @@ public class ResourceController {
         if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
+        Account account = (Account) session.getAttribute("account");
+        model.addAttribute("account", account);
+
         List<Resource> resources = resourceService.readResources(taskID);
         model.addAttribute("taskID", taskID);
         model.addAttribute("resources", resources);

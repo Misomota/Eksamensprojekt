@@ -16,7 +16,7 @@
 
     <div class="page-header">
         <h1 th:text="#{entity.project}"></h1>
-        <a th:href="@{/OnTheDot/addProject}" class="btn primary"
+        <a th:if="${account.role.name() == 'ADMIN'}" th:href="@{/OnTheDot/addProject}" class="btn primary"
            th:text="#{action.create} + ' ' + #{entity.project}"></a>
     </div>
 
@@ -36,14 +36,14 @@
                     </a>
                 </td>
 
-                <td th:text="${p.totalHours} + #{field.hours} + ' ' + #{field.used}"></td>
+                <td th:text="${p.totalHours} + ' ' + #{field.hours} + ' ' + #{field.used}"></td>
 
                 <td class="actions">
-                    <a th:href="@{/OnTheDot/editProject(projectID=${p.projectID})}"
+                    <a th:if="${account.role.name() == 'ADMIN'}" th:href="@{/OnTheDot/editProject(projectID=${p.projectID})}"
                        class="btn small"
                        th:text="#{action.edit}"></a>
 
-                    <form th:action="@{/OnTheDot/deleteProject}" method="post">
+                    <form th:if="${account.role.name() == 'ADMIN'}" th:action="@{/OnTheDot/deleteProject}" method="post">
                         <input type="hidden" name="projectID" th:value="${p.projectID}">
                         <button type="submit" class="btn small danger"
                                 th:text="#{action.delete}"></button>
