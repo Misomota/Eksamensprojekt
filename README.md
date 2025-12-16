@@ -5,9 +5,9 @@
 Dette projekt er et projektkalkulationsværktøj udviklet til **Alpha Solutions**.
 Systemet gør det muligt at oprette, nedbryde og estimere arbejdstid for projekter. Formålet er at give brugerer bedre overblik over tid, ressourcer og deadlines.
 
----
-
 <img src="https://github.com/Misomota/Eksamensprojekt/raw/main/exam/src/main/resources/static/images/logo.PNG" alt="On The Dot" width="200"/>
+
+---
 
 ## Teknologier
 
@@ -23,6 +23,8 @@ Frontend
 •  HTML. 
 •  CSS.
 • Thymeleaf.
+
+---
 
 ## Forudsætninger og installation
 For at køre projektet lokalt, skal du have de korrekte versioner af ovenstående teknologier installeret.
@@ -43,11 +45,15 @@ spring.datasource.username=<dit-brugernavn>
 spring.datasource.password=<dit-kodeord>
 ```
 
+---
+
 ### Deployment:
 - CI/CD: gihub actions.
 - Hosting: azure
 - Database: azure
 - Kørende applikation: [On The Dot] https://onthedot-g4h6dvcradgxh4ak.swedencentral-01.azurewebsites.net
+
+---
 
 Medlemmer af eksamensprojektet:
 - Mona & Mie 
