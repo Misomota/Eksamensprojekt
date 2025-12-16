@@ -7,6 +7,11 @@ Systemet gør det muligt at oprette, nedbryde og estimere arbejdstid for projekt
 ![logo](https://github.com/Misomota/Eksamensprojekt/raw/main/exam/src/main/resources/static/images/logo.PNG)
 
 
+<img src="images/logo.PNG" alt="On The Dot" width="200"/>
+
+<img src="https://github.com/Misomota/Eksamensprojekt/raw/main/exam/src/main/resources/static/images/logo.PNG" alt="On The Dot" width="200"/>
+
+
 ---
 
 ## Teknologier
