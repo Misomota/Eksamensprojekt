@@ -30,7 +30,7 @@ For at køre projektet lokalt, skal du have de korrekte versioner af ovenståend
 Kør følgende kommando i terminalen:
 ```bash
 git clone https://github.com/Misomota/Eksamensprojekt.git
-cs Eksamensprojekt
+cd Eksamensprojekt
 ```
 
 ### Lokalt konfiguration
