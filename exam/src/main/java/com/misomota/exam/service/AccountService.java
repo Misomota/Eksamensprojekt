@@ -1,7 +1,6 @@
 package com.misomota.exam.service;
 
 import com.misomota.exam.DRY.DatabaseOperationException;
-import com.misomota.exam.DRY.DuplicateProfileException;
 import com.misomota.exam.DRY.NotFoundException;
 import com.misomota.exam.model.Account;
 import com.misomota.exam.model.Role;
@@ -18,20 +17,28 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
-    public Account saveAccount(Account account) {
-        try {
+    public String saveAccount(Account account) {
+            if (account.getUsername() == null || account.getUsername().trim().isEmpty()) {
+                return "Username cannot be empty";
+            }
+            if (account.getPassword() == null || account.getPassword().trim().isEmpty()) {
+                return "Password cannot be empty";
+            }
+            if (account.getPassword().length() > 100) {
+                return "Password cannot be more than 100 characters";
+            }
+            if (account.getUsername().length() > 100) {
+                return "USername cannot be more than 100 characters";
+            }
             Account existing = accountRepository.findAccountByUsername(account.getUsername());
             if (existing != null) {
-                throw new DuplicateProfileException("Account already exists");
+                return "Account already exists";
             }
             if (account.getRole() == null) {
                 account.setRole(Role.USER);
             }
-            return accountRepository.saveAccount(account);
-
-        } catch (Exception e) {
-            throw new DatabaseOperationException("Error while saving account", e);
-        }
+            accountRepository.saveAccount(account);
+            return null;
     }
 
     public Account findAccountByUsername(String username) {
@@ -49,10 +56,7 @@ public class AccountService {
     public boolean login(String username, String pw) {
         try {
             Account account = accountRepository.findAccountByUsername(username);
-            if (account == null) {
-                throw new NotFoundException("Account not found");
-            }
-            if (!account.getPassword().equals(pw)) {
+            if (account == null || !account.getPassword().equals(pw)) {
                 return false;
             }
             return true;

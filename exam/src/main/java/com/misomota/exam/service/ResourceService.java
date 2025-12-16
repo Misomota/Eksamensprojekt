@@ -19,11 +19,20 @@ public class ResourceService {
 
     public Resource createResource(Resource resource) {
         try {
+            if (resource.getResourceName() == null || resource.getResourceName().trim().isEmpty()) {
+                throw new IllegalArgumentException("Resource name cannot be empty");
+            }
+            if (resource.getResourceName().length() > 255) {
+                throw new IllegalArgumentException("Resource name must not be more than 255 characters");
+            }
+
             return resourceRepository.createResource(resource);
-        } catch (DataAccessException dataAccessException) {
-            throw new DatabaseOperationException("failed to create resource", dataAccessException);
+
+        } catch (DataAccessException e) {
+            throw new DatabaseOperationException("Failed to create resource", e);
         }
     }
+
 
     public List<Resource> readResources(int taskId) {
        List<Resource> resourceList = resourceRepository.readResources(taskId);
@@ -44,6 +53,12 @@ public class ResourceService {
     public Resource updateResource(Resource resource, int id) {
         try {
             Resource existing = findResourceByID(id);
+            if (resource.getResourceName() == null || resource.getResourceName().trim().isEmpty()) {
+                throw new IllegalArgumentException("Resource name cannot be empty");
+            }
+            if (resource.getResourceName().length() > 255) {
+                throw new IllegalArgumentException("Resource name must not exceed 255 characters");
+            }
             existing.setResourceName(resource.getResourceName());
             existing.setTaskID(resource.getTaskID());
 

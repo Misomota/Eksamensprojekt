@@ -42,6 +42,10 @@
                 <button type="submit" class="btn" th:text="#{action.register}"></button>
             </div>
 
+            <div th:if="${error}">
+                <p th:text="${error}"></p>
+            </div>
+
         </form>
 
         <div class="small-link">

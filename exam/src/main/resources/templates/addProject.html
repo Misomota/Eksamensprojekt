@@ -27,5 +27,8 @@
         <a th:href="@{/OnTheDot/projects}" class="btn" th:text="#{action.cancel}"></a>
     </div>
 </form>
+<div class="errorText" th:if="${error}">
+    <p th:text="${error}"></p>
+</div>
 </body>
 </html>

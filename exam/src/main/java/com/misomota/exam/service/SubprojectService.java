@@ -19,9 +19,15 @@ public class SubprojectService {
 
     public Subproject createSubproject(Subproject subproject, int projectID) {
         try {
+            if (subproject.getSubprojectName() == null || subproject.getSubprojectName().trim().isEmpty()) {
+                throw new IllegalArgumentException("Subproject name must not be empty");
+            }
+            if (subproject.getSubprojectName().length() > 100) {
+                throw new IllegalArgumentException("Subproject name must not exceed 100 characters");
+            }
             return subprojectRepository.createSubproject(subproject, projectID);
-        } catch (DataAccessException dataAccessException) {
-            throw new DatabaseOperationException("Failed to create subproject: ", dataAccessException);
+        } catch (DataAccessException e) {
+            throw new DatabaseOperationException("Failed to create subproject", e);
         }
     }
 
@@ -44,6 +50,12 @@ public class SubprojectService {
     public Subproject updateSubproject(Subproject subproject, int id) {
         try {
             Subproject existing = findSubprojectByID(id);
+            if (subproject.getSubprojectName() == null || subproject.getSubprojectName().trim().isEmpty()) {
+                throw new IllegalArgumentException("Subproject name cannot be empty");
+            }
+            if (subproject.getSubprojectName().length() > 100) {
+                throw new IllegalArgumentException("Subproject name must not exceed 100 characters");
+            }
             existing.setSubprojectName(subproject.getSubprojectName());
 
             int rows = subprojectRepository.updateSubproject(existing);

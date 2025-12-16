@@ -37,6 +37,10 @@
 
         </form>
 
+        <div th:if="${error}">
+            <p th:text="${error}"></p>
+        </div>
+
         <p class="small-link">
             <a th:href="@{/account/register}" th:text="#{action.register}"></a>
         </p>

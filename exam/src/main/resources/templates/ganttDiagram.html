@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title th:text="#{gantt.diagram}"></title>
+    <meta charset="UTF-8">
+    <title th:text="#{gantt.diagram}"></title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/header.css">
-  <link rel="stylesheet" href="/ganttDiagram.css">
-  <link rel="stylesheet" href="/button.css">
+    <link rel="stylesheet" href="/header.css">
+    <link rel="stylesheet" href="/ganttDiagram.css">
+    <link rel="stylesheet" href="/button.css">
 </head>
 <body>
 <div th:replace="~{header :: mainHeader}"></div>
@@ -14,17 +14,25 @@
 <h2 th:text="#{gantt.diagram}"></h2>
 
 <a th:href="@{/OnTheDot/task(subprojectID=${subprojectID})}" class="btn" th:text="#{action.back}"></a>
+<div class="gantt-container">
 
-  <div class="gantt-container">
-    <div th:each="task : ${tasks}" class="task-row">
-      <div class="task-name" th:text="${task.taskName}"></div>
-      <div class="task-bar-container">
-        <div class="task-bar"
-             th:style="'left:' + (${task.timeEstimate} * 40) + 'px; width:' + (${task.duration} * 40) + 'px;'"
-             th:text="${task.duration + 'd'}">
+    <div class="gantt-header">
+        <div class="task-name"></div>
+        <div class="gantt-dates">
+            <div class="gantt-date" th:each="day : ${days}" th:text="${day}"></div>
         </div>
-      </div>
     </div>
-  </div>
+
+
+    <div th:each="task : ${tasks}" class="task-row">
+        <div class="task-name" th:text="${task.taskName}"></div>
+        <div class="task-bar-container">
+            <div class="task-bar"
+                 th:style="'left:' + (${task.timeEstimate} * 40) + 'px; width:' + (${task.duration} * 40) + 'px;'"
+                 th:text="${task.duration + 'd'}">
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

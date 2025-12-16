@@ -1,5 +1,7 @@
 package com.misomota.exam.controller;
 
+import com.misomota.exam.DRY.DatabaseOperationException;
+import com.misomota.exam.DRY.NotFoundException;
 import com.misomota.exam.DRY.Session;
 import com.misomota.exam.model.Resource;
 import com.misomota.exam.service.ResourceService;
@@ -32,12 +34,25 @@ public class ResourceController {
     }
 
     @PostMapping("/addResource")
-    public String saveResource(@ModelAttribute("resource") Resource resource, HttpSession session) {
+    public String saveResource(@ModelAttribute("resource") Resource resource, HttpSession session, Model model) {
         if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
-        resourceService.createResource(resource);
-        return "redirect:/OnTheDot/resource?taskID=" + resource.getTaskID();
+        try {
+            Resource saved = resourceService.createResource(resource);
+            model.addAttribute("resource", saved);
+            return "redirect:/OnTheDot/resource?taskID=" + resource.getTaskID();
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            model.addAttribute("resource", resource);
+            model.addAttribute("taskID", resource.getTaskID());
+            return "addResource";
+        } catch (DatabaseOperationException e) {
+            model.addAttribute("error", "Something went wrong. Please try again later.");
+            model.addAttribute("resource", resource);
+            model.addAttribute("taskID", resource.getTaskID());
+            return "addResource";
+        }
     }
 
     @GetMapping("/resource")
@@ -63,12 +78,29 @@ public class ResourceController {
     }
 
     @PostMapping("/updateResource")
-    public String updateResource(@ModelAttribute("resource") Resource resource, HttpSession session) {
+    public String updateResource(@ModelAttribute("resource") Resource resource, HttpSession session, Model model) {
         if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
-        resourceService.updateResource(resource, resource.getResourceID());
-        return "redirect:/OnTheDot/resource?taskID=" + resource.getTaskID();
+        try {
+            resourceService.updateResource(resource, resource.getResourceID());
+            return "redirect:/OnTheDot/resource?taskID=" + resource.getTaskID();
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            model.addAttribute("resource", resource);
+            model.addAttribute("taskID", resource.getTaskID());
+            return "editResource";
+        } catch (DatabaseOperationException e) {
+            model.addAttribute("error", "Something went wrong. Please try again later.");
+            model.addAttribute("resource", resource);
+            model.addAttribute("taskID", resource.getTaskID());
+            return "editResource";
+        } catch (NotFoundException e) {
+            model.addAttribute("error", "resource not found.");
+            model.addAttribute("resource", resource);
+            model.addAttribute("taskID", resource.getTaskID());
+            return "editResource";
+        }
     }
 
 

@@ -1,5 +1,7 @@
 package com.misomota.exam.controller;
 
+import com.misomota.exam.DRY.DatabaseOperationException;
+import com.misomota.exam.DRY.NotFoundException;
 import com.misomota.exam.DRY.Session;
 import com.misomota.exam.model.Project;
 import com.misomota.exam.model.Subproject;
@@ -62,12 +64,23 @@ public class ProjectController {
     }
 
     @PostMapping("/addProject")
-    public String saveProject(@ModelAttribute("project") Project project, HttpSession session) {
+    public String saveProject(@ModelAttribute("project") Project project, HttpSession session, Model model) {
         if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
-        projectService.createProject(project);
-        return "redirect:/OnTheDot/projects";
+        try {
+            Project saved = projectService.createProject(project);
+            model.addAttribute("project", saved);
+            return "redirect:/OnTheDot/projects";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            model.addAttribute("project", project);
+            return "addProject";
+        } catch (DatabaseOperationException e) {
+            model.addAttribute("error", "Something went wrong. Please try again later.");
+            model.addAttribute("project", project);
+            return "addProject";
+        }
     }
 
     @GetMapping("/editProject")
@@ -85,12 +98,26 @@ public class ProjectController {
     }
 
     @PostMapping("/editProject")
-    public String updateProject(@ModelAttribute("project") Project project, HttpSession session) {
+    public String updateProject(@ModelAttribute("project") Project project, HttpSession session, Model model) {
         if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
-        projectService.updateProject(project, project.getProjectID());
-        return "redirect:/OnTheDot/projects";
+        try {
+            projectService.updateProject(project, project.getProjectID());
+            return "redirect:/OnTheDot/projects";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            model.addAttribute("project", project);
+            return "editProject";
+        } catch (DatabaseOperationException e) {
+            model.addAttribute("error", "Something went wrong. Please try again later.");
+            model.addAttribute("project", project);
+            return "editProject";
+        } catch (NotFoundException e) {
+            model.addAttribute("error", "Project not found.");
+            model.addAttribute("project", project);
+            return "editProject";
+        }
     }
 
     @PostMapping("/deleteProject")
