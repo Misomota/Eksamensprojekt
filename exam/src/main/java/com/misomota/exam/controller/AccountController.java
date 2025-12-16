@@ -37,7 +37,7 @@ public class AccountController {
             session.setMaxInactiveInterval(30 * 60);
             return "redirect:/OnTheDot/projects";
         }
-        model.addAttribute("wrongCredentials", true);
+        model.addAttribute("error", "Invalid username or password");
         return "login";
     }
 
@@ -48,8 +48,13 @@ public class AccountController {
     }
 
     @PostMapping("/register")
-    public String registerAccount(@ModelAttribute Account account) {
-        accountService.saveAccount(account);
+    public String registerAccount(@ModelAttribute Account account, Model model) {
+        String error = accountService.saveAccount(account);
+        if (error != null) {
+            model.addAttribute("error", error);
+            model.addAttribute("register", account);
+            return "register";
+        }
         return "redirect:/account/login";
     }
 

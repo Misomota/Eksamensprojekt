@@ -48,3 +48,7 @@ body {
     color: white;
     font-weight: 500;
 }
+
+.errorText p {
+    text-align: center;
+}

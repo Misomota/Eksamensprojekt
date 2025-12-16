@@ -21,7 +21,17 @@ public class TaskService {
     }
 
     public Task createTask(Task task, int subprojectID) {
-        return taskRepository.createTask(task, subprojectID);
+        try {
+            if (task.getTaskName() == null || task.getTaskName().trim().isEmpty()) {
+                throw new IllegalArgumentException("Task name must not be empty");
+            }
+            if (task.getTaskName().length() > 100) {
+                throw new IllegalArgumentException("Task name must not exceed 100 characters");
+            }
+            return taskRepository.createTask(task, subprojectID);
+        } catch (DataAccessException e) {
+            throw new DatabaseOperationException("Failed to create task", e);
+        }
     }
 
     public List<Task> readTask(int subprojectID) {
@@ -47,7 +57,12 @@ public class TaskService {
     public Task updateTask(Task task, int id) {
         try {
             Task existing = findTaskByID(id);
-
+            if (task.getTaskName() == null || task.getTaskName().trim().isEmpty()) {
+                throw new IllegalArgumentException("Task name must not be empty");
+            }
+            if (task.getTaskName().length() > 100) {
+                throw new IllegalArgumentException("Task name must not exceed 100 characters");
+            }
             existing.setTaskName(task.getTaskName());
             existing.setStartDate(task.getStartDate());
             existing.setDeadline(task.getDeadline());
@@ -58,7 +73,7 @@ public class TaskService {
             if (rows == 0) throw new NotFoundException(id);
             return existing;
         } catch (DataAccessException e) {
-            throw new DatabaseOperationException("Failed to update project", e);
+            throw new DatabaseOperationException("Failed to update task", e);
         }
     }
 
@@ -67,7 +82,7 @@ public class TaskService {
             int rows = taskRepository.deleteTask(id);
             if (rows == 0) throw new NotFoundException(id);
         } catch (DataAccessException e) {
-            throw new DatabaseOperationException("Failed to delete project", e);
+            throw new DatabaseOperationException("Failed to delete task", e);
         }
 
     }

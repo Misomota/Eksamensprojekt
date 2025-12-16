@@ -45,8 +45,8 @@
         <td th:text="${t.taskName}"></td>
         <td th:text="${t.startDate}"></td>
         <td th:text="${t.deadline}"></td>
-        <td th:text="${t.timeEstimate} + ' timer'"></td>
-        <td th:text="${t.duration} + ' dage'"></td>
+        <td th:text="${t.timeEstimate} + #{field.hours}"></td>
+        <td th:text="${t.duration} + #{field.days}"></td>
         <td>
             <a th:href="@{/OnTheDot/resource(taskID=${t.taskID})}"
                th:text="${t.personAssigned}"
