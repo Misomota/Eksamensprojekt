@@ -4,7 +4,7 @@
 Dette projekt er et projektkalkulationsværktøj udviklet til **Alpha Solutions**.
 Systemet gør det muligt at oprette, nedbryde og estimere arbejdstid for projekter. Formålet er at give brugerer bedre overblik over tid, ressourcer og deadlines.
 
-![On The Dot](images/logo.PNG)
+![On The Dot](resources/static/images/logo.PNG)
 
 ---
 
@@ -43,10 +43,10 @@ spring.datasource.password=<dit-kodeord>
 ```
 
 ### Deployment:
-CI/CD: gihub actions.
-Hosting: azure
-Database: azure
-kørende applikation: [On The Dot] https://onthedot-g4h6dvcradgxh4ak.swedencentral-01.azurewebsites.net
+- CI/CD: gihub actions.
+- Hosting: azure
+- Database: azure
+- Kørende applikation: [On The Dot] https://onthedot-g4h6dvcradgxh4ak.swedencentral-01.azurewebsites.net
 
 Medlemmer af projekt:
 Mona & Mie
