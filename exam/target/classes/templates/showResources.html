@@ -19,7 +19,7 @@
     <div class="page-header">
         <h1 th:text="#{entity.resource}"></h1>
         <div class="header-buttons">
-            <a th:href="@{/OnTheDot/addResource(taskID=${taskID})}"
+            <a th:href="@{/OnTheDot/addResource(taskID=${taskID})}" class="btn"
                th:if="${account.role.name() == 'ADMIN'}" th:text="#{action.create} + ' ' + #{entity.resource}"></a>
         </div>
     </div>
