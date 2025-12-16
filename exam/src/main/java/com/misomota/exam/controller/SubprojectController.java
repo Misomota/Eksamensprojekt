@@ -3,6 +3,7 @@ package com.misomota.exam.controller;
 import com.misomota.exam.DRY.DatabaseOperationException;
 import com.misomota.exam.DRY.NotFoundException;
 import com.misomota.exam.DRY.Session;
+import com.misomota.exam.model.Account;
 import com.misomota.exam.model.Subproject;
 import com.misomota.exam.service.TaskService;
 import jakarta.servlet.http.HttpSession;
@@ -26,6 +27,12 @@ public class SubprojectController {
 
     @GetMapping("/subproject")
     public String showSubproject(@RequestParam("projectID") int projectID, Model model, HttpSession session) {
+        if (!Session.isLoggedIn(session)) {
+            return "redirect:/account/login";
+        }
+        Account account = (Account) session.getAttribute("account");
+        model.addAttribute("account", account);
+
         List<Subproject> listOfSubproject = subprojectService.readSubproject(projectID);
 
         for (Subproject sp : listOfSubproject) {
@@ -41,6 +48,9 @@ public class SubprojectController {
 
     @GetMapping("/addSubproject")
     public String addSubproject(@RequestParam("projectID") int projectID, Model model, HttpSession session) {
+        if (!Session.isLoggedIn(session)) {
+            return "redirect:/account/login";
+        }
         model.addAttribute("subproject", new Subproject());
         model.addAttribute("projectID", projectID);
         return Session.isLoggedIn(session) ? "addSubproject" : "redirect:/account/login";

@@ -3,6 +3,7 @@ package com.misomota.exam.controller;
 import com.misomota.exam.DRY.DatabaseOperationException;
 import com.misomota.exam.DRY.NotFoundException;
 import com.misomota.exam.DRY.Session;
+import com.misomota.exam.model.Account;
 import com.misomota.exam.model.Subproject;
 import com.misomota.exam.model.Task;
 import com.misomota.exam.service.SubprojectService;
@@ -31,6 +32,12 @@ public class TaskController {
 
     @GetMapping("/task")
     public String readTask(@RequestParam("subprojectID") int subprojectID, Model model, HttpSession session) {
+        if (!Session.isLoggedIn(session)) {
+            return "redirect:/account/login";
+        }
+        Account account = (Account) session.getAttribute("account");
+        model.addAttribute("account", account);
+
         List<Task> listOfTask = taskService.readTask(subprojectID);
         model.addAttribute("tasks", listOfTask);
         model.addAttribute("subprojectID", subprojectID);
@@ -44,6 +51,9 @@ public class TaskController {
 
     @GetMapping("/addTask")
     public String createTask(@RequestParam("subprojectID") int subprojectID, Model model, HttpSession session) {
+        if (!Session.isLoggedIn(session)) {
+            return "redirect:/account/login";
+        }
         model.addAttribute("task", new Task());
         model.addAttribute("subprojectID", subprojectID);
         return Session.isLoggedIn(session) ? "addTask" : "redirect:/account/login";

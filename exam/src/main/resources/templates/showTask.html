@@ -13,7 +13,7 @@
 
 <div class="top-button-wrapper">
     <div class="top-button-left">
-        <a th:href="@{/OnTheDot/addTask(subprojectID=${subprojectID})}" class="btn"
+        <a th:if="${account.role.name() == 'ADMIN'}" th:href="@{/OnTheDot/addTask(subprojectID=${subprojectID})}" class="btn"
            th:text="#{action.create} + ' ' + #{entity.task}"></a>
     </div>
 
@@ -56,13 +56,14 @@
         <td th:text="${t.actualTimeUsed}"></td>
 
         <td>
-            <form th:action="@{/OnTheDot/deleteTask}" method="post" style="display:inline;">
+            <form th:if="${account.role.name() == 'ADMIN'}" th:action="@{/OnTheDot/deleteTask}" method="post" style="display:inline;">
                 <input type="hidden" name="taskID" th:value="${t.taskID}">
                 <input type="hidden" name="subprojectID" th:value="${subprojectID}">
                 <button class="btn danger" type="submit" th:text="#{action.delete}"></button>
             </form>
 
             <a class="btn edit"
+               th:if="${account.role.name() == 'ADMIN'}"
                th:href="@{/OnTheDot/editTask(taskID=${t.taskID}, subprojectID=${subprojectID})}"
                th:text="#{action.edit}">
             </a>

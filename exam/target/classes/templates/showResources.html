@@ -20,7 +20,7 @@
         <h1 th:text="#{entity.resource}"></h1>
         <div class="header-buttons">
             <a th:href="@{/OnTheDot/addResource(taskID=${taskID})}"
-               th:text="#{action.create} + ' ' + #{entity.resource}"></a>
+               th:if="${account.role.name() == 'ADMIN'}" th:text="#{action.create} + ' ' + #{entity.resource}"></a>
         </div>
     </div>
 
@@ -40,11 +40,11 @@
                 </td>
 
                 <td class="actions">
-                    <a th:href="@{/OnTheDot/updateResource(resourceID=${r.resourceID}, taskID=${taskID})}"
+                    <a th:if="${account.role.name() == 'ADMIN'}" th:href="@{/OnTheDot/updateResource(resourceID=${r.resourceID}, taskID=${taskID})}"
                        class="btn small"
                        th:text="#{action.edit}"></a>
 
-                    <form th:action="@{/OnTheDot/deleteResource}" method="post">
+                    <form th:if="${account.role.name() == 'ADMIN'}" th:action="@{/OnTheDot/deleteResource}" method="post">
                         <input type="hidden" name="taskID" th:value="${taskID}">
                         <input type="hidden" name="resourceID" th:value="${r.resourceID}">
                         <button type="submit" class="btn small danger" th:text="#{action.delete}"></button>
