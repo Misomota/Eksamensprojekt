@@ -62,8 +62,7 @@
                 <button class="btn danger" type="submit" th:text="#{action.delete}"></button>
             </form>
 
-            <a class="btn edit"
-               th:if="${account.role.name() == 'ADMIN'}"
+            <a th:if="${account.role.name() == 'ADMIN'}" class="btn edit"
                th:href="@{/OnTheDot/editTask(taskID=${t.taskID}, subprojectID=${subprojectID})}"
                th:text="#{action.edit}">
             </a>
