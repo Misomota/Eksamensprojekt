@@ -1,11 +1,13 @@
 
-# Eksamensprojekt - On The Dot <img src="https://github.com/Misomota/Eksamensprojekt/raw/main/exam/src/main/resources/static/images/logo.PNG" alt="On The Dot" width="200"/>
+# Eksamensprojekt - On The Dot 
 
 **On The Dot** 
 Dette projekt er et projektkalkulationsværktøj udviklet til **Alpha Solutions**.
 Systemet gør det muligt at oprette, nedbryde og estimere arbejdstid for projekter. Formålet er at give brugerer bedre overblik over tid, ressourcer og deadlines.
 
 ---
+
+<img src="https://github.com/Misomota/Eksamensprojekt/raw/main/exam/src/main/resources/static/images/logo.PNG" alt="On The Dot" width="200"/>
 
 ## Teknologier
 
