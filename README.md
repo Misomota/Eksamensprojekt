@@ -49,5 +49,5 @@ spring.datasource.password=<dit-kodeord>
 - Database: azure
 - Kørende applikation: [On The Dot] https://onthedot-g4h6dvcradgxh4ak.swedencentral-01.azurewebsites.net
 
-Medlemmer af eksamensprojektet:
- Mona & Mie
+Medlemmer af eksamensprojektet:<br>
+ Mona & Mie <br>
