@@ -19,6 +19,12 @@ public class ProjectService {
 
     public Project createProject(Project project) {
         try {
+            if (project.getProjectName() == null || project.getProjectName().trim().isEmpty()) {
+                throw new IllegalArgumentException("Project name cannot be empty");
+            }
+            if (project.getProjectName().length() > 100) {
+                throw new IllegalArgumentException("Project name must not be more than 100 characters");
+            }
             return projectRepository.createProject(project);
         } catch (DataAccessException dataAccessException) {
             throw new DatabaseOperationException("Failed to create project: ", dataAccessException);
@@ -45,6 +51,12 @@ public class ProjectService {
     public Project updateProject(Project project, int id) {
         try {
             Project existing = findProjectByID(id);
+            if (project.getProjectName() == null || project.getProjectName().trim().isEmpty()) {
+                throw new IllegalArgumentException("Project name cannot be empty");
+            }
+            if (project.getProjectName().length() > 100) {
+                throw new IllegalArgumentException("Project name must not exceed 100 characters");
+            }
 
             existing.setProjectName(project.getProjectName());
 

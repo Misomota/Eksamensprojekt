@@ -1,5 +1,7 @@
 package com.misomota.exam.controller;
 
+import com.misomota.exam.DRY.DatabaseOperationException;
+import com.misomota.exam.DRY.NotFoundException;
 import com.misomota.exam.DRY.Session;
 import com.misomota.exam.model.Subproject;
 import com.misomota.exam.service.TaskService;
@@ -45,16 +47,29 @@ public class SubprojectController {
     }
 
     @PostMapping("/addSubproject")
-    public String saveSubproject(@RequestParam("projectID") int projectID,@ModelAttribute("subproject") Subproject subproject, HttpSession session) {
+    public String saveSubproject(@RequestParam("projectID") int projectID, @ModelAttribute("subproject") Subproject subproject, HttpSession session, Model model) {
         if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
-        subprojectService.createSubproject(subproject, projectID);
-        return "redirect:/OnTheDot/subproject?projectID=" + projectID;
+        try {
+            Subproject saved = subprojectService.createSubproject(subproject, projectID);
+            model.addAttribute("subproject", saved);
+            return "redirect:/OnTheDot/subproject?projectID=" + projectID;
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            model.addAttribute("subproject", subproject);
+            model.addAttribute("projectID", projectID);
+            return "addSubproject";
+        } catch (DatabaseOperationException e) {
+            model.addAttribute("error", "Something went wrong. Please try again later.");
+            model.addAttribute("subproject", subproject);
+            model.addAttribute("projectID", projectID);
+            return "addSubproject";
+        }
     }
 
     @PostMapping("/deleteSubproject")
-    public String deleteSubproject(@RequestParam("subprojectID") int subprojectID,@RequestParam("projectID") int projectID, HttpSession session) {
+    public String deleteSubproject(@RequestParam("subprojectID") int subprojectID, @RequestParam("projectID") int projectID, HttpSession session) {
         if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
@@ -79,11 +94,28 @@ public class SubprojectController {
     }
 
     @PostMapping("/editSubproject")
-    public String updateSubproject(@RequestParam("projectID") int projectID, @ModelAttribute("subproject") Subproject subproject, HttpSession session) {
+    public String updateSubproject(@RequestParam("projectID") int projectID, @ModelAttribute("subproject") Subproject subproject, HttpSession session, Model model) {
         if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
-        subprojectService.updateSubproject(subproject, subproject.getSubprojectID());
-        return "redirect:/OnTheDot/subproject?projectID=" + projectID;
+        try {
+            subprojectService.updateSubproject(subproject, subproject.getSubprojectID());
+            return "redirect:/OnTheDot/subproject?projectID=" + projectID;
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            model.addAttribute("subproject", subproject);
+            model.addAttribute("projectID", projectID);
+            return "editSubproject";
+        } catch (DatabaseOperationException e) {
+            model.addAttribute("error", "Something went wrong. Please try again later.");
+            model.addAttribute("subproject", subproject);
+            model.addAttribute("projectID", projectID);
+            return "editSubproject";
+        } catch (NotFoundException e) {
+            model.addAttribute("error", "subproject not found.");
+            model.addAttribute("subproject", subproject);
+            model.addAttribute("projectID", projectID);
+            return "editSubproject";
+        }
     }
 }

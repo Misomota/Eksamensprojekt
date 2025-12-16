@@ -1,16 +1,21 @@
 package com.misomota.exam.controller;
+
+import com.misomota.exam.DRY.DatabaseOperationException;
+import com.misomota.exam.DRY.NotFoundException;
 import com.misomota.exam.DRY.Session;
 import com.misomota.exam.model.Subproject;
 import com.misomota.exam.model.Task;
 import com.misomota.exam.service.SubprojectService;
-import jakarta.servlet.http.HttpSession;
-import org.springframework.ui.Model;
 import com.misomota.exam.service.TaskService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -45,17 +50,29 @@ public class TaskController {
     }
 
     @PostMapping("/addTask")
-    public String saveTask(@RequestParam("subprojectID" )int subprojectID,@ModelAttribute("task") Task task, HttpSession session) {
+    public String saveTask(@RequestParam("subprojectID") int subprojectID, @ModelAttribute("task") Task task, HttpSession session, Model model) {
         if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
-        taskService.createTask(task, subprojectID);
-        return "redirect:/OnTheDot/task?subprojectID=" + subprojectID;
-
+        try {
+            Task saved = taskService.createTask(task, subprojectID);
+            model.addAttribute("task", saved);
+            return "redirect:/OnTheDot/task?subprojectID=" + subprojectID;
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            model.addAttribute("task", task);
+            model.addAttribute("subprojectID", subprojectID);
+            return "addTask";
+        } catch (DatabaseOperationException e) {
+            model.addAttribute("error", "Database error: " + e.getMessage());
+            model.addAttribute("task", task);
+            model.addAttribute("subprojectID", subprojectID);
+            return "addTask";
+        }
     }
 
     @PostMapping("/deleteTask")
-    public String deleteTask(@RequestParam("taskID") int taskID,@RequestParam("subprojectID") int subprojectID, HttpSession session) {
+    public String deleteTask(@RequestParam("taskID") int taskID, @RequestParam("subprojectID") int subprojectID, HttpSession session) {
         if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
@@ -81,12 +98,30 @@ public class TaskController {
     }
 
     @PostMapping("/editTask")
-    public String updateTaskName(@RequestParam("subprojectID") int subprojectID, @ModelAttribute("task") Task task, HttpSession session) {
+    public String updateTaskName(@RequestParam("subprojectID") int subprojectID, @ModelAttribute("task") Task task, HttpSession session, Model model) {
         if (!Session.isLoggedIn(session)) {
             return "redirect:/account/login";
         }
-        taskService.updateTask(task, task.getTaskID());
-        return "redirect:/OnTheDot/task?subprojectID=" + subprojectID;
+        try {
+            taskService.updateTask(task, task.getTaskID());
+            return "redirect:/OnTheDot/task?subprojectID=" + subprojectID;
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            model.addAttribute("task", task);
+            model.addAttribute("subprojectID", subprojectID);
+            return "editTask";
+        } catch ( DatabaseOperationException e) {
+            model.addAttribute("error", e.getMessage());
+            model.addAttribute("task", task);
+            model.addAttribute("subprojectID", subprojectID);
+            return "editTask";
+        }
+        catch (NotFoundException e) {
+            model.addAttribute("error", "task not found.");
+            model.addAttribute("task", task);
+            model.addAttribute("subprojectID", subprojectID);
+            return "editTask";
+        }
     }
 
     @GetMapping("/ganttDiagram")
@@ -106,9 +141,20 @@ public class TaskController {
             task.setTimeEstimate((int) offsetDays);
         });
 
+        int totalDays = tasks.stream()
+                .mapToInt(t -> t.getTimeEstimate() + t.getDuration())
+                .max()
+                .orElse(10);
+
+        List<String> days = new ArrayList<>();
+        for (int i = 0; i < totalDays; i++) {
+            days.add(projectStart.plusDays(i).format(DateTimeFormatter.ofPattern("MM/dd")));
+        }
+
         model.addAttribute("tasks", tasks);
         model.addAttribute("projectStart", projectStart);
         model.addAttribute("subprojectID", subprojectID);
+        model.addAttribute("days", days);
         return "ganttDiagram";
     }
 }
