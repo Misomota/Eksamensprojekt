@@ -20,9 +20,9 @@ Systemet gør det muligt at oprette, nedbryde og estimere arbejdstid for projekt
 - MySQL Azure Database
 - Qodana
 Frontend
-•  HTML. 
-•  CSS.
-• Thymeleaf.
+•  HTML 
+•  CSS
+• Thymeleaf
 
 ---
 
@@ -48,7 +48,7 @@ spring.datasource.password=<dit-kodeord>
 ---
 
 ### Deployment:
-- CI/CD: gihub actions.
+- CI/CD: Github actions
 - Hosting: azure
 - Database: azure
 - Kørende applikation: [On The Dot] https://onthedot-g4h6dvcradgxh4ak.swedencentral-01.azurewebsites.net
