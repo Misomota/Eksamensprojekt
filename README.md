@@ -1,7 +1,8 @@
-# Eksamensprojekt 2. Semester Datamatiker - On The Dot 
+# Eksamensprojekt 2. Semester Datamatiker 
+# On The Dot 
 
 Dette projekt er et projektkalkulationsværktøj udviklet til **Alpha Solutions**.
-Systemet gør det muligt at oprette, nedbryde og estimere arbejdstid for projekter. Formålet er at give brugerer bedre overblik over tid, ressourcer og deadlines.
+Systemet, kaldet On The Dot, gør det muligt at oprette, nedbryde og estimere arbejdstid for projekter. Formålet er at give brugerne et klart og struktureret overblik over tidsforbrug, ressourcer og deadlines.
 
 <img src="https://github.com/Misomota/Eksamensprojekt/raw/main/exam/src/main/resources/static/images/logo.PNG" alt="On The Dot" width="200"/>
 
@@ -51,8 +52,3 @@ spring.datasource.password=<dit-kodeord>
 - Hosting: azure
 - Database: azure
 - Kørende applikation: [On The Dot] https://onthedot-g4h6dvcradgxh4ak.swedencentral-01.azurewebsites.net
-
----
-
-Medlemmer af eksamensprojektet:
-- Mona & Mie 
